@@ -92,7 +92,7 @@ export const ContactForm = () => {
           type="submit"
           className={cn(
             'relative w-1/2 self-end overflow-hidden rounded-md bg-black p-2 text-white',
-            'transform-gpu transition-all will-change-[outline,_transform] duration-500 hover:scale-95 active:scale-100'
+            'transform-gpu transition-all duration-500 will-change-[outline,_transform] hover:scale-95 active:scale-100'
           )}
         >
           Send

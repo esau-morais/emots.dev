@@ -11,8 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { email, subject, message } = contactSchema.parse(req.body)
 
   const transporter = nodemailer.createTransport({
-    host: 'smtpout.secureserver.net',
-    port: 465,
+    service: 'gmail',
     auth: {
       user: SMTP_EMAIL,
       pass: SMTP_PASS,
