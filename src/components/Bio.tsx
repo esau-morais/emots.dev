@@ -6,6 +6,7 @@ import Image from 'next/image'
 
 import { cn } from '@/utils/classNames'
 import { currentAge } from '@/utils/date'
+import { shimmer, toBase64 } from '@/utils/shimmer'
 import { IconPlayerPlay, IconPlayerPause } from '@tabler/icons-react'
 
 export const Bio = () => {
@@ -20,6 +21,10 @@ export const Bio = () => {
             className="border-pink-500 rounded-full border object-cover grayscale"
             alt="Myself standing in front of the camera with a silly smile and messy hair"
             fill
+            placeholder="blur"
+            blurDataURL={`data:image/svg+xml;base64,${toBase64(
+              shimmer(96, 96)
+            )}`}
           />
         </div>
 
