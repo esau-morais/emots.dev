@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { Bio } from '@/components/Bio'
 import { ContactForm } from '@/components/ContactForm'
 import { CardHoverEffect } from '@/components/HoverCard'
-import { TooltipChildren } from '@/components/Tooltip'
 import { cn } from '@/utils/classNames'
 import { currentAge } from '@/utils/date'
 import {
