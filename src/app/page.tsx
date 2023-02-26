@@ -1,91 +1,93 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+import Link from 'next/link'
 
-const inter = Inter({ subsets: ['latin'] })
+import { Bio } from '@/components/Bio'
+import { ContactForm } from '@/components/ContactForm'
+import { CardHoverEffect } from '@/components/HoverCard'
+import { cn } from '@/utils/classNames'
+import { currentAge } from '@/utils/date'
+import {
+  IconBrandCss3,
+  IconBrandDocker,
+  IconBrandGit,
+  IconBrandGraphql,
+  IconBrandHtml5,
+  IconBrandJavascript,
+  IconBrandMysql,
+  IconBrandNextjs,
+  IconBrandPrisma,
+  IconBrandReact,
+  IconBrandTailwind,
+  IconBrandTwitter,
+  IconBrandTypescript,
+  TablerIconsProps,
+} from '@tabler/icons-react'
 
-export default function Home() {
+const defaultIconStyling: TablerIconsProps = {
+  width: 32,
+  height: 32,
+  strokeWidth: 1.5,
+}
+
+const Home = () => {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
+    <>
+      <Bio />
+
+      <CardHoverEffect className="col-span-2 h-full">
+        <Link
+          href="https://twitter.com/alistaiir"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(
+            'flex h-full items-center justify-center rounded-2xl bg-sky/90 text-4xl text-white backdrop-blur-md'
+          )}
+        >
+          <span className="sr-only">Twitter</span>
+          <span className="transform-gpu transition group-hover:-rotate-[10deg] group-hover:scale-[1.3]">
+            <IconBrandTwitter width={48} height={48} strokeWidth={1} />
+          </span>
+        </Link>
+      </CardHoverEffect>
+
+      <div className="col-span-3 flex flex-col items-start justify-center space-y-2 rounded-2xl bg-blue/90 p-6 backdrop-blur-md md:col-span-2">
+        <h2 className="font-title text-lg font-bold">Tech Stack</h2>
+        <div className="grid w-full grid-cols-4 grid-rows-4 gap-4 [&>svg]:w-full [&>svg]:text-center">
+          <IconBrandHtml5 {...defaultIconStyling} />
+          <IconBrandCss3 {...defaultIconStyling} />
+          <IconBrandJavascript {...defaultIconStyling} />
+          <IconBrandTypescript {...defaultIconStyling} />
+          <IconBrandReact {...defaultIconStyling} />
+          <IconBrandNextjs {...defaultIconStyling} />
+          <IconBrandTailwind {...defaultIconStyling} />
+          <IconBrandMysql {...defaultIconStyling} />
+          <IconBrandGraphql {...defaultIconStyling} />
+          <IconBrandDocker {...defaultIconStyling} />
+          <IconBrandPrisma {...defaultIconStyling} />
+          <IconBrandGit {...defaultIconStyling} />
+        </div>
+      </div>
+
+      <div className="col-span-6 space-y-2 rounded-2xl bg-rosewater/90 p-6 text-black backdrop-blur-md md:col-span-4">
+        <h2 className="font-title text-lg font-bold">Welcome to my world</h2>
+
         <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
+          I’m Esaú [ee-saw]. I am {currentAge} years-old and I currently live at
+          Brazil. I&apos;ve been decrypting and learning more about the web
+          development world since 2020.
         </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+
+        <p>
+          Beyond this world, I&apos;m a musician since I was young and enjoy my
+          free-time watching live streams, working out (muay thai and gym), and
+          more
+        </p>
       </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
+      <div className="col-span-6 space-y-4 rounded-2xl bg-green/90 p-6 text-black backdrop-blur-md">
+        <ContactForm />
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </>
   )
 }
+
+export default Home
