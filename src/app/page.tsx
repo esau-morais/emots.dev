@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Bio } from '@/components/Bio'
 import { ContactForm } from '@/components/ContactForm'
 import { CardHoverEffect } from '@/components/HoverCard'
+import { TooltipChildren } from '@/components/Tooltip'
 import { cn } from '@/utils/classNames'
 import { currentAge } from '@/utils/date'
 import {
@@ -33,9 +34,9 @@ const Home = () => {
     <>
       <Bio />
 
-      <CardHoverEffect className="col-span-2 h-full">
+      <CardHoverEffect className="col-span-6 h-52 md:col-span-2 md:h-full">
         <Link
-          href="https://twitter.com/alistaiir"
+          href="https://twitter.com/_3morais"
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
@@ -49,7 +50,7 @@ const Home = () => {
         </Link>
       </CardHoverEffect>
 
-      <div className="col-span-3 flex flex-col items-start justify-center space-y-2 rounded-2xl bg-blue/90 p-6 backdrop-blur-md md:col-span-2">
+      <div className="col-span-6 flex flex-col items-start justify-center space-y-2 rounded-2xl bg-blue/90 p-6 backdrop-blur-md md:col-span-2">
         <h2 className="font-title text-lg font-bold">Tech Stack</h2>
         <div className="grid w-full grid-cols-4 grid-rows-4 gap-4 [&>svg]:w-full [&>svg]:text-center">
           <IconBrandHtml5 {...defaultIconStyling} />

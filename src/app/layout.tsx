@@ -1,6 +1,7 @@
 import { Space_Grotesk as FontSans } from 'next/font/google'
 
 import { Container } from '@/components/Container'
+import { BottomBar } from '@/components/NavigationMenu'
 import { cn } from '@/utils/classNames'
 import { description, url, title, ogImage } from '@/utils/consts'
 
@@ -16,6 +17,7 @@ export const metadata = {
   title,
   description,
   openGraph: {
+    locale: 'en-UK',
     type: 'website',
     url: url,
     title: title,
@@ -37,6 +39,17 @@ export const metadata = {
       height: 630,
     },
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
@@ -47,8 +60,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       suppressHydrationWarning
     >
       <head />
-      <body className="no-repeat w-full bg-[#161616] bg-[url(/bg.svg)] bg-cover bg-fixed text-white">
+      <body className="no-repeat relative w-full bg-[#161616] bg-[url(/bg.svg)] bg-cover bg-fixed text-white">
         <Container>{children}</Container>
+
+        <BottomBar />
       </body>
     </html>
   )

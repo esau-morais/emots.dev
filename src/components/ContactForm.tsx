@@ -12,23 +12,30 @@ export const ContactForm = () => {
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useForm<ContactValues>({
     resolver: zodResolver(contactSchema),
   })
 
   const sendMessage = async (values: ContactValues) => {
-    const promise = fetch('/api/contact', {
+    const res = await fetch('/api/contact', {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
       method: 'POST',
     })
 
-    await toast.promise(promise, {
+    const data = await res.json()
+    if (!data.error) reset()
+  }
+
+  const onSubmit = async (values: ContactValues) => {
+    await toast.promise(sendMessage(values), {
       success: 'Messsage sent!',
       loading: 'Contacting Esaú...',
       error: (error: Error) => error?.message ?? 'Something went wrong...',
     })
   }
+
   return (
     <>
       <div className="space-y-1">
@@ -40,7 +47,7 @@ export const ContactForm = () => {
       </div>
 
       <form
-        onSubmit={handleSubmit(sendMessage)}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col space-y-4"
       >
         <fieldset>
@@ -53,7 +60,7 @@ export const ContactForm = () => {
             {...register('email')}
           />
 
-          <small className="text-red-500 mt-2 text-sm">
+          <small className="mt-2 text-sm text-[#850000]">
             {errors.email?.message}
           </small>
         </fieldset>
@@ -68,22 +75,22 @@ export const ContactForm = () => {
             {...register('subject')}
           />
 
-          <small className="text-red-500 mt-2 text-sm">
+          <small className="mt-2 text-sm text-[#850000]">
             {errors.subject?.message}
           </small>
         </fieldset>
 
         <fieldset>
-          <legend>Body</legend>
+          <legend>Message</legend>
           <textarea
             id="message"
             rows={5}
             placeholder="Give more details about the given subject here..."
-            className="w-full resize-y rounded-md p-2"
+            className="max-h-[50vh] min-h-[20vh] w-full resize-y rounded-md p-2"
             {...register('message')}
           />
 
-          <small className="text-red-500 mt-2 text-sm">
+          <small className="mt-2 text-sm text-[#850000]">
             {errors.message?.message}
           </small>
         </fieldset>
