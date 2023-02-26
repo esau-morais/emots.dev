@@ -50,6 +50,11 @@ export const Bio = () => {
           </pre>
 
           <button
+            aria-label={
+              !isCursorAnimated
+                ? 'Play cursor animation'
+                : 'Stop cursor animation'
+            }
             className="absolute right-0 bottom-0"
             type="button"
             onClick={() => setIsCursorAnimated((prev) => !prev)}
