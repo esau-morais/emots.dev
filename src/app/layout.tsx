@@ -20,16 +20,22 @@ export const metadata = {
     url: url,
     title: title,
     description: description,
-    image: ogImage,
-    'image:width': '1600',
-    'image:height': '630',
+    images: {
+      url: ogImage,
+      width: 1600,
+      height: 630,
+    },
   },
   twitter: {
     card: 'summary_large_image',
     url: url,
     title: title,
     description: description,
-    image: ogImage,
+    images: {
+      url: ogImage,
+      width: 1600,
+      height: 630,
+    },
   },
 }
 
