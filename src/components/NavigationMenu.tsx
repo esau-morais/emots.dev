@@ -124,7 +124,7 @@ export const BottomBar = () => {
           </Link>
         </NavigationMenuItem>
 
-        <NavigationMenuItem className={cn('hidden', defaultItemStyle)}>
+        <NavigationMenuItem className={defaultItemStyle}>
           <Link href="/works" legacyBehavior passHref>
             <NavigationMenuLink>Works</NavigationMenuLink>
           </Link>

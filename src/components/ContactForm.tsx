@@ -24,7 +24,7 @@ export const ContactForm = () => {
       method: 'POST',
     })
 
-    const data = await res.json()
+    const data = (await res.json()) as { error: Error }
     if (!data.error) reset()
   }
 
@@ -99,7 +99,7 @@ export const ContactForm = () => {
           type="submit"
           className={cn(
             'relative block overflow-hidden rounded-md bg-black p-2 text-white md:w-1/2 md:self-end',
-            'transform-gpu transition-all will-change-[outline,_transform] duration-500 hover:scale-95 active:scale-100'
+            'transition-all duration-500 hover:scale-95 active:scale-100'
           )}
         >
           Send

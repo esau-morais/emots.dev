@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { Bio } from '@/components/Bio'
 import { ContactForm } from '@/components/ContactForm'
+import { Container } from '@/components/Container'
 import { CardHoverEffect } from '@/components/HoverCard'
 import { cn } from '@/utils/classNames'
 import { currentAge } from '@/utils/date'
@@ -30,7 +31,7 @@ const defaultIconStyling: TablerIconsProps = {
 
 const Home = () => {
   return (
-    <>
+    <Container>
       <Bio />
 
       <CardHoverEffect className="col-span-6 h-52 md:col-span-2 md:h-full">
@@ -86,7 +87,7 @@ const Home = () => {
       <div className="col-span-6 space-y-4 rounded-2xl bg-green/90 p-6 text-black backdrop-blur-md">
         <ContactForm />
       </div>
-    </>
+    </Container>
   )
 }
 
