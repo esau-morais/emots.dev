@@ -1,4 +1,5 @@
-import { type NextRequest, NextResponse } from 'next/server'
+import { NextApiResponse } from 'next'
+import { NextRequest } from 'next/server'
 
 import { env } from '@/lib/env'
 import { getPageMetadata } from '@/utils/metadata'
@@ -10,7 +11,7 @@ const { NOTION_KEY, DATABASE_ID } = env
 const notionClient = new Client({ auth: NOTION_KEY })
 const notionToMarkdown = new NotionToMarkdown({ notionClient })
 
-export const GET = async (req: NextRequest) => {
+const handler = async (req: NextRequest, res: NextApiResponse) => {
   const { searchParams } = req.nextUrl
   const slug = searchParams.get('slug') as string
 
@@ -43,19 +44,13 @@ export const GET = async (req: NextRequest) => {
     const mdblocks = await notionToMarkdown.pageToMarkdown(page.results[0].id)
     const mdString = notionToMarkdown.toMarkdownString(mdblocks)
 
-    return NextResponse.json(
-      {
-        metadata,
-        markdown: mdString,
-      },
-      {
-        status: 200,
-      }
-    )
+    return res.status(200).json({
+      metadata,
+      markdown: mdString,
+    })
   } catch (error) {
-    if (error instanceof Error)
-      return NextResponse.json(error, {
-        status: 500,
-      })
+    if (error instanceof Error) return res.status(500).json(error)
   }
 }
+
+export default handler
