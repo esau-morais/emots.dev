@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
 
 import { findSingleWorkBySlug } from '@/lib/fetch'
 import { Work } from '@/lib/types/work'
@@ -39,7 +38,7 @@ export const SingleWork = ({ slug }: { slug: string }) => {
         </h1>
       </div>
 
-      <MarkdownWork markdown={work?.markdown} />
+      <MarkdownWork markdown={work?.markdown ?? 'Hello, world'} />
     </>
   )
 }
