@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { env } from '@/lib/env'
 import { contactSchema } from '@/lib/validation'

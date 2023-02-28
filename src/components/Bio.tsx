@@ -31,7 +31,7 @@ export const Bio = () => {
         </div>
 
         <div className="relative space-y-1">
-          <h1 className="font-title text-center text-xl font-bold tracking-tighter text-white md:text-left">
+          <h1 className="text-center text-xl font-bold tracking-tighter text-white md:text-left">
             Esaú Morais
           </h1>
 

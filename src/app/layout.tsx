@@ -1,6 +1,5 @@
 import { Space_Grotesk as FontSans } from 'next/font/google'
 
-import { Container } from '@/components/Container'
 import { BottomBar } from '@/components/NavigationMenu'
 import { cn } from '@/utils/classNames'
 import { description, url, title, ogImage } from '@/utils/consts'
@@ -14,7 +13,10 @@ const fontSans = FontSans({
 })
 
 export const metadata = {
-  title,
+  title: {
+    default: title,
+    template: '%s | Esaú Morais',
+  },
   description,
   openGraph: {
     locale: 'en-UK',
@@ -61,7 +63,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     >
       <head />
       <body className="no-repeat relative w-full bg-[#161616] bg-[url(/bg.svg)] bg-cover bg-fixed text-white">
-        <Container>{children}</Container>
+        {children}
 
         <BottomBar />
       </body>
