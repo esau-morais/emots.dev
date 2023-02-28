@@ -11,25 +11,36 @@ const notionClient = new Client({ auth: NOTION_KEY })
 const notionToMarkdown = new NotionToMarkdown({ notionClient })
 
 export const GET = async (req: NextRequest) => {
-  const { searchParams } = new URL(req.url as string)
+  const { searchParams } = req.nextUrl
   const slug = searchParams.get('slug') as string
 
   try {
-    const response = await notionClient.databases.query({
-      database_id: DATABASE_ID,
-      filter: {
-        property: 'Slug',
-        formula: {
-          string: {
-            equals: slug,
-          },
+    const response = await fetch(
+      `https://api.notion.com/v1/databases/${DATABASE_ID}/query`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${NOTION_KEY}`,
+          'Content-Type': 'application/json',
+          'Notion-Version': '2022-06-28',
         },
-      },
-    })
+        body: JSON.stringify({
+          filter: {
+            property: 'Slug',
+            formula: {
+              string: {
+                equals: slug,
+              },
+            },
+          },
+        }),
+      }
+    )
 
-    const page = response.results[0]
-    const metadata = getPageMetadata(page)
-    const mdblocks = await notionToMarkdown.pageToMarkdown(page.id)
+    const page = (await response.json()) as any
+    console.log({ page })
+    const metadata = getPageMetadata(page.results[0])
+    const mdblocks = await notionToMarkdown.pageToMarkdown(page.results[0].id)
     const mdString = notionToMarkdown.toMarkdownString(mdblocks)
 
     return NextResponse.json(
