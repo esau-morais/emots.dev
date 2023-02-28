@@ -15,7 +15,6 @@ export const SingleWork = ({ slug }: { slug: string }) => {
     queryKey: ['work', slug],
     queryFn: () => findSingleWorkBySlug(slug),
   })
-  console.log({ work })
 
   return (
     <>
