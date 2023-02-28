@@ -37,7 +37,7 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
             'object-cover',
             'transition-all duration-500 hover:scale-105 active:scale-100'
           )}
-          src={work.metadata.cover}
+          src="/gradient.jpg"
           alt={work.metadata.title}
           fill
           placeholder="blur"
@@ -45,6 +45,9 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
             shimmer(128, 96)
           )}`}
         />
+        <h1 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-xl font-bold">
+          {work.metadata.title}
+        </h1>
       </div>
 
       <MarkdownWork markdown={work.markdown} />
