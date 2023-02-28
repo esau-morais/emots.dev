@@ -5,6 +5,7 @@ import { cn } from '@/utils/classNames'
 import { description, url, title, ogImage } from '@/utils/consts'
 
 import './globals.css'
+import QueryWrapper from '@/components/QueryWrapper'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -62,11 +63,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       suppressHydrationWarning
     >
       <head />
-      <body className="no-repeat relative w-full bg-[#161616] bg-[url(/bg.svg)] bg-cover bg-fixed text-white">
-        {children}
+      <QueryWrapper>
+        <body className="no-repeat relative w-full bg-[#161616] bg-[url(/bg.svg)] bg-cover bg-fixed text-white">
+          {children}
 
-        <BottomBar />
-      </body>
+          <BottomBar />
+        </body>
+      </QueryWrapper>
     </html>
   )
 }
