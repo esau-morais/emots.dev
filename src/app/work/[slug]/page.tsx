@@ -2,44 +2,45 @@ import { Metadata } from 'next'
 import Image from 'next/image'
 
 import { env } from '@/lib/env'
+import { Work } from '@/lib/types/work'
 import { cn } from '@/utils/classNames'
 import { BASE_URL } from '@/utils/consts'
 import { getPageMetadata } from '@/utils/metadata'
 import { shimmer, toBase64 } from '@/utils/shimmer'
+import { Client } from '@notionhq/client'
+import { NotionToMarkdown } from 'notion-to-md'
 
 type Params = {
   params: { slug: string }
 }
 const { NOTION_KEY, DATABASE_ID } = env
 
+const notionClient = new Client({ auth: NOTION_KEY })
+const notionToMarkdown = new NotionToMarkdown({ notionClient })
+
 const findSingleWorkBySlug = async (slug: string) => {
   try {
-    const response = await fetch(
-      `https://api.notion.com/v1/databases/${DATABASE_ID}/query`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${NOTION_KEY}`,
-          'Content-Type': 'application/json',
-          'Notion-Version': '2022-06-28',
-        },
-        body: JSON.stringify({
-          filter: {
-            property: 'Slug',
-            formula: {
-              string: {
-                equals: slug,
-              },
-            },
+    const response = await notionClient.databases.query({
+      database_id: DATABASE_ID,
+      filter: {
+        property: 'Slug',
+        formula: {
+          string: {
+            equals: slug,
           },
-        }),
-      }
-    )
+        },
+      },
+    })
 
-    const page = (await response.json()) as any
-    const metadata = getPageMetadata(page.results[0])
+    const page = response.results[0]
+    const metadata = getPageMetadata(page)
+    const mdblocks = await notionToMarkdown.pageToMarkdown(page.id)
+    const mdString = notionToMarkdown.toMarkdownString(mdblocks)
 
-    return metadata
+    return {
+      metadata,
+      markdown: mdString,
+    } as Work
   } catch (error) {
     if (error instanceof Error) console.error(error)
   }
@@ -47,10 +48,10 @@ const findSingleWorkBySlug = async (slug: string) => {
 
 export const generateMetadata = async ({ params }: Params) => {
   const work = await findSingleWorkBySlug(params.slug)
-  const image = `${BASE_URL}/api/og?title=${work?.title}`
+  const image = `${BASE_URL}/api/og?title=${work?.metadata.title}`
 
   return {
-    title: work?.title,
+    title: work?.metadata.title,
     openGraph: { images: [image] },
     twitter: { images: [image] },
   } as Metadata
@@ -68,7 +69,7 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
             'transition-all duration-500 hover:scale-105 active:scale-100'
           )}
           src="/gradient.jpg"
-          alt={work?.title ?? 'Work'}
+          alt={work?.metadata.title ?? 'Work'}
           fill
           placeholder="blur"
           blurDataURL={`data:image/svg+xml;base64,${toBase64(
@@ -76,7 +77,7 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
           )}`}
         />
         <h1 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-xl font-bold">
-          {work?.title}
+          {work?.metadata.title}
         </h1>
       </div>
     </div>

@@ -7,34 +7,33 @@ import { WorkMetadata } from '@/lib/types/work'
 import { cn } from '@/utils/classNames'
 import { getPageMetadata } from '@/utils/metadata'
 import { shimmer, toBase64 } from '@/utils/shimmer'
+import { Client } from '@notionhq/client'
 import { IconArrowUpRight } from '@tabler/icons-react'
 
 const { NOTION_KEY, DATABASE_ID } = env
 
+const notion = new Client({ auth: NOTION_KEY })
+
 const findAllWorks = async () => {
   try {
-    const response = await fetch(
-      `https://api.notion.com/v1/databases/${DATABASE_ID}/query`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${NOTION_KEY}`,
-          'Content-Type': 'application/json',
-          'Notion-Version': '2022-06-28',
+    const response = await notion.databases.query({
+      database_id: DATABASE_ID,
+      filter: {
+        property: 'Status',
+        select: {
+          equals: 'Published',
         },
-        body: JSON.stringify({
-          filter: {
-            property: 'Status',
-            select: {
-              equals: 'Published',
-            },
-          },
-        }),
-      }
-    )
+      },
+      sorts: [
+        {
+          property: 'Title',
+          direction: 'ascending',
+        },
+      ],
+    })
 
-    const allWorks = (await response.json()) as any
-    return allWorks.results.map((singleWork: unknown) => ({
+    const allWorks = response.results
+    return allWorks.map((singleWork: unknown) => ({
       ...getPageMetadata(singleWork),
     })) as WorkMetadata[]
   } catch (error) {

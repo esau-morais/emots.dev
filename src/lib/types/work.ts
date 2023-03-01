@@ -7,4 +7,5 @@ export type WorkMetadata = {
 
 export type Work = {
   metadata: WorkMetadata
+  markdown: string
 }
