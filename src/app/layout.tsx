@@ -1,7 +1,6 @@
 import { Space_Grotesk as FontSans } from 'next/font/google'
 
 import { BottomBar } from '@/components/NavigationMenu'
-import QueryWrapper from '@/components/QueryWrapper'
 import { cn } from '@/utils/classNames'
 import { description, url, title, ogImage } from '@/utils/consts'
 
@@ -63,13 +62,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       suppressHydrationWarning
     >
       <head />
-      <QueryWrapper>
-        <body className="no-repeat relative w-full bg-[#161616] bg-[url(/bg.svg)] bg-cover bg-fixed text-white">
-          {children}
+      <body className="no-repeat relative w-full bg-[#161616] bg-[url(/bg.svg)] bg-cover bg-fixed text-white">
+        {children}
 
-          <BottomBar />
-        </body>
-      </QueryWrapper>
+        <BottomBar />
+      </body>
     </html>
   )
 }

@@ -8,7 +8,6 @@ specifiers:
   '@radix-ui/react-tooltip': ^1.0.4
   '@tabler/icons-react': ^2.5.0
   '@tailwindcss/line-clamp': ^0.4.2
-  '@tanstack/react-query': ^4.24.10
   '@total-typescript/ts-reset': ^0.3.7
   '@types/node': 18.14.1
   '@types/nodemailer': ^6.4.7
@@ -52,7 +51,6 @@ dependencies:
   '@radix-ui/react-tooltip': 1.0.4_zula6vjvt3wdocc4mwcxqa6nzi
   '@tabler/icons-react': 2.6.0_react@18.2.0
   '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.7
-  '@tanstack/react-query': 4.24.10_biqbaboplfbrettd7655fr4n2y
   '@types/node': 18.14.1
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -690,28 +688,6 @@ packages:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
       tailwindcss: 3.2.7_postcss@8.4.21
-    dev: false
-
-  /@tanstack/query-core/4.24.10:
-    resolution: {integrity: sha512-2QywqXEAGBIUoTdgn1lAB4/C8QEqwXHj2jrCLeYTk2xVGtLiPEUD8jcMoeB2noclbiW2mMt4+Fq7fZStuz3wAQ==}
-    dev: false
-
-  /@tanstack/react-query/4.24.10_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-FY1DixytOcNNCydPQXLxuKEV7VSST32CAuJ55BjhDNqASnMLZn+6c30yQBMrODjmWMNwzfjMZnq0Vw7C62Fwow==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      '@tanstack/query-core': 4.24.10
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
   /@total-typescript/ts-reset/0.3.7:

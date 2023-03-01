@@ -1,5 +1,8 @@
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
+
 import { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { env } from '@/lib/env'
 import { Work } from '@/lib/types/work'
@@ -8,7 +11,9 @@ import { BASE_URL } from '@/utils/consts'
 import { getPageMetadata } from '@/utils/metadata'
 import { shimmer, toBase64 } from '@/utils/shimmer'
 import { Client } from '@notionhq/client'
+import { IconArrowBackUp } from '@tabler/icons-react'
 import { NotionToMarkdown } from 'notion-to-md'
+import remarkGfm from 'remark-gfm'
 
 type Params = {
   params: { slug: string }
@@ -62,6 +67,10 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
 
   return (
     <div className="mx-auto max-w-3xl px-6 pb-20 pt-16">
+      <Link className="mb-2 inline-flex items-center" href="/works">
+        <IconArrowBackUp />
+        <span>Works</span>
+      </Link>
       <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-2xl">
         <Image
           className={cn(
@@ -80,6 +89,39 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
           {work?.metadata.title}
         </h1>
       </div>
+
+      <ReactMarkdown
+        components={{
+          h2: ({ children }) => (
+            <h2 className="mt-8 mb-2 text-xl font-bold">{children}</h2>
+          ),
+          blockquote: ({ children }) => (
+            <blockquote className="my-4 border-l-4 border-rosewater bg-base p-4 font-medium italic leading-relaxed text-white">
+              {children}
+            </blockquote>
+          ),
+          ul: ({ children }) => (
+            <ul className="ml-4 list-['▲'] flex-wrap space-y-1">{children}</ul>
+          ),
+          li: ({ children }) => (
+            <li className="pl-4 marker:text-xs">{children}</li>
+          ),
+          strong: ({ children }) => (
+            <strong className="font-semibold">{children}</strong>
+          ),
+          a: ({ children, ...props }) => (
+            <a
+              className="underline decoration-blue decoration-wavy underline-offset-4"
+              {...props}
+            >
+              {children}
+            </a>
+          ),
+        }}
+        remarkPlugins={[remarkGfm]}
+      >
+        {work?.markdown ?? ''}
+      </ReactMarkdown>
     </div>
   )
 }
