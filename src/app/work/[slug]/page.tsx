@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 
 import { SingleWork } from '@/components/SingleWork'
 import { findSingleWorkBySlug } from '@/lib/fetch'
+import { BASE_URL } from '@/utils/consts'
 
 type Params = {
   params: { slug: string }
@@ -9,9 +10,12 @@ type Params = {
 
 export const generateMetadata = async ({ params }: Params) => {
   const work = await findSingleWorkBySlug(params.slug)
+  const image = `${BASE_URL}/api/og?title=${work.metadata.title}`
 
   return {
     title: work.metadata.title,
+    openGraph: { images: [image] },
+    twitter: { images: [image] },
   } as Metadata
 }
 

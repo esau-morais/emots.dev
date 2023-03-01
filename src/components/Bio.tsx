@@ -23,6 +23,7 @@ export const Bio = () => {
             className="rounded-full border border-neutral-200/10 object-cover grayscale"
             alt="Myself standing in front of the camera with a silly smile and messy hair"
             fill
+            priority
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(
               shimmer(96, 96)

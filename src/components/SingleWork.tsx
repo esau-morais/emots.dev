@@ -8,13 +8,12 @@ import { cn } from '@/utils/classNames'
 import { shimmer, toBase64 } from '@/utils/shimmer'
 import { useQuery } from '@tanstack/react-query'
 
-import { MarkdownWork } from './MarkdownWork'
-
 export const SingleWork = ({ slug }: { slug: string }) => {
-  const { data: work } = useQuery<Work>({
+  const { data: work, isLoading } = useQuery<Work>({
     queryKey: ['work', slug],
     queryFn: () => findSingleWorkBySlug(slug),
   })
+  if (isLoading || !work) return <p>Loading...</p>
 
   return (
     <>
@@ -25,7 +24,7 @@ export const SingleWork = ({ slug }: { slug: string }) => {
             'transition-all duration-500 hover:scale-105 active:scale-100'
           )}
           src="/gradient.jpg"
-          alt={work?.metadata.title ?? 'Work'}
+          alt={work.metadata.title}
           fill
           placeholder="blur"
           blurDataURL={`data:image/svg+xml;base64,${toBase64(
@@ -36,8 +35,6 @@ export const SingleWork = ({ slug }: { slug: string }) => {
           {work?.metadata.title}
         </h1>
       </div>
-
-      <MarkdownWork markdown={work?.markdown ?? 'Hello, world'} />
     </>
   )
 }

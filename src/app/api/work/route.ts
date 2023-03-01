@@ -2,13 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { env } from '@/lib/env'
 import { getPageMetadata } from '@/utils/metadata'
-import { Client } from '@notionhq/client'
-import { NotionToMarkdown } from 'notion-to-md'
 
 const { NOTION_KEY, DATABASE_ID } = env
-
-const notionClient = new Client({ auth: NOTION_KEY })
-const notionToMarkdown = new NotionToMarkdown({ notionClient })
 
 export const GET = async (req: NextRequest) => {
   const { searchParams } = req.nextUrl
@@ -39,13 +34,10 @@ export const GET = async (req: NextRequest) => {
 
     const page = (await response.json()) as any
     const metadata = getPageMetadata(page.results[0])
-    const mdblocks = await notionToMarkdown.pageToMarkdown(page.results[0].id)
-    const mdString = notionToMarkdown.toMarkdownString(mdblocks)
 
     return NextResponse.json(
       {
         metadata,
-        markdown: mdString,
       },
       {
         status: 200,
