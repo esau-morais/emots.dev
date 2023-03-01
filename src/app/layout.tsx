@@ -1,11 +1,11 @@
 import { Space_Grotesk as FontSans } from 'next/font/google'
 
 import { BottomBar } from '@/components/NavigationMenu'
+import QueryWrapper from '@/components/QueryWrapper'
 import { cn } from '@/utils/classNames'
 import { description, url, title, ogImage } from '@/utils/consts'
 
 import './globals.css'
-import QueryWrapper from '@/components/QueryWrapper'
 
 const fontSans = FontSans({
   subsets: ['latin'],

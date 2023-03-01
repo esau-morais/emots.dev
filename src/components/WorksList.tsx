@@ -20,7 +20,11 @@ const findAllWorks = async () => {
   return (await res.json()) as WorkMetadata[]
 }
 export const WorksList = () => {
-  const { data } = useQuery({ queryKey: ['works'], queryFn: findAllWorks })
+  const { data, isLoading } = useQuery({
+    queryKey: ['works'],
+    queryFn: findAllWorks,
+  })
+  if (isLoading) return <p>Loading...</p>
 
   return (
     <>
@@ -40,6 +44,7 @@ export const WorksList = () => {
               )}
               src="/gradient.jpg"
               alt={work.title}
+              loading="lazy"
               fill
               placeholder="blur"
               blurDataURL={`data:image/svg+xml;base64,${toBase64(
@@ -50,7 +55,8 @@ export const WorksList = () => {
               {work.title}
             </h1>
           </div>
-          <h2
+          <button
+            type="button"
             className={cn(
               'inline-flex w-full items-center justify-center space-x-2 rounded-b-2xl p-2',
               'bg-[#161616]/80 backdrop-blur-md transition-colors hover:bg-neutral-800'
@@ -58,7 +64,7 @@ export const WorksList = () => {
           >
             <span>View</span>
             <IconArrowUpRight width={16} height={16} />
-          </h2>
+          </button>
         </Link>
       ))}
     </>
