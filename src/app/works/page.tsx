@@ -53,7 +53,7 @@ const Works = async () => {
       {works?.map((work) => (
         <Link
           className={cn(
-            'col-span-6 flex flex-col items-center space-y-1 overflow-hidden rounded-2xl border border-neutral-200/10 bg-[#1A1A1A]/90 p-2 backdrop-blur-md md:h-52 md:odd:col-span-2 md:even:col-span-4 md:first-of-type:col-span-6'
+            'col-span-6 flex flex-col items-center space-y-1 overflow-hidden rounded-2xl border border-neutral-200/10 bg-[#1A1A1A]/90 p-2 backdrop-blur-md md:h-52 md:odd:col-span-3 md:even:col-span-3 md:first-of-type:col-span-6 md:last-of-type:col-span-6'
           )}
           key={work.id}
           href={`/work/${work.slug}`}
