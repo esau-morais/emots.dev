@@ -52,6 +52,9 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
+  icons: {
+    shortcut: '/favicon.ico',
+  },
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

@@ -140,7 +140,7 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
                 </div>
               )
             }
-            return <p className="mt-4">{children}</p>
+            return <p>{children}</p>
           },
         }}
         remarkPlugins={[remarkGfm]}
