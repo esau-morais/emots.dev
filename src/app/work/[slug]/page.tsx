@@ -117,6 +117,31 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
               {children}
             </a>
           ),
+          p: ({ children, node }) => {
+            if ((node.children[0] as any).tagName === 'img') {
+              const image = node.children[0] as any
+
+              return (
+                <div className="relative mt-4 aspect-video w-full overflow-hidden rounded-2xl">
+                  <Image
+                    src={image.properties.src}
+                    className={cn(
+                      'object-cover',
+                      'transition-all duration-500 hover:scale-105 active:scale-100'
+                    )}
+                    alt={work?.metadata.title ?? 'Work'}
+                    loading="lazy"
+                    fill
+                    placeholder="blur"
+                    blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                      shimmer(128, 96)
+                    )}`}
+                  />
+                </div>
+              )
+            }
+            return <p className="mt-4">{children}</p>
+          },
         }}
         remarkPlugins={[remarkGfm]}
       >
