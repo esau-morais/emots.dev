@@ -3,6 +3,7 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
 
 import { env } from '@/lib/env'
 import type { Work } from '@/lib/types/work'
@@ -53,6 +54,7 @@ const findSingleWorkBySlug = async (slug: string) => {
 
 export const generateMetadata = async ({ params }: Params) => {
   const work = await findSingleWorkBySlug(params.slug)
+  if (!work) notFound()
   const image = `${BASE_URL}/api/og?title=${work?.metadata.title}`
 
   return {
