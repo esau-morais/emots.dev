@@ -3,6 +3,7 @@ export type WorkMetadata = {
   cover: string
   title: string
   slug: string
+  type: 'Project' | 'Design'
 }
 
 export type Work = {

@@ -57,7 +57,7 @@ const Works = async () => {
       {works?.map((work) => (
         <Link
           className={cn(
-            'col-span-6 flex flex-col items-center space-y-1 overflow-hidden rounded-2xl border border-neutral-200/10 bg-[#1A1A1A]/90 p-2 backdrop-blur-md md:h-52 md:odd:col-span-3 md:even:col-span-3 md:first-of-type:col-span-6 md:last-of-type:col-span-6'
+            'col-span-6 flex flex-col items-center space-y-1 overflow-hidden rounded-2xl border border-neutral-200/10 bg-[#1A1A1A]/90 p-2 backdrop-blur-md md:h-52 md:odd:col-span-3 md:even:col-span-3 md:first-of-type:col-span-6'
           )}
           key={work.id}
           href={`/work/${work.slug}`}
@@ -68,7 +68,7 @@ const Works = async () => {
                 'object-cover',
                 'transition-all duration-500 hover:scale-105 active:scale-100'
               )}
-              src="/gradient.jpg"
+              src={work.type === 'Project' ? '/gradient.jpg' : work.cover}
               alt={work.title}
               loading="lazy"
               fill
@@ -77,10 +77,13 @@ const Works = async () => {
                 shimmer(128, 96)
               )}`}
             />
-            <h1 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-xl font-bold">
-              {work.title}
-            </h1>
+            {work.type === 'Project' ? (
+              <h1 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-xl font-bold">
+                {work.title}
+              </h1>
+            ) : null}
           </div>
+
           <button
             type="button"
             className={cn(
@@ -88,7 +91,7 @@ const Works = async () => {
               'bg-[#161616]/80 backdrop-blur-md transition-colors hover:bg-neutral-800'
             )}
           >
-            <span>View</span>
+            <span>View {work.type === 'Project' ? 'Project' : 'Design'}</span>
             <IconArrowUpRight width={16} height={16} />
           </button>
         </Link>
