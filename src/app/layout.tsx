@@ -2,7 +2,7 @@ import { Space_Grotesk as FontSans } from 'next/font/google'
 
 import { BottomBar } from '@/components/NavigationMenu'
 import { cn } from '@/utils/classNames'
-import { description, url, title, ogImage } from '@/utils/consts'
+import { description, ogImage, title, url } from '@/utils/consts'
 
 import './globals.css'
 
@@ -32,7 +32,6 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    url: url,
     title: title,
     description: description,
     images: {

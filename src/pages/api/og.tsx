@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server'
+import type { NextRequest } from 'next/server'
 
 import { BASE_URL } from '@/utils/consts'
 import { ImageResponse } from '@vercel/og'

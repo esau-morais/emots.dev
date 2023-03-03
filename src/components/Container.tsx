@@ -10,7 +10,7 @@ export const Container = ({ children }: { children: ReactNode }) => {
   const isMobile = useMediaQuery('(max-width: 768px)')
 
   return (
-    <main className="relative mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-20 pt-16">
+    <main className="mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-20 pt-16">
       {children}
 
       <Analytics />
