@@ -1,33 +1,11 @@
-import Link from 'next/link'
-
+import About from '@/components/About'
 import { Bio } from '@/components/Bio'
+import { CardHoverEffect } from '@/components/Card'
 import { ContactForm } from '@/components/ContactForm'
 import { Container } from '@/components/Container'
-import { CardHoverEffect } from '@/components/HoverCard'
+import { Icons } from '@/components/Icons'
 import { cn } from '@/utils/classNames'
-import { currentAge } from '@/utils/date'
-import {
-  IconBrandCss3,
-  IconBrandDocker,
-  IconBrandGit,
-  IconBrandGraphql,
-  IconBrandHtml5,
-  IconBrandJavascript,
-  IconBrandMysql,
-  IconBrandNextjs,
-  IconBrandPrisma,
-  IconBrandReact,
-  IconBrandTailwind,
-  IconBrandTwitter,
-  IconBrandTypescript,
-  TablerIconsProps,
-} from '@tabler/icons-react'
-
-const defaultIconStyling: TablerIconsProps = {
-  width: 32,
-  height: 32,
-  strokeWidth: 1.5,
-}
+import { IconBrandTwitter } from '@tabler/icons-react'
 
 const Home = () => {
   return (
@@ -35,7 +13,7 @@ const Home = () => {
       <Bio />
 
       <CardHoverEffect className="col-span-6 h-52 md:col-span-2 md:h-full">
-        <Link
+        <a
           href="https://twitter.com/_3morais"
           target="_blank"
           rel="noopener noreferrer"
@@ -47,42 +25,15 @@ const Home = () => {
           <span className="transform-gpu transition group-hover:-rotate-[10deg] group-hover:scale-[1.3]">
             <IconBrandTwitter width={48} height={48} strokeWidth={1} />
           </span>
-        </Link>
+        </a>
       </CardHoverEffect>
 
       <div className="col-span-6 flex flex-col items-start justify-center space-y-2 rounded-2xl bg-blue/90 p-6 backdrop-blur-md md:col-span-2">
         <h2 className="font-title text-lg font-bold">Tech Stack</h2>
-        <div className="grid w-full grid-cols-4 grid-rows-4 gap-4 [&>svg]:w-full [&>svg]:text-center">
-          <IconBrandHtml5 {...defaultIconStyling} />
-          <IconBrandCss3 {...defaultIconStyling} />
-          <IconBrandJavascript {...defaultIconStyling} />
-          <IconBrandTypescript {...defaultIconStyling} />
-          <IconBrandReact {...defaultIconStyling} />
-          <IconBrandNextjs {...defaultIconStyling} />
-          <IconBrandTailwind {...defaultIconStyling} />
-          <IconBrandMysql {...defaultIconStyling} />
-          <IconBrandGraphql {...defaultIconStyling} />
-          <IconBrandDocker {...defaultIconStyling} />
-          <IconBrandPrisma {...defaultIconStyling} />
-          <IconBrandGit {...defaultIconStyling} />
-        </div>
+        <Icons />
       </div>
 
-      <div className="col-span-6 space-y-2 rounded-2xl bg-rosewater/90 p-6 text-black backdrop-blur-md md:col-span-4">
-        <h2 className="font-title text-lg font-bold">Welcome to my world</h2>
-
-        <p>
-          I’m Esaú [ee-saw]. I am {currentAge} years-old and I currently live at
-          Brazil. I&apos;ve been decrypting and learning more about the web
-          development world since 2020.
-        </p>
-
-        <p>
-          Beyond this world, I&apos;m a musician since I was young and enjoy my
-          free-time watching live streams, working out (muay thai and gym), and
-          more
-        </p>
-      </div>
+      <About />
 
       <div className="col-span-6 space-y-4 rounded-2xl bg-green/90 p-6 text-black backdrop-blur-md">
         <ContactForm />

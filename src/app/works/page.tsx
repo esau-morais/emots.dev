@@ -3,8 +3,9 @@ import Link from 'next/link'
 
 import { Container } from '@/components/Container'
 import { env } from '@/lib/env'
-import { WorkMetadata } from '@/lib/types/work'
+import type { WorkMetadata } from '@/lib/types/work'
 import { cn } from '@/utils/classNames'
+import { url } from '@/utils/consts'
 import { getPageMetadata } from '@/utils/metadata'
 import { shimmer, toBase64 } from '@/utils/shimmer'
 import { Client } from '@notionhq/client'
@@ -43,6 +44,9 @@ const findAllWorks = async () => {
 
 export const metadata = {
   title: 'Works',
+  openGraph: {
+    url: `${url}/works`,
+  },
 }
 
 const Works = async () => {

@@ -3,6 +3,7 @@
 const nextConfig = {
   experimental: {
     appDir: true,
+    typedRoutes: true,
   },
   images: {
     domains: ['localhost', 'emots.dev', 's3.us-west-2.amazonaws.com'],

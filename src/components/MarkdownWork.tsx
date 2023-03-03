@@ -1,8 +1,8 @@
 'use client'
 
 import ReactMarkdown from 'react-markdown'
-import { SpecialComponents } from 'react-markdown/lib/ast-to-react'
-import { NormalComponents } from 'react-markdown/lib/complex-types'
+import type { SpecialComponents } from 'react-markdown/lib/ast-to-react'
+import type { NormalComponents } from 'react-markdown/lib/complex-types'
 
 import remarkGfm from 'remark-gfm'
 

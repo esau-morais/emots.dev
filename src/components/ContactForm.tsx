@@ -3,7 +3,8 @@
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
-import { contactSchema, ContactValues } from '@/lib/validation'
+import type { ContactValues } from '@/lib/validation'
+import { contactSchema } from '@/lib/validation'
 import { cn } from '@/utils/classNames'
 import { zodResolver } from '@hookform/resolvers/zod'
 

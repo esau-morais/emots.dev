@@ -1,13 +1,13 @@
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { env } from '@/lib/env'
-import { Work } from '@/lib/types/work'
+import type { Work } from '@/lib/types/work'
 import { cn } from '@/utils/classNames'
-import { BASE_URL } from '@/utils/consts'
+import { BASE_URL, url } from '@/utils/consts'
 import { getPageMetadata } from '@/utils/metadata'
 import { shimmer, toBase64 } from '@/utils/shimmer'
 import { Client } from '@notionhq/client'
@@ -57,7 +57,7 @@ export const generateMetadata = async ({ params }: Params) => {
 
   return {
     title: work?.metadata.title,
-    openGraph: { images: [image] },
+    openGraph: { url: `${url}/work/${params.slug}`, images: [image] },
     twitter: { images: [image] },
   } as Metadata
 }

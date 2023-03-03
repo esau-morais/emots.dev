@@ -23,6 +23,7 @@
   ],
   "rules": {
     "prettier/prettier": "warn",
+    "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/no-unused-vars": "error",
     "prefer-arrow/prefer-arrow-functions": [
       "error",
@@ -59,11 +60,7 @@
           "/^lib/",
           "/^services/",
           "/^utils/",
-          [
-            "parent",
-            "sibling",
-            "index"
-          ]
+          ["parent", "sibling", "index"]
         ],
         "alphabetize": {
           "order": "asc",
