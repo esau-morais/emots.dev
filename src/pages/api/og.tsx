@@ -1,15 +1,21 @@
 import type { NextRequest } from 'next/server'
 
 import { BASE_URL } from '@/utils/consts'
+import { images, shuffleArray } from '@/utils/shuffle'
 import { ImageResponse } from '@vercel/og'
 
 export const config = {
   runtime: 'edge',
 }
 
-const handler = (req: NextRequest) => {
+const font = fetch(
+  new URL('../../../public/PPTelegraf-Regular.otf', import.meta.url)
+).then((res) => res.arrayBuffer())
+
+const handler = async (req: NextRequest) => {
   const { searchParams } = req.nextUrl
   const workTitle = searchParams.get('title')
+  const fontData = await font
 
   return new ImageResponse(
     (
@@ -21,13 +27,12 @@ const handler = (req: NextRequest) => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundImage: `url(${BASE_URL}/gradient.jpg)`,
+          backgroundImage: `url(${BASE_URL}/${shuffleArray(images)[0]})`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: '100% 100%',
         }}
       >
         <div
-          tw="font-sans"
           style={{
             marginLeft: 190,
             marginRight: 190,
@@ -38,6 +43,7 @@ const handler = (req: NextRequest) => {
             color: 'white',
             lineHeight: '120px',
             whiteSpace: 'pre-wrap',
+            fontFamily: 'PPTelegraf',
           }}
         >
           {workTitle}
@@ -47,6 +53,13 @@ const handler = (req: NextRequest) => {
     {
       width: 1920,
       height: 1080,
+      fonts: [
+        {
+          name: 'PPTelegraf',
+          data: fontData,
+          style: 'normal',
+        },
+      ],
     }
   )
 }

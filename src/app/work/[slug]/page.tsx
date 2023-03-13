@@ -11,6 +11,7 @@ import { cn } from '@/utils/classNames'
 import { BASE_URL, url } from '@/utils/consts'
 import { getPageMetadata } from '@/utils/metadata'
 import { shimmer, toBase64 } from '@/utils/shimmer'
+import { images, shuffleArray } from '@/utils/shuffle'
 import { Client } from '@notionhq/client'
 import { IconArrowBackUp } from '@tabler/icons-react'
 import { NotionToMarkdown } from 'notion-to-md'
@@ -68,18 +69,18 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
   const work = await findSingleWorkBySlug(slug)
 
   return (
-    <div className="mx-auto max-w-3xl px-6 pb-20 pt-16">
+    <div className="mx-auto max-w-4xl px-6 pb-20 pt-16">
       <Link className="mb-2 inline-flex items-center" href="/works">
         <IconArrowBackUp />
         <span>Works</span>
       </Link>
-      <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-2xl">
+      <div className="relative mb-4 aspect-video max-h-72 w-full overflow-hidden rounded-2xl">
         <Image
           className={cn(
             'object-cover',
             'transition-all duration-500 hover:scale-105 active:scale-100'
           )}
-          src="/gradient.jpg"
+          src={`/${shuffleArray(images)[0]}`}
           alt={work?.metadata.title ?? 'Work'}
           fill
           placeholder="blur"
@@ -87,7 +88,7 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
             shimmer(128, 96)
           )}`}
         />
-        <h1 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-xl font-bold">
+        <h1 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-2xl font-bold">
           {work?.metadata.title}
         </h1>
       </div>
@@ -114,6 +115,8 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
           a: ({ children, ...props }) => (
             <a
               className="underline decoration-blue decoration-wavy underline-offset-4"
+              target="_blank"
+              rel="noopener noreferrer"
               {...props}
             >
               {children}
@@ -142,7 +145,7 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
                 </div>
               )
             }
-            return <p>{children}</p>
+            return <p className="my-1">{children}</p>
           },
         }}
         remarkPlugins={[remarkGfm]}
