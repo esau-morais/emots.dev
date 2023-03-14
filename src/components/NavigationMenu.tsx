@@ -3,6 +3,7 @@
 import React from 'react'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 import { cn } from '@/utils/classNames'
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu'
@@ -11,37 +12,36 @@ import { IconChevronDown } from '@tabler/icons-react'
 const NavigationMenu = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root>
->(({ className, children, ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <NavigationMenuPrimitive.Root
     ref={ref}
     className={cn('fixed bottom-4 flex w-full justify-center', className)}
     {...props}
-  >
-    {children}
-    <NavigationMenuViewport />
-  </NavigationMenuPrimitive.Root>
+  />
 ))
 NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName
 
 const NavigationMenuList = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List>
->(({ className, ...props }, ref) => (
+>(({ className, children, ...props }, ref) => (
   <NavigationMenuPrimitive.List
     ref={ref}
     className={cn(
-      'group flex items-center justify-center space-x-4 rounded-full border border-neutral-200/10 bg-base/80 py-1 px-2 font-semibold text-white backdrop-blur-md focus:outline-none',
+      'group flex items-center justify-center space-x-4 rounded-full border border-neutral-200/10 bg-[#161616]/80 py-1 px-2 font-semibold text-white backdrop-blur-md focus:outline-none',
       className
     )}
     {...props}
-  />
+  >
+    {children}
+  </NavigationMenuPrimitive.List>
 ))
 NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName
 
 const NavigationMenuItem = NavigationMenuPrimitive.Item
 
 const defaultItemStyle =
-  'inline-flex items-center justify-center rounded-3xl text-sm font-medium transition-colors focus:outline-none focus:bg-base disabled:opacity-50  disabled:pointer-events-none bg-transparent hover:bg-base data-[state=open]:bg-[#161616] data-[active]:bg-base h-10 py-2 px-4 group w-max'
+  'hover:bg-neutral-800 inline-flex items-center justify-center rounded-3xl text-sm font-medium transition-colors focus:outline-none focus:bg-neutral-800 disabled:opacity-50 disabled:pointer-events-none bg-transparent data-[active=true]:bg-neutral-800 h-10 py-2 px-4 group w-max'
 
 const NavigationMenuTrigger = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,
@@ -78,53 +78,24 @@ NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName
 
 const NavigationMenuLink = NavigationMenuPrimitive.Link
 
-const NavigationMenuViewport = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Viewport>
->(({ className, ...props }, ref) => (
-  <div className={cn('absolute left-0 top-full flex justify-center')}>
-    <NavigationMenuPrimitive.Viewport
-      className={cn(
-        'origin-top-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:zoom-in-90 data-[state=closed]:zoom-out-95 relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-800 md:w-[var(--radix-navigation-menu-viewport-width)]',
-        className
-      )}
-      ref={ref}
-      {...props}
-    />
-  </div>
-))
-NavigationMenuViewport.displayName =
-  NavigationMenuPrimitive.Viewport.displayName
-
-const NavigationMenuIndicator = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Indicator>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Indicator>
->(({ className, ...props }, ref) => (
-  <NavigationMenuPrimitive.Indicator
-    ref={ref}
-    className={cn(
-      'data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=visible]:fade-in data-[state=hidden]:fade-out top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden',
-      className
-    )}
-    {...props}
-  >
-    <div className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-slate-200 shadow-md dark:bg-slate-800" />
-  </NavigationMenuPrimitive.Indicator>
-))
-NavigationMenuIndicator.displayName =
-  NavigationMenuPrimitive.Indicator.displayName
-
 export const BottomBar = () => {
+  const pathname = usePathname()
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem className={defaultItemStyle}>
+        <NavigationMenuItem
+          className={defaultItemStyle}
+          data-active={pathname === '/'}
+        >
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink>Main</NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
 
-        <NavigationMenuItem className={defaultItemStyle}>
+        <NavigationMenuItem
+          className={defaultItemStyle}
+          data-active={pathname === '/works'}
+        >
           <Link href="/works" legacyBehavior passHref>
             <NavigationMenuLink>Works</NavigationMenuLink>
           </Link>

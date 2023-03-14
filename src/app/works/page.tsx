@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { Container } from '@/components/Container'
@@ -6,6 +7,7 @@ import type { WorkMetadata } from '@/lib/types/work'
 import { cn } from '@/utils/classNames'
 import { url } from '@/utils/consts'
 import { getPageMetadata } from '@/utils/metadata'
+import { toBase64, shimmer } from '@/utils/shimmer'
 import { Client } from '@notionhq/client'
 import { IconArrowUpRight } from '@tabler/icons-react'
 
@@ -63,9 +65,26 @@ const Works = async () => {
           href={`/work/${work.slug}`}
         >
           <div className="relative aspect-video h-full w-full overflow-hidden rounded-t-2xl bg-[#1A1A1A]/90 backdrop-blur-md">
-            <h1 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-xl font-bold">
-              {work.title}
-            </h1>
+            {work.cover ? (
+              <Image
+                className={cn(
+                  'object-cover',
+                  'transition-all duration-500 hover:scale-105 active:scale-100'
+                )}
+                src={work.cover}
+                alt={work.title}
+                loading="lazy"
+                fill
+                placeholder="blur"
+                blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                  shimmer(128, 96)
+                )}`}
+              />
+            ) : (
+              <h1 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-xl font-bold">
+                {work.title}
+              </h1>
+            )}
           </div>
 
           <button
