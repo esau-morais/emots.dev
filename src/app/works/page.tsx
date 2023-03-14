@@ -5,9 +5,8 @@ import { Container } from '@/components/Container'
 import { env } from '@/lib/env'
 import type { WorkMetadata } from '@/lib/types/work'
 import { cn } from '@/utils/classNames'
-import { url } from '@/utils/consts'
 import { getPageMetadata } from '@/utils/metadata'
-import { toBase64, shimmer } from '@/utils/shimmer'
+import { shimmer, toBase64 } from '@/utils/shimmer'
 import { Client } from '@notionhq/client'
 import { IconArrowUpRight } from '@tabler/icons-react'
 
@@ -46,42 +45,49 @@ export const revalidate = 60
 
 export const metadata = {
   title: 'Works',
-  openGraph: {
-    url: `${url}/works`,
-  },
 }
 
 const Works = async () => {
   const works = await findAllWorks()
 
   return (
-    <Container>
+    <Container className="mx-auto columns-1 px-6 pb-20 pt-16 md:columns-3">
       {works?.map((work) => (
         <Link
           className={cn(
-            'col-span-6 flex flex-col items-center space-y-1 overflow-hidden rounded-2xl border border-neutral-200/10 bg-[#1A1A1A]/90 p-2 backdrop-blur-md md:h-52 md:odd:col-span-3 md:even:col-span-3 md:first-of-type:col-span-6'
+            'mb-4 flex flex-col items-center space-y-1 overflow-hidden rounded-2xl border border-neutral-200/10 bg-[#1A1A1A]/90 p-2 backdrop-blur-md',
+            work.cover ? 'aspect-video' : null
           )}
           key={work.id}
           href={`/work/${work.slug}`}
         >
-          <div className="relative aspect-video h-full w-full overflow-hidden rounded-t-2xl bg-[#1A1A1A]/90 backdrop-blur-md">
+          <div className="group relative aspect-video h-full w-full overflow-hidden rounded-t-2xl bg-[#1A1A1A]/90 backdrop-blur-md">
             {work.cover ? (
-              <Image
-                className={cn(
-                  'object-cover',
-                  'transition-all duration-500 hover:scale-105 active:scale-100'
-                )}
-                src={work.cover}
-                alt={work.title}
-                loading="lazy"
-                fill
-                placeholder="blur"
-                blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                  shimmer(128, 96)
-                )}`}
-              />
+              <>
+                <Image
+                  className={cn(
+                    'object-cover group-hover:opacity-50',
+                    'transition-all duration-500 hover:scale-105 active:scale-100'
+                  )}
+                  src={work.cover}
+                  alt={work.title}
+                  loading="lazy"
+                  fill
+                  sizes="(max-width: 640px) 100vw,
+                  (max-width: 1280px) 50vw,
+                  (max-width: 1536px) 33vw,
+                  25vw"
+                  placeholder="blur"
+                  blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                    shimmer(128, 96)
+                  )}`}
+                />
+                <h1 className="absolute left-2 bottom-1 font-semibold text-base text-white opacity-0 transition-opacity line-clamp-1 group-hover:opacity-100">
+                  {work.title}
+                </h1>
+              </>
             ) : (
-              <h1 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-xl font-bold">
+              <h1 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-xl font-bold line-clamp-2">
                 {work.title}
               </h1>
             )}

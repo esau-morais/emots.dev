@@ -25,5 +25,6 @@ module.exports = {
     require('@catppuccin/tailwindcss')({
       defaultFlavour: 'mocha',
     }),
+    require('@tailwindcss/line-clamp'),
   ],
 }

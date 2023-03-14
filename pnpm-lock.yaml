@@ -50,7 +50,6 @@ dependencies:
   '@radix-ui/react-navigation-menu': 1.1.1_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-tooltip': 1.0.4_zula6vjvt3wdocc4mwcxqa6nzi
   '@tabler/icons-react': 2.7.0_react@18.2.0
-  '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.7
   '@types/node': 18.14.5
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -72,6 +71,7 @@ dependencies:
 
 devDependencies:
   '@catppuccin/tailwindcss': 0.1.1_postcss@8.4.21
+  '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.7
   '@total-typescript/ts-reset': 0.3.7
   '@types/nodemailer': 6.4.7
   '@typescript-eslint/eslint-plugin': 5.54.0_6mj2wypvdnknez7kws2nfdgupi
@@ -688,7 +688,7 @@ packages:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
       tailwindcss: 3.2.7_postcss@8.4.21
-    dev: false
+    dev: true
 
   /@total-typescript/ts-reset/0.3.7:
     resolution: {integrity: sha512-yXt2BRRVCJVvzWaxac5n0nCXzIrQEBE/MeYlNQ8/Iq7UeelNmm/AdnUAu18ilSS893mbEQ4u6whPt/HvOPc4rw==}

@@ -9,7 +9,7 @@ import { IconBrandTwitter } from '@tabler/icons-react'
 
 const Home = () => {
   return (
-    <Container>
+    <Container className="mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-20 pt-16">
       <Bio />
 
       <CardHoverEffect className="col-span-6 h-52 md:col-span-2 md:h-full">

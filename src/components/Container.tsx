@@ -1,16 +1,19 @@
 'use client'
 
-import type { ReactNode } from 'react'
+import type { PropsWithChildren } from 'react'
 import { Toaster } from 'react-hot-toast'
 
 import { useMediaQuery } from '@/hooks/mediaQuery'
 import { Analytics } from '@vercel/analytics/react'
 
-export const Container = ({ children }: { children: ReactNode }) => {
+export const Container = ({
+  className,
+  children,
+}: PropsWithChildren<{ className?: string }>) => {
   const isMobile = useMediaQuery('(max-width: 768px)')
 
   return (
-    <main className="mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-20 pt-16">
+    <main className={className}>
       {children}
 
       <Analytics />
