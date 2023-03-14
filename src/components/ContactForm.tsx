@@ -71,7 +71,7 @@ export const ContactForm = () => {
           <input
             type="subject"
             id="subject"
-            placeholder="Describe what you wanna talk about in few words"
+            placeholder="Describe what you wanna talk about in a few words"
             className="w-full rounded-md p-2"
             {...register('subject')}
           />
