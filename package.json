@@ -14,7 +14,6 @@
     "@radix-ui/react-navigation-menu": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.0.4",
     "@tabler/icons-react": "^2.7.0",
-    "@tailwindcss/line-clamp": "^0.4.2",
     "@types/node": "18.14.5",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
@@ -36,6 +35,7 @@
   },
   "devDependencies": {
     "@catppuccin/tailwindcss": "^0.1.1",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "@total-typescript/ts-reset": "^0.3.7",
     "@types/nodemailer": "^6.4.7",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
