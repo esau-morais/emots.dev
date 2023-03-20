@@ -5,6 +5,7 @@ import { Container } from '@/components/Container'
 import { env } from '@/lib/env'
 import type { WorkMetadata } from '@/lib/types/work'
 import { cn } from '@/utils/classNames'
+import { getFiletypeFromString } from '@/utils/filetype'
 import { getPageMetadata } from '@/utils/metadata'
 import { shimmer, toBase64 } from '@/utils/shimmer'
 import { Client } from '@notionhq/client'
@@ -56,12 +57,26 @@ const Works = async () => {
         <Link
           className={cn(
             'mb-4 flex flex-col items-center space-y-1 overflow-hidden rounded-2xl border border-neutral-200/10 bg-[#1A1A1A]/90 p-2 backdrop-blur-md',
-            work.cover ? 'aspect-video' : null
+            work.cover
+              ? getFiletypeFromString(work.cover) === 'gif'
+                ? 'aspect-video'
+                : 'aspect-[1.62315/1]'
+              : 'aspect-video'
           )}
           key={work.id}
           href={`/work/${work.slug}`}
         >
-          <div className="group relative aspect-video h-full w-full overflow-hidden rounded-t-2xl bg-[#1A1A1A]/90 backdrop-blur-md">
+          <div
+            className={cn(
+              'group relative h-full w-full overflow-hidden bg-[#1A1A1A]/90 backdrop-blur-md',
+              work.cover
+                ? getFiletypeFromString(work.cover) === 'gif' ||
+                  work.type === 'Design'
+                  ? 'aspect-video rounded-2xl'
+                  : 'aspect-[1.62315/1] rounded-t-2xl'
+                : 'aspect-video'
+            )}
+          >
             {work.cover ? (
               <>
                 <Image
@@ -93,16 +108,19 @@ const Works = async () => {
             )}
           </div>
 
-          <button
-            type="button"
-            className={cn(
-              'inline-flex w-full items-center justify-center space-x-2 rounded-b-2xl p-2',
-              'bg-[#161616]/80 backdrop-blur-md transition-colors hover:bg-neutral-800'
-            )}
-          >
-            <span>View {work.type === 'Project' ? 'Project' : 'Design'}</span>
-            <IconArrowUpRight width={16} height={16} />
-          </button>
+          {(work.cover && getFiletypeFromString(work.cover) === 'gif') ||
+            work.type === 'Design' ? null : (
+            <button
+              type="button"
+              className={cn(
+                'inline-flex w-full items-center justify-center space-x-2 rounded-b-2xl p-2',
+                'bg-[#161616]/80 backdrop-blur-md transition-colors hover:bg-neutral-800'
+              )}
+            >
+              <span>View Project</span>
+              <IconArrowUpRight width={16} height={16} />
+            </button>
+          )}
         </Link>
       ))}
     </Container>
