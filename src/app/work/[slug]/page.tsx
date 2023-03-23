@@ -9,6 +9,7 @@ import { env } from '@/lib/env'
 import type { Work } from '@/lib/types/work'
 import { cn } from '@/utils/classNames'
 import { BASE_URL, url } from '@/utils/consts'
+import { getFiletypeFromString } from '@/utils/filetype'
 import { getPageMetadata } from '@/utils/metadata'
 import { shimmer, toBase64 } from '@/utils/shimmer'
 import { images, shuffleArray } from '@/utils/shuffle'
@@ -16,6 +17,7 @@ import { Client } from '@notionhq/client'
 import { IconArrowBackUp } from '@tabler/icons-react'
 import { NotionToMarkdown } from 'notion-to-md'
 import remarkGfm from 'remark-gfm'
+import { LazyVideo } from '@/components/LazyVideo'
 
 type Params = {
   params: { slug: string }
@@ -112,16 +114,23 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
           strong: ({ children }) => (
             <strong className="font-semibold">{children}</strong>
           ),
-          a: ({ children, ...props }) => (
-            <a
-              className="underline decoration-blue decoration-wavy underline-offset-4"
-              target="_blank"
-              rel="noopener noreferrer"
-              {...props}
-            >
-              {children}
-            </a>
-          ),
+          a: ({ children, node, ...props }) => {
+            const video = node as any
+            if (getFiletypeFromString(video.properties.href) === 'mp4') {
+              return <LazyVideo src={video.properties.href} />
+            }
+
+            return (
+              <a
+                className="underline decoration-blue decoration-wavy underline-offset-4"
+                target="_blank"
+                rel="noopener noreferrer"
+                {...props}
+              >
+                {children}
+              </a>
+            )
+          },
           p: ({ children, node }) => {
             if ((node.children[0] as any).tagName === 'img') {
               const image = node.children[0] as any
