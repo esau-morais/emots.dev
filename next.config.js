@@ -5,7 +5,7 @@ const nextConfig = {
     typedRoutes: true,
   },
   images: {
-    domains: ['localhost', 'emots.dev', 's3.us-west-2.amazonaws.com'],
+    domains: ['s3.us-west-2.amazonaws.com'],
   },
   redirects: async () => {
     return [
