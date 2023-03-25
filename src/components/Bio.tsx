@@ -39,7 +39,7 @@ export const Bio = () => {
           <pre className="relative whitespace-pre-wrap text-left text-neutral-200">
             <code>
               {JSON.stringify(
-                { age: currentAge, role: 'Full-Stack Web Developer' },
+                { age: currentAge, role: 'λ Software Engineer @ PD Solutions' },
                 null,
                 2
               )}

@@ -2,45 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { Container } from '@/components/Container'
-import { env } from '@/lib/env'
-import type { WorkMetadata } from '@/lib/types/work'
+import { findAllWorks } from '@/lib/fetch'
 import { cn } from '@/utils/classNames'
 import { getFiletypeFromString } from '@/utils/filetype'
-import { getPageMetadata } from '@/utils/metadata'
 import { shimmer, toBase64 } from '@/utils/shimmer'
-import { Client } from '@notionhq/client'
 import { IconArrowUpRight } from '@tabler/icons-react'
-
-const { NOTION_KEY, DATABASE_ID } = env
-
-const notion = new Client({ auth: NOTION_KEY })
-
-const findAllWorks = async () => {
-  try {
-    const response = await notion.databases.query({
-      database_id: DATABASE_ID,
-      filter: {
-        property: 'Status',
-        select: {
-          equals: 'Published',
-        },
-      },
-      sorts: [
-        {
-          property: 'Title',
-          direction: 'ascending',
-        },
-      ],
-    })
-
-    const allWorks = response.results
-    return allWorks.map((singleWork: unknown) => ({
-      ...getPageMetadata(singleWork),
-    })) as WorkMetadata[]
-  } catch (error) {
-    if (error instanceof Error) console.error(error)
-  }
-}
 
 export const revalidate = 60
 

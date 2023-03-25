@@ -4,6 +4,8 @@ export type WorkMetadata = {
   title: string
   slug: string
   type: 'Project' | 'Design'
+  createdAt: Date | string
+  editedAt: Date | string
 }
 
 export type Work = {
