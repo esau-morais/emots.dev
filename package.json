@@ -19,7 +19,7 @@
     "@types/react-dom": "18.0.11",
     "@vercel/analytics": "^0.1.11",
     "@vercel/og": "^0.2.0",
-    "next": "13.2.3",
+    "next": "13.2.5-canary.17",
     "nodemailer": "^6.9.1",
     "notion-to-md": "^2.5.5",
     "react": "18.2.0",
