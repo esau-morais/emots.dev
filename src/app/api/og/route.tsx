@@ -1,18 +1,16 @@
-import type { NextRequest } from 'next/server'
+import { type NextRequest, ImageResponse } from 'next/server'
 
 import { BASE_URL } from '@/utils/consts'
-import { images, shuffleArray } from '@/utils/shuffle'
-import { ImageResponse } from '@vercel/og'
 
 export const config = {
   runtime: 'edge',
 }
 
 const font = fetch(
-  new URL('../../../public/PPTelegraf-Regular.otf', import.meta.url)
+  new URL('../../../../public/PPTelegraf-Regular.otf', import.meta.url)
 ).then((res) => res.arrayBuffer())
 
-const handler = async (req: NextRequest) => {
+export const GET = async (req: NextRequest) => {
   const { searchParams } = req.nextUrl
   const workTitle = searchParams.get('title')
   const fontData = await font
@@ -27,7 +25,7 @@ const handler = async (req: NextRequest) => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundImage: `url(${BASE_URL}/${shuffleArray(images)[0]})`,
+          backgroundImage: `url(${BASE_URL}/BlueLight.jpg)`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: '100% 100%',
         }}
@@ -63,5 +61,3 @@ const handler = async (req: NextRequest) => {
     }
   )
 }
-
-export default handler

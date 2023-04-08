@@ -16,20 +16,17 @@ export const Bio = () => {
 
   return (
     <div className="p-200 col-span-6 flex items-center justify-center overflow-hidden rounded-2xl border border-neutral-200/10 bg-[#1A1A1A]/90 backdrop-blur-md md:col-span-4 md:h-52">
-      <div className="flex flex-col items-center space-y-4 py-8 px-6 md:flex-row md:space-y-0 md:space-x-4">
-        <div className=" relative aspect-square h-24 w-24">
-          <Image
-            src="/me.jpg"
-            className="rounded-full border border-neutral-200/10 object-cover grayscale"
-            alt="Myself standing in front of the camera with a silly smile and messy hair"
-            fill
-            priority
-            placeholder="blur"
-            blurDataURL={`data:image/svg+xml;base64,${toBase64(
-              shimmer(96, 96)
-            )}`}
-          />
-        </div>
+      <div className="flex flex-col items-center space-y-4 px-6 py-8 md:flex-row md:space-x-4 md:space-y-0">
+        <Image
+          src="https://github.com/esau-morais.png"
+          className="aspect-square rounded-full border border-neutral-200/10 object-cover grayscale"
+          alt="Myself standing in front of the camera with a silly smile and messy hair"
+          width={96}
+          height={96}
+          priority
+          placeholder="blur"
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(96, 96))}`}
+        />
 
         <div className="relative space-y-1">
           <h1 className="text-center text-xl font-bold tracking-tighter text-white md:text-left">
