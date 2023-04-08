@@ -22,7 +22,7 @@ export const findAllWorks = async () => {
       sorts: [
         {
           property: 'Created at',
-          direction: 'ascending',
+          direction: 'descending',
         },
       ],
     })

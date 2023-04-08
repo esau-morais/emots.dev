@@ -51,8 +51,13 @@ export const ContactForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col space-y-4"
       >
-        <fieldset>
-          <legend>E-mail</legend>
+        <fieldset className="grid">
+          <div className="flex w-full items-baseline justify-between">
+            <legend>E-mail</legend>
+            <small className="mt-2 text-sm text-[#850000]">
+              {errors.email?.message}
+            </small>
+          </div>
           <input
             type="email"
             id="email"
@@ -60,14 +65,15 @@ export const ContactForm = () => {
             className="w-full rounded-md p-2"
             {...register('email')}
           />
-
-          <small className="mt-2 text-sm text-[#850000]">
-            {errors.email?.message}
-          </small>
         </fieldset>
 
-        <fieldset>
-          <legend>Subject</legend>
+        <fieldset className="grid">
+          <div className="flex w-full items-baseline justify-between">
+            <legend>Subject</legend>
+            <small className="mt-2 text-sm text-[#850000]">
+              {errors.subject?.message}
+            </small>
+          </div>
           <input
             type="subject"
             id="subject"
@@ -75,14 +81,15 @@ export const ContactForm = () => {
             className="w-full rounded-md p-2"
             {...register('subject')}
           />
-
-          <small className="mt-2 text-sm text-[#850000]">
-            {errors.subject?.message}
-          </small>
         </fieldset>
 
-        <fieldset>
-          <legend>Message</legend>
+        <fieldset className="grid">
+          <div className="flex w-full items-baseline justify-between">
+            <legend>Message</legend>
+            <small className="mt-2 text-sm text-[#850000]">
+              {errors.message?.message}
+            </small>
+          </div>
           <textarea
             id="message"
             rows={5}
@@ -90,10 +97,6 @@ export const ContactForm = () => {
             className="max-h-[50vh] min-h-[20vh] w-full resize-y rounded-md p-2"
             {...register('message')}
           />
-
-          <small className="mt-2 text-sm text-[#850000]">
-            {errors.message?.message}
-          </small>
         </fieldset>
 
         <button

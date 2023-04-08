@@ -56,7 +56,13 @@ export const metadata = {
   },
 }
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout = ({
+  modal,
+  children,
+}: {
+  modal: any
+  children: React.ReactNode
+}) => {
   return (
     <html
       lang="en"
@@ -66,6 +72,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <head />
       <body className="no-repeat relative w-full bg-[#161616] bg-[url(/bg.svg)] bg-cover bg-fixed text-white">
         {children}
+        {modal}
 
         <BottomBar />
       </body>

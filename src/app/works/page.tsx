@@ -63,12 +63,12 @@ const Works = async () => {
                     shimmer(128, 96)
                   )}`}
                 />
-                <h1 className="absolute left-2 bottom-1 font-semibold text-base text-white opacity-0 transition-opacity line-clamp-1 group-hover:opacity-100">
+                <h1 className="absolute bottom-1 left-2 line-clamp-1 font-semibold text-base text-white opacity-0 transition-opacity group-hover:opacity-100">
                   {work.title}
                 </h1>
               </>
             ) : (
-              <h1 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-xl font-bold line-clamp-2">
+              <h1 className="absolute inset-x-0 top-1/2 line-clamp-2 -translate-y-1/2 text-center text-xl font-bold">
                 {work.title}
               </h1>
             )}
@@ -76,8 +76,7 @@ const Works = async () => {
 
           {(work.cover && getFiletypeFromString(work.cover) === 'gif') ||
             work.type === 'Design' ? null : (
-            <button
-              type="button"
+            <div
               className={cn(
                 'inline-flex w-full items-center justify-center space-x-2 rounded-b-2xl p-2',
                 'bg-[#161616]/80 backdrop-blur-md transition-colors hover:bg-neutral-800'
@@ -85,7 +84,7 @@ const Works = async () => {
             >
               <span>View Project</span>
               <IconArrowUpRight width={16} height={16} />
-            </button>
+            </div>
           )}
         </Link>
       ))}
