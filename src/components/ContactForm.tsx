@@ -52,9 +52,9 @@ export const ContactForm = () => {
         className="flex flex-col space-y-4"
       >
         <fieldset className="grid">
-          <div className="flex w-full items-baseline justify-between">
+          <div className="flex w-full items-baseline justify-between leading-9">
             <legend>E-mail</legend>
-            <small className="mt-2 text-sm text-[#850000]">
+            <small className="mt-2 text-sm text-error">
               {errors.email?.message}
             </small>
           </div>
@@ -68,9 +68,9 @@ export const ContactForm = () => {
         </fieldset>
 
         <fieldset className="grid">
-          <div className="flex w-full items-baseline justify-between">
+          <div className="flex w-full items-baseline justify-between leading-9">
             <legend>Subject</legend>
-            <small className="mt-2 text-sm text-[#850000]">
+            <small className="mt-2 text-sm text-error">
               {errors.subject?.message}
             </small>
           </div>
@@ -84,9 +84,9 @@ export const ContactForm = () => {
         </fieldset>
 
         <fieldset className="grid">
-          <div className="flex w-full items-baseline justify-between">
+          <div className="flex w-full items-baseline justify-between leading-9">
             <legend>Message</legend>
-            <small className="mt-2 text-sm text-[#850000]">
+            <small className="mt-2 text-sm text-error">
               {errors.message?.message}
             </small>
           </div>

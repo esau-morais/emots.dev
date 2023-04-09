@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors')
 
 module.exports = {
   future: {
@@ -6,6 +7,10 @@ module.exports = {
   },
   content: ['./src/**/*.{ts,tsx}'],
   theme: {
+    colors: {
+      ...colors,
+      error: '#850000',
+    },
     extend: {
       fontFamily: {
         sans: ['var(--font-space_grotesk)'],
