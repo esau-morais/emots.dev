@@ -5,7 +5,7 @@ import { ContactForm } from '@/components/ContactForm'
 import { Container } from '@/components/Container'
 import { Icons } from '@/components/Icons'
 import { cn } from '@/utils/classNames'
-import { IconBrandTwitter } from '@tabler/icons-react'
+import { IconBrandTwitter, IconBrandX } from '@tabler/icons-react'
 
 const Home = () => {
   return (
@@ -18,12 +18,23 @@ const Home = () => {
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
-            'flex h-full items-center justify-center rounded-2xl bg-sky/90 text-4xl text-white backdrop-blur-md'
+            'flex h-full items-center justify-center rounded-2xl bg-sky/90 text-4xl text-white backdrop-blur-md transition-colors group-hover:bg-black'
           )}
         >
           <span className="sr-only">Twitter</span>
-          <span className="transform-gpu transition group-hover:-rotate-[10deg] group-hover:scale-[1.3]">
-            <IconBrandTwitter width={48} height={48} strokeWidth={1} />
+          <span className="transform-gpu transition group-hover:scale-[1.3]">
+            <IconBrandX
+              className="group hidden group-hover:block"
+              width={48}
+              height={48}
+              strokeWidth={1}
+            />
+            <IconBrandTwitter
+              className="group group-hover:hidden"
+              width={48}
+              height={48}
+              strokeWidth={1}
+            />
           </span>
         </a>
       </CardHoverEffect>
