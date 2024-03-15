@@ -2,9 +2,7 @@ import { type NextRequest, ImageResponse } from 'next/server'
 
 import { BASE_URL } from '@/utils/consts'
 
-export const config = {
-  runtime: 'edge',
-}
+export const runtime = 'edge'
 
 const font = fetch(
   new URL('../../../../public/PPTelegraf-Regular.otf', import.meta.url)
