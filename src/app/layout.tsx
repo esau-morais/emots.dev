@@ -1,3 +1,4 @@
+import { GoogleTagManager } from '@next/third-parties/google'
 import { Space_Grotesk as FontSans } from 'next/font/google'
 
 import { BottomBar } from '@/components/NavigationMenu'
@@ -75,6 +76,7 @@ const RootLayout = ({
         {modal}
 
         <BottomBar />
+        <GoogleTagManager gtmId="GTM-NJZK738P" />
       </body>
     </html>
   )
