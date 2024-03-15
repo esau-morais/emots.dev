@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react'
+
 import { GoogleTagManager } from '@next/third-parties/google'
 import { Space_Grotesk as FontSans } from 'next/font/google'
 
@@ -57,13 +59,7 @@ export const metadata = {
   },
 }
 
-const RootLayout = ({
-  modal,
-  children,
-}: {
-  modal: any
-  children: React.ReactNode
-}) => {
+const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html
       lang="en"
@@ -73,7 +69,6 @@ const RootLayout = ({
       <head />
       <body className="no-repeat relative w-full bg-[#161616] bg-[url(/bg.svg)] bg-cover bg-fixed text-white">
         {children}
-        {modal}
 
         <BottomBar />
         <GoogleTagManager gtmId="GTM-NJZK738P" />
