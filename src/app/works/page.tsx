@@ -62,6 +62,7 @@ const Works = async () => {
                   blurDataURL={`data:image/svg+xml;base64,${toBase64(
                     shimmer(128, 96)
                   )}`}
+                  unoptimized={getFiletypeFromString(work.cover) === 'gif'}
                 />
                 <h1 className="absolute bottom-1 left-2 line-clamp-1 font-semibold text-base text-white opacity-0 transition-opacity group-hover:opacity-100">
                   {work.title}
@@ -75,7 +76,7 @@ const Works = async () => {
           </div>
 
           {(work.cover && getFiletypeFromString(work.cover) === 'gif') ||
-            work.type === 'Design' ? null : (
+          work.type === 'Design' ? null : (
             <div
               className={cn(
                 'inline-flex w-full items-center justify-center space-x-2 rounded-b-2xl p-2',
