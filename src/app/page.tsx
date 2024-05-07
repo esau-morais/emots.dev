@@ -1,55 +1,55 @@
-import About from '@/components/About'
-import { Bio } from '@/components/Bio'
-import { CardHoverEffect } from '@/components/Card'
-import { ContactForm } from '@/components/ContactForm'
-import { Container } from '@/components/Container'
-import { Icons } from '@/components/Icons'
-import { cn } from '@/utils/classNames'
-import { IconBrandTwitter, IconBrandX } from '@tabler/icons-react'
+import { currentAge } from '@/utils/date'
+import { IconArrowUpRight } from '@tabler/icons-react'
+import Link from 'next/link'
 
 const Home = () => {
   return (
-    <Container className="mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-20 pt-16">
-      <Bio />
+    <div className="mx-auto max-w-3xl [counter-reset:about]">
+      <div className="mb-6 pl-4">
+        <h1 className="text-center text-xl font-bold tracking-tighter text-[#f5e0dc] md:text-left">
+          Esaú Morais
+        </h1>
 
-      <CardHoverEffect className="col-span-6 h-52 md:col-span-2 md:h-full">
-        <a
-          href="https://twitter.com/_3morais"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(
-            'flex h-full items-center justify-center rounded-2xl bg-sky/90 text-4xl text-white backdrop-blur-md transition-colors group-hover:bg-black'
-          )}
+        <p className="text-left text-[#cdd6f4]">
+          {currentAge} y/o Front-End Engineer @ Atomos
+        </p>
+      </div>
+
+      <pre
+        className="whitespace-normal border-l-2 border-transparent p-4 text-[#6c7086] transition-colors before:pr-4 before:![content:counter(about)] before:![counter-increment:about] hover:bg-[#11111b] focus:border-[#f5e0dc] focus:bg-[#11111b] focus:outline-none"
+        tabIndex={0}
+      >
+        # Hello, there! I&apos;m Esaú [ee-saw]. I currently live in Brazil and
+        I&apos;ve been learning more about web development since 2020 and my
+        passion relies on building what people want. Besides that, I&apos;m a
+        freshman studying Software Engineering.
+      </pre>
+
+      <pre
+        className="whitespace-normal border-l-2 border-transparent p-4 text-[#6c7086] transition-colors before:pr-4 before:![content:counter(about)] before:![counter-increment:about] hover:bg-[#11111b] focus:border-[#f5e0dc] focus:bg-[#11111b] focus:outline-none"
+        tabIndex={0}
+      >
+        # Beyond this, I&apos;m a musician since I was young and enjoy my
+        free-time watching live streams/k-dramas, working out, and more
+      </pre>
+
+      <pre
+        className="group w-full whitespace-normal border-l-2 border-transparent p-4 text-[#6c7086] transition-colors before:pr-4 before:![content:counter(about)] before:![counter-increment:about] hover:bg-[#11111b] focus:border-[#f5e0dc] focus:bg-[#11111b] focus:outline-none"
+        tabIndex={0}
+      >
+        <span># Checkout my </span>
+        <Link
+          className="inline-flex items-center space-x-0.5 underline underline-offset-2"
+          href="/work"
         >
-          <span className="sr-only">Twitter</span>
-          <span className="transform-gpu transition group-hover:scale-[1.3]">
-            <IconBrandX
-              className="group hidden group-hover:block"
-              width={48}
-              height={48}
-              strokeWidth={1}
-            />
-            <IconBrandTwitter
-              className="group group-hover:hidden"
-              width={48}
-              height={48}
-              strokeWidth={1}
-            />
-          </span>
-        </a>
-      </CardHoverEffect>
-
-      <div className="col-span-6 flex flex-col items-start justify-center space-y-2 rounded-2xl bg-blue/90 p-6 backdrop-blur-md md:col-span-2">
-        <h2 className="font-title text-lg font-bold">Tech Stack</h2>
-        <Icons />
-      </div>
-
-      <About />
-
-      <div className="col-span-6 space-y-4 rounded-2xl bg-green/90 p-6 text-black backdrop-blur-md">
-        <ContactForm />
-      </div>
-    </Container>
+          <span>Work</span>
+          <IconArrowUpRight
+            className="invisible group-hover:visible"
+            size={20}
+          />
+        </Link>
+      </pre>
+    </div>
   )
 }
 

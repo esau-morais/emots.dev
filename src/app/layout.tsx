@@ -1,19 +1,11 @@
 import type { ReactNode } from 'react'
 
-import { GoogleTagManager } from '@next/third-parties/google'
-import { Space_Grotesk as FontSans } from 'next/font/google'
-
-import { BottomBar } from '@/components/NavigationMenu'
-import { cn } from '@/utils/classNames'
 import { description, ogImage, title, url } from '@/utils/consts'
 
 import './globals.css'
 
-const fontSans = FontSans({
-  subsets: ['latin'],
-  variable: '--font-space_grotesk',
-  display: 'swap',
-})
+import { GeistMono } from 'geist/font/mono'
+import { Header } from '@/components/header'
 
 export const metadata = {
   title: {
@@ -27,11 +19,7 @@ export const metadata = {
     url: url,
     title: title,
     description: description,
-    images: {
-      url: ogImage,
-      width: 1600,
-      height: 630,
-    },
+    images: { url: ogImage, width: 1600, height: 630 },
   },
   twitter: {
     card: 'summary_large_image',
@@ -59,19 +47,42 @@ export const metadata = {
   },
 }
 
+const NAV_ITEMS = [
+  {
+    path: 'https://linkedin.com/in/emmorais',
+    label: 'in',
+  },
+  {
+    path: 'https://x.com/_3morais',
+    label: '𝕏',
+  },
+] as const
+
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html
-      lang="en"
-      className={cn('font-sans', fontSans.variable)}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={GeistMono.variable} suppressHydrationWarning>
       <head />
-      <body className="no-repeat relative w-full bg-[#161616] bg-[url(/bg.svg)] bg-cover bg-fixed text-white">
-        {children}
+      <body className="relative min-h-dvh w-full bg-[#181825] text-[#cdd6f4]">
+        <Header />
 
-        <BottomBar />
-        <GoogleTagManager gtmId="GTM-NJZK738P" />
+        <main className="my-20 min-h-[calc(100dvh-80px-160px)]">
+          {children}
+        </main>
+
+        <footer className="fixed inset-x-0 bottom-0 flex h-10 divide-x border-t border-[#313244] bg-[#1e1e2e]/80 backdrop-blur-sm">
+          <span className="flex cursor-default items-center border-[#313244] bg-[#11111b] px-4 text-[#cdd6f4] last:!border-r">
+            Socials
+          </span>
+          {NAV_ITEMS.map((item, idx) => (
+            <a
+              key={idx}
+              className="flex items-center border-[#313244] px-4 text-[#cdd6f4] last:!border-r hover:bg-[#11111b] focus:bg-[#11111b] focus:outline-none"
+              href={item.path}
+            >
+              {item.label}
+            </a>
+          ))}
+        </footer>
       </body>
     </html>
   )

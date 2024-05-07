@@ -13,7 +13,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-space_grotesk)'],
+        mono: ['var(--font-geist-mono)'],
       },
     },
     animation: {

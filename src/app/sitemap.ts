@@ -8,7 +8,7 @@ const sitemap = async () => {
     lastModified: work.editedAt,
   })) as { url: string; lastModified: string }[]
 
-  const routes = ['', '/works'].map((route) => ({
+  const routes = ['', '/work'].map((route) => ({
     url: `${url}${route}`,
     lastModified: new Date().toISOString().split('T')[0],
   }))

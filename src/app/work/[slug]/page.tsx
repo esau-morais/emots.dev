@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { LazyVideo } from '@/components/LazyVideo'
 import { env } from '@/lib/env'
 import type { Work } from '@/lib/types/work'
 import { cn } from '@/utils/classNames'
@@ -12,12 +13,9 @@ import { BASE_URL, url } from '@/utils/consts'
 import { getFiletypeFromString } from '@/utils/filetype'
 import { getPageMetadata } from '@/utils/metadata'
 import { shimmer, toBase64 } from '@/utils/shimmer'
-import { images, shuffleArray } from '@/utils/shuffle'
 import { Client } from '@notionhq/client'
-import { IconArrowBackUp } from '@tabler/icons-react'
 import { NotionToMarkdown } from 'notion-to-md'
 import remarkGfm from 'remark-gfm'
-import { LazyVideo } from '@/components/LazyVideo'
 
 type Params = {
   params: { slug: string }
@@ -44,7 +42,7 @@ const findSingleWorkBySlug = async (slug: string) => {
     const page = response.results[0]
     const metadata = getPageMetadata(page)
     const mdblocks = await notionToMarkdown.pageToMarkdown(page.id)
-    const mdString = notionToMarkdown.toMarkdownString(mdblocks)
+    const mdString = notionToMarkdown.toMarkdownString(mdblocks).parent
 
     return {
       metadata,
@@ -72,33 +70,18 @@ const SingleWorkPage = async ({ params: { slug } }: Params) => {
 
   return (
     <div className="mx-auto max-w-4xl px-6 pb-20 pt-16">
-      <Link className="mb-2 inline-flex items-center" href="/works">
-        <IconArrowBackUp />
-        <span>Works</span>
-      </Link>
-      <div className="relative mb-4 aspect-video max-h-72 w-full overflow-hidden rounded-2xl">
-        <Image
-          className={cn(
-            'object-cover',
-            'transition-all duration-500 hover:scale-105 active:scale-100'
-          )}
-          src={`/${shuffleArray(images)[0]}`}
-          alt={work?.metadata.title ?? 'Work'}
-          fill
-          placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(
-            shimmer(128, 96)
-          )}`}
-        />
-        <h1 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-2xl font-bold">
-          {work?.metadata.title}
-        </h1>
+      <div className="inline-flex items-start space-x-2">
+        <Link className="mb-2 underline underline-offset-2" href="/work">
+          Work
+        </Link>
+        <span>/</span>
+        <h1 className="font-bold">{work?.metadata.title}</h1>
       </div>
 
       <ReactMarkdown
         components={{
           h2: ({ children }) => (
-            <h2 className="mt-8 mb-2 text-xl font-bold">{children}</h2>
+            <h2 className="mb-2 mt-8 text-xl font-bold">{children}</h2>
           ),
           blockquote: ({ children }) => (
             <blockquote className="my-4 border-l-4 border-rosewater bg-base p-4 font-medium italic leading-relaxed text-white">
