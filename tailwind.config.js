@@ -1,16 +1,10 @@
 /** @type {import('tailwindcss').Config} */
-const colors = require('tailwindcss/colors')
-
 module.exports = {
   future: {
     hoverOnlyWhenSupported: true,
   },
   content: ['./src/**/*.{ts,tsx}'],
   theme: {
-    colors: {
-      ...colors,
-      error: '#850000',
-    },
     extend: {
       fontFamily: {
         mono: ['var(--font-geist-mono)'],

@@ -5,18 +5,18 @@ import Link from 'next/link'
 const Home = () => {
   return (
     <div className="mx-auto max-w-3xl [counter-reset:about]">
-      <div className="mb-6 pl-4">
-        <h1 className="text-center text-xl font-bold tracking-tighter text-[#f5e0dc] md:text-left">
+      <div className="mb-6 pl-4 text-center text-overlay0 md:text-left">
+        <h1 className="text-xl font-bold tracking-tighter text-rosewater">
           Esaú Morais
         </h1>
 
-        <p className="text-left text-[#cdd6f4]">
+        <p className="text-text">
           {currentAge} y/o Front-End Engineer @ Atomos
         </p>
       </div>
 
       <pre
-        className="whitespace-normal border-l-2 border-transparent p-4 text-[#6c7086] transition-colors before:pr-4 before:![content:counter(about)] before:![counter-increment:about] hover:bg-[#11111b] focus:border-[#f5e0dc] focus:bg-[#11111b] focus:outline-none"
+        className="whitespace-normal border-l-2 border-transparent p-4 text-overlay0 transition-colors before:pr-4 before:![content:counter(about)] before:![counter-increment:about] hover:bg-[#11111b] focus:border-[#f5e0dc] focus:bg-[#11111b] focus:outline-none"
         tabIndex={0}
       >
         # Hello, there! I&apos;m Esaú [ee-saw]. I currently live in Brazil and
@@ -26,7 +26,7 @@ const Home = () => {
       </pre>
 
       <pre
-        className="whitespace-normal border-l-2 border-transparent p-4 text-[#6c7086] transition-colors before:pr-4 before:![content:counter(about)] before:![counter-increment:about] hover:bg-[#11111b] focus:border-[#f5e0dc] focus:bg-[#11111b] focus:outline-none"
+        className="whitespace-normal border-l-2 border-transparent p-4 text-overlay0 transition-colors before:pr-4 before:![content:counter(about)] before:![counter-increment:about] hover:bg-[#11111b] focus:border-[#f5e0dc] focus:bg-[#11111b] focus:outline-none"
         tabIndex={0}
       >
         # Beyond this, I&apos;m a musician since I was young and enjoy my
@@ -34,7 +34,7 @@ const Home = () => {
       </pre>
 
       <pre
-        className="group w-full whitespace-normal border-l-2 border-transparent p-4 text-[#6c7086] transition-colors before:pr-4 before:![content:counter(about)] before:![counter-increment:about] hover:bg-[#11111b] focus:border-[#f5e0dc] focus:bg-[#11111b] focus:outline-none"
+        className="group w-full whitespace-normal border-l-2 border-transparent p-4 text-overlay0 transition-colors before:pr-4 before:![content:counter(about)] before:![counter-increment:about] hover:bg-[#11111b] focus:border-[#f5e0dc] focus:bg-[#11111b] focus:outline-none"
         tabIndex={0}
       >
         <span># Checkout my </span>
