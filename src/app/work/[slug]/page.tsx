@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { LazyVideo } from '@/components/LazyVideo'
+import { LazyVideo } from '@/components/lazy-video'
 import { env } from '@/lib/env'
 import type { Work } from '@/lib/types/work'
 import { cn } from '@/utils/classNames'

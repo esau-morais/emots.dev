@@ -12,6 +12,10 @@ const NAV_ITEMS = [
     path: '/work',
     label: 'work',
   },
+  {
+    path: '/contact',
+    label: 'contact',
+  },
 ] as const
 
 export const Header = () => {

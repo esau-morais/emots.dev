@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { Toaster } from 'react-hot-toast'
 
 import type { Viewport } from 'next'
 
@@ -67,6 +68,8 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         </main>
 
         <Footer />
+
+        <Toaster />
       </body>
     </html>
   )

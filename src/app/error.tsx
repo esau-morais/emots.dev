@@ -1,14 +1,8 @@
 'use client'
 
-import { toast, Toaster } from 'react-hot-toast'
-
-import { useMediaQuery } from '@/hooks/mediaQuery'
-import { cn } from '@/utils/classNames'
+import { toast } from 'react-hot-toast'
 
 const Error = ({ error }: { error: Error }) => {
-  const isMobile = useMediaQuery('(max-width: 768px)')
-  console.error({ error })
-
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText('contact@emots.dev')
@@ -20,20 +14,15 @@ const Error = ({ error }: { error: Error }) => {
   }
 
   return (
-    <div className="col-span-6 flex min-h-screen flex-col items-center justify-center space-y-2">
+    <div className="flex h-full flex-col items-center justify-center space-y-2">
       <p>Something went wrong. If the error persists, contact me.</p>
       <button
         type="button"
-        className={cn(
-          'relative overflow-hidden rounded-md  bg-rosewater/90 p-2 text-black backdrop-blur-md',
-          'transition-all duration-500 hover:scale-95 active:scale-100'
-        )}
+        className="relative overflow-hidden bg-rosewater p-2 text-black transition-all duration-500 hover:scale-95 active:scale-100"
         onClick={handleCopy}
       >
         Copy E-mail address
       </button>
-
-      <Toaster position={!isMobile ? 'top-right' : 'top-center'} />
     </div>
   )
 }
