@@ -7,7 +7,8 @@ import './globals.css'
 import { GeistMono } from 'geist/font/mono'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
-import { Viewport } from 'next'
+
+import type { Viewport } from 'next'
 
 export const metadata = {
   title: {
