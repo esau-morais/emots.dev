@@ -4,6 +4,6 @@ export const getPageMetadata = (page: any) => ({
   title: page.properties.Title.title[0].plain_text,
   slug: page.properties.Slug.rich_text[0].plain_text,
   type: page.properties.Type.select.name,
-  createdAt: page.created_time,
+  releasedAt: page.properties.ReleaseDate.date.start,
   editedAt: page.last_edited_time,
 })

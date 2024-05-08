@@ -1,14 +1,12 @@
 import type { ReactNode } from 'react'
 
-import { description, ogImage, title, url } from '@/utils/consts'
-
-import './globals.css'
-
-import { GeistMono } from 'geist/font/mono'
-import { Header } from '@/components/header'
-import { Footer } from '@/components/footer'
-
 import type { Viewport } from 'next'
+
+import { Footer } from '@/components/footer'
+import { Header } from '@/components/header'
+import { description, ogImage, title, url } from '@/utils/consts'
+import './globals.css'
+import { GeistMono } from 'geist/font/mono'
 
 export const metadata = {
   title: {

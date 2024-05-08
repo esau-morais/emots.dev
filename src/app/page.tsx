@@ -1,6 +1,7 @@
+import Link from 'next/link'
+
 import { currentAge } from '@/utils/date'
 import { IconArrowUpRight } from '@tabler/icons-react'
-import Link from 'next/link'
 
 const Home = () => {
   return (

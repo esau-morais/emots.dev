@@ -41,7 +41,7 @@ const Works = async () => {
               </Link>
             </td>
             <td className="p-4 text-right align-middle font-medium">
-              {new Date(work.createdAt).getFullYear()}
+              {new Date(work.releasedAt).getFullYear()}
             </td>
           </tr>
         ))}

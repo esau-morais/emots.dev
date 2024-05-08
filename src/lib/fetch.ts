@@ -21,7 +21,7 @@ export const findAllWorks = async () => {
       },
       sorts: [
         {
-          property: 'Created at',
+          property: 'ReleaseDate',
           direction: 'descending',
         },
       ],
