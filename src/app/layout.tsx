@@ -8,6 +8,7 @@ import { Header } from '@/components/header'
 import { description, ogImage, title, url } from '@/utils/consts'
 import './globals.css'
 import { GeistMono } from 'geist/font/mono'
+import { cn } from '@/utils/classNames'
 
 export const metadata = {
   title: {
@@ -58,7 +59,11 @@ export const viewport = {
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html lang="en" className={GeistMono.variable} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={cn(GeistMono.variable, 'font-mono')}
+      suppressHydrationWarning
+    >
       <head />
       <body className="relative min-h-dvh w-full bg-mantle text-text">
         <Header />
