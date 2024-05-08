@@ -7,6 +7,7 @@ import './globals.css'
 import { GeistMono } from 'geist/font/mono'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { Viewport } from 'next'
 
 export const metadata = {
   title: {
@@ -47,6 +48,13 @@ export const metadata = {
     shortcut: '/favicon.ico',
   },
 }
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  // FIX: shouldnt next ts plugin be working?
+} satisfies Viewport
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
