@@ -5,10 +5,11 @@ import type { Viewport } from 'next'
 
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
+import { cn } from '@/utils/classNames'
 import { description, ogImage, title, url } from '@/utils/consts'
 import './globals.css'
+import { Analytics } from '@vercel/analytics/react'
 import { GeistMono } from 'geist/font/mono'
-import { cn } from '@/utils/classNames'
 
 export const metadata = {
   title: {
@@ -67,14 +68,12 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
       <head />
       <body className="relative min-h-dvh w-full bg-mantle text-text">
         <Header />
-
         <main className="my-20 min-h-[calc(100dvh-80px-160px)]">
           {children}
         </main>
-
         <Footer />
-
         <Toaster />
+        <Analytics />;
       </body>
     </html>
   )
