@@ -1,10 +1,12 @@
 'use client'
 
+import type { FormEvent } from 'react'
 import { useEffect, useRef } from 'react'
 import { useFormState } from 'react-dom'
 import { toast } from 'react-hot-toast'
 
 import { sendMessage } from '@/lib/actions'
+import { useTurnstileCaptcha } from '@/lib/hooks/cloudflare-turnstile'
 
 import { SubmitButton } from './submit-button'
 
@@ -13,6 +15,8 @@ const initialState = {
 }
 
 export const ContactForm = () => {
+  const { content: captchaContent, validateCaptcha } = useTurnstileCaptcha()
+
   const formRef = useRef<HTMLFormElement>(null)
   const [state, formAction] = useFormState(sendMessage, initialState)
   const errors = state?.error
@@ -24,8 +28,23 @@ export const ContactForm = () => {
     }
   }, [errors])
 
+  const onSubmit = async (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault()
+
+    const formData = new FormData(formRef.current as HTMLFormElement)
+    const captchValidated = await validateCaptcha()
+
+    if (captchValidated?.success) {
+      formAction(formData)
+      toast.success('message sent!')
+      formRef.current?.reset()
+    } else {
+      toast.error('please solve the challenge to send a message')
+    }
+  }
+
   return (
-    <form ref={formRef} action={formAction} className="flex flex-col space-y-4">
+    <form ref={formRef} onSubmit={onSubmit} className="flex flex-col space-y-4">
       <fieldset className="grid border-l-2 border-surface0 pl-4">
         <div className="flex w-full items-baseline justify-between leading-8">
           <legend>E-mail</legend>
@@ -78,6 +97,8 @@ export const ContactForm = () => {
           className="max-h-[50vh] min-h-[20vh] w-full resize-y bg-transparent py-2"
         />
       </fieldset>
+
+      {captchaContent}
 
       <SubmitButton />
     </form>
