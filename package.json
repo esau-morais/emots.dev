@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
+    "@marsidev/react-turnstile": "^0.6.1",
     "@next/third-parties": "^14.2.3",
     "@notionhq/client": "^2.2.15",
     "@radix-ui/react-dialog": "^1.0.5",

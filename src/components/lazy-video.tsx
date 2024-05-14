@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 
-import { useIntersectionObserver } from '@/hooks/intersection-observer'
+import { useIntersectionObserver } from '@/lib/hooks/intersection-observer'
 import { cn } from '@/utils/classNames'
 
 export const LazyVideo = ({ src }: { src: string }) => {

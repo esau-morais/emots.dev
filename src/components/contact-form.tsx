@@ -1,12 +1,16 @@
 'use client'
 
 import type { FormEvent } from 'react'
+import { useState } from 'react'
+import { useCallback } from 'react'
 import { useEffect, useRef } from 'react'
 import { useFormState } from 'react-dom'
 import { toast } from 'react-hot-toast'
 
 import { sendMessage } from '@/lib/actions'
-import { useTurnstileCaptcha } from '@/lib/hooks/cloudflare-turnstile'
+import { env } from '@/lib/env'
+import type { TurnstileServerValidationResponse } from '@marsidev/react-turnstile'
+import { Turnstile } from '@marsidev/react-turnstile'
 
 import { SubmitButton } from './submit-button'
 
@@ -15,8 +19,10 @@ const initialState = {
 }
 
 export const ContactForm = () => {
-  const { content: captchaContent, validateCaptcha } = useTurnstileCaptcha()
-
+  const [status, setStatus] = useState<
+    'solved' | 'error' | 'expired' | 'loading' | null
+  >()
+  const [token, setToken] = useState<string>()
   const formRef = useRef<HTMLFormElement>(null)
   const [state, formAction] = useFormState(sendMessage, initialState)
   const errors = state?.error
@@ -28,13 +34,33 @@ export const ContactForm = () => {
     }
   }, [errors])
 
+  const validateCaptcha = useCallback(async () => {
+    try {
+      const res = await fetch('/api/turnstile', {
+        method: 'POST',
+        body: JSON.stringify({
+          token,
+        }),
+        headers: {
+          'content-type': 'application/json',
+        },
+      })
+      const data = (await res.json()) as TurnstileServerValidationResponse
+
+      return data
+    } catch (error) {
+      toast.error('could not send message')
+    }
+  }, [token])
+
   const onSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
 
     const formData = new FormData(formRef.current as HTMLFormElement)
+
     const captchValidated = await validateCaptcha()
 
-    if (captchValidated?.success) {
+    if (captchValidated?.success || status === 'solved') {
       formAction(formData)
       toast.success('message sent!')
       formRef.current?.reset()
@@ -98,7 +124,19 @@ export const ContactForm = () => {
         />
       </fieldset>
 
-      {captchaContent}
+      <Turnstile
+        className="!bg-base/80"
+        options={{
+          appearance: 'execute',
+        }}
+        siteKey={env.NEXT_PUBLIC_SITE_KEY}
+        onError={() => setStatus('error')}
+        onExpire={() => setStatus('expired')}
+        onSuccess={(token) => {
+          setToken(token)
+          setStatus('solved')
+        }}
+      />
 
       <SubmitButton />
     </form>

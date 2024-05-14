@@ -1,5 +1,5 @@
 import { env } from '@/lib/env'
-import type { TurnstileServerValidationResponse } from '@/lib/types/turnstile'
+import type { TurnstileServerValidationResponse } from '@marsidev/react-turnstile'
 const VERIFY_ENDPOINT =
   'https://challenges.cloudflare.com/turnstile/v0/siteverify'
 

@@ -40,12 +40,12 @@ const Home = () => {
       >
         <span># Checkout my </span>
         <Link
-          className="inline-flex items-center space-x-0.5 underline underline-offset-2"
+          className="group inline-flex items-center space-x-0.5 underline underline-offset-2"
           href="/work"
         >
           <span>Work</span>
           <IconArrowUpRight
-            className="invisible group-hover:visible"
+            className="invisible group-hover:visible group-focus:visible"
             size={20}
           />
         </Link>
