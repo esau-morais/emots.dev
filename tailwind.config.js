@@ -6,17 +6,17 @@ module.exports = {
   content: ['./src/**/*.{ts,tsx}'],
   theme: {
     extend: {
+      animation: {
+        cursor: 'cursor .6s linear infinite alternate',
+      },
       fontFamily: {
         mono: ['var(--font-geist-mono)'],
       },
-    },
-    animation: {
-      cursor: 'cursor .6s linear infinite alternate',
-    },
-    keyframes: {
-      cursor: {
-        '0%, 40%': { opacity: 1 },
-        '65%, 100%': { opacity: 0 },
+      keyframes: {
+        cursor: {
+          '0%, 40%': { opacity: 1 },
+          '65%, 100%': { opacity: 0 },
+        },
       },
     },
   },

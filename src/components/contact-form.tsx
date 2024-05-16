@@ -62,8 +62,6 @@ export const ContactForm = () => {
 
     if (captchValidated?.success || status === 'solved') {
       formAction(formData)
-      toast.success('message sent!')
-      formRef.current?.reset()
     } else {
       toast.error('please solve the challenge to send a message')
     }
@@ -125,7 +123,7 @@ export const ContactForm = () => {
       </fieldset>
 
       <Turnstile
-        className="!bg-base/80"
+        className="!w-full !bg-base/80 md:!w-fit [&_iframe]:!w-full md:[&_iframe]:!w-fit"
         options={{
           appearance: 'execute',
         }}
