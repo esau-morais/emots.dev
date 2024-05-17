@@ -15,8 +15,10 @@ export const env = createEnv({
   client: {
     // captcha
     NEXT_PUBLIC_SITE_KEY: z.string(),
+    NEXT_PUBLIC_URL: z.string().url(),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_SITE_KEY: process.env.NEXT_PUBLIC_SITE_KEY,
+    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
   },
 })

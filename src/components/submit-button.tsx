@@ -5,7 +5,6 @@ import { useFormStatus } from 'react-dom'
 import { IconLoader2 } from '@tabler/icons-react'
 
 export const SubmitButton = () => {
-  // FIXME: pending is probably not working because of onSubmit
   const { pending } = useFormStatus()
 
   return (
@@ -16,14 +15,17 @@ export const SubmitButton = () => {
       }
       disabled={pending}
     >
-      {!pending ? (
-        <span>Send</span>
-      ) : (
-        <div role="status" className="absolute left-1/2 -translate-x-1/2">
+      <span>Send</span>
+      {pending ? (
+        <div
+          aria-live="polite"
+          role="status"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        >
           <IconLoader2 aria-hidden className="animate-spin" color="white" />
           <span className="sr-only">Submitting...</span>
         </div>
-      )}
+      ) : null}
     </button>
   )
 }

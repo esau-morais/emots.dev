@@ -14,11 +14,9 @@ type Error = z.typeToFlattenedError<
 type State = { error: Error } | { error: null }
 
 export const sendMessage = async (_: State | undefined, formData: FormData) => {
-  const validatedFields = contactSchema.safeParse({
-    email: formData.get('email'),
-    subject: formData.get('subject'),
-    message: formData.get('message'),
-  })
+  const validatedFields = await contactSchema.safeParseAsync(
+    Object.fromEntries(formData.entries())
+  )
   if (!validatedFields.success) {
     return {
       error: validatedFields.error.flatten().fieldErrors,
