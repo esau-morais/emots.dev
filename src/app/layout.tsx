@@ -51,12 +51,13 @@ export const metadata = {
   },
 }
 
-export const viewport = {
+// FIX: shouldnt this be auto infered by the typescript plugin?
+// https://github.com/vercel/next.js/issues/65489
+export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  // FIX: shouldnt next ts plugin be working?
-} satisfies Viewport
+}
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (

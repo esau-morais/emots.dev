@@ -1,5 +1,9 @@
 import { ContactForm } from '@/components/contact-form'
 
+export const metadata = {
+  title: 'Get in touch',
+}
+
 const ContactPage = () => {
   return (
     <div className="mx-auto w-full max-w-2xl px-4">
