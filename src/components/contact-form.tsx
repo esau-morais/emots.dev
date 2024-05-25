@@ -45,11 +45,7 @@ export const ContactForm = () => {
         <div className="flex w-full items-baseline justify-between leading-8">
           <legend id="email-field">E-mail</legend>
           {errors?.email?.length ? (
-            <small
-              id="email-error"
-              className="text-sm text-flamingo"
-              aria-invalid
-            >
+            <small id="email-error" className="text-sm text-flamingo">
               {errors?.email[0]}
             </small>
           ) : null}
@@ -61,6 +57,7 @@ export const ContactForm = () => {
             name="email"
             placeholder="contact@emots.dev"
             className="w-full bg-transparent p-2"
+            aria-invalid={!!errors?.email?.length}
             aria-describedby={
               errors?.email?.length ? 'email-error' : 'email-field'
             }
@@ -72,11 +69,7 @@ export const ContactForm = () => {
         <div className="flex w-full items-baseline justify-between leading-8">
           <legend id="subject-field">Subject</legend>
           {errors?.subject?.length ? (
-            <small
-              id="subject-error"
-              className="text-sm text-flamingo"
-              aria-invalid
-            >
+            <small id="subject-error" className="text-sm text-flamingo">
               {errors.subject[0]}
             </small>
           ) : null}
@@ -89,6 +82,7 @@ export const ContactForm = () => {
             name="subject"
             placeholder="Describe what you wanna talk about in a few words"
             className="w-full bg-transparent p-2"
+            aria-invalid={!!errors?.subject?.length}
             aria-describedby={
               errors?.subject?.length ? 'subject-error' : 'subject-field'
             }
@@ -100,11 +94,7 @@ export const ContactForm = () => {
         <div className="flex w-full items-baseline justify-between leading-8">
           <legend id="message-field">Message</legend>
           {errors?.message?.length ? (
-            <small
-              id="message-error"
-              className="text-sm text-flamingo"
-              aria-invalid
-            >
+            <small id="message-error" className="text-sm text-flamingo">
               {errors.message[0]}
             </small>
           ) : null}
@@ -115,6 +105,7 @@ export const ContactForm = () => {
           rows={5}
           placeholder="Give more details about the given subject here..."
           className="max-h-[50vh] min-h-[20vh] w-full resize-y bg-transparent py-2"
+          aria-invalid={!!errors?.message?.length}
           aria-describedby={
             errors?.message?.length ? 'message-error' : 'message-field'
           }
