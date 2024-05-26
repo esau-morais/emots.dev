@@ -74,7 +74,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         </main>
         <Footer />
         <Toaster />
-        <Analytics />;
+        <Analytics />
       </body>
     </html>
   )
