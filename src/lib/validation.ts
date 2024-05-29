@@ -12,13 +12,13 @@ export const contactSchema = z.object({
   subject: z.string().min(1, { message: 'Please enter a subject' }).trim(),
   message: z.string().min(1, { message: 'Please enter a message' }).trim(),
   'cf-turnstile-response': z.custom().refine(
-    async (val) => {
-      if (!val) return
+    async (token) => {
+      if (!token) return false
 
       const res = await fetch(`${env.NEXT_PUBLIC_URL}/api/turnstile`, {
         method: 'POST',
         body: JSON.stringify({
-          token: val,
+          token,
         }),
         headers: {
           'content-type': 'application/json',
@@ -29,7 +29,7 @@ export const contactSchema = z.object({
       return data.success
     },
     {
-      message: 'solve the challenge to send a message',
+      message: 'Solve the challenge to send a message',
     }
   ),
 })

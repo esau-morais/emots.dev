@@ -25,6 +25,7 @@ export const ContactForm = () => {
     if (!errors) {
       toast.success('Messsage sent!')
       formRef.current?.reset()
+    } else if (errors['cf-turnstile-response']) {
       turnstileRef.current?.reset()
     }
   }, [errors])
@@ -45,7 +46,11 @@ export const ContactForm = () => {
         <div className="flex w-full items-baseline justify-between leading-8">
           <legend id="email-field">E-mail</legend>
           {errors?.email?.length ? (
-            <small id="email-error" className="text-sm text-flamingo">
+            <small
+              id="email-error"
+              className="text-sm text-flamingo"
+              aria-live="polite"
+            >
               {errors?.email[0]}
             </small>
           ) : null}
@@ -69,7 +74,11 @@ export const ContactForm = () => {
         <div className="flex w-full items-baseline justify-between leading-8">
           <legend id="subject-field">Subject</legend>
           {errors?.subject?.length ? (
-            <small id="subject-error" className="text-sm text-flamingo">
+            <small
+              id="subject-error"
+              className="text-sm text-flamingo"
+              aria-live="polite"
+            >
               {errors.subject[0]}
             </small>
           ) : null}
@@ -94,7 +103,11 @@ export const ContactForm = () => {
         <div className="flex w-full items-baseline justify-between leading-8">
           <legend id="message-field">Message</legend>
           {errors?.message?.length ? (
-            <small id="message-error" className="text-sm text-flamingo">
+            <small
+              id="message-error"
+              className="text-sm text-flamingo"
+              aria-live="polite"
+            >
               {errors.message[0]}
             </small>
           ) : null}
