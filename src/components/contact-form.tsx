@@ -5,9 +5,6 @@ import { useFormState } from 'react-dom'
 import { toast } from 'react-hot-toast'
 
 import { sendMessage } from '@/lib/actions'
-import { env } from '@/lib/env'
-import type { TurnstileInstance } from '@marsidev/react-turnstile'
-import { Turnstile } from '@marsidev/react-turnstile'
 
 import { SubmitButton } from './submit-button'
 
@@ -17,7 +14,6 @@ const initialState = {
 
 export const ContactForm = () => {
   const formRef = useRef<HTMLFormElement>(null)
-  const turnstileRef = useRef<TurnstileInstance>(null)
   const [state, formAction] = useFormState(sendMessage, initialState)
   const errors = state?.error
 
@@ -25,23 +21,11 @@ export const ContactForm = () => {
     if (!errors) {
       toast.success('Messsage sent!')
       formRef.current?.reset()
-    } else if (errors['cf-turnstile-response']) {
-      turnstileRef.current?.reset()
     }
   }, [errors])
 
   return (
     <form ref={formRef} action={formAction} className="flex flex-col space-y-4">
-      {errors?.['cf-turnstile-response']?.length ? (
-        <div
-          role="alert"
-          className="flex-1 border border-flamingo p-2 text-sm text-flamingo"
-          aria-live="polite"
-        >
-          <p>{errors['cf-turnstile-response'][0]}</p>
-        </div>
-      ) : null}
-
       <fieldset className="grid border-l-2 border-surface0 pl-4">
         <div className="flex w-full items-baseline justify-between leading-8">
           <legend id="email-field">E-mail</legend>
@@ -124,17 +108,6 @@ export const ContactForm = () => {
           }
         />
       </fieldset>
-
-      <Turnstile
-        ref={turnstileRef}
-        className="!w-full !bg-base/80 md:!w-fit [&_iframe]:!w-full md:[&_iframe]:!w-fit"
-        options={{
-          appearance: 'execute',
-        }}
-        siteKey={env.NEXT_PUBLIC_SITE_KEY}
-        onError={() => turnstileRef.current?.reset()}
-        onExpire={() => turnstileRef.current?.reset()}
-      />
 
       <SubmitButton />
     </form>
