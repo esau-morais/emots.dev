@@ -3,11 +3,15 @@ import { z } from 'zod'
 export const contactSchema = z.object({
   email: z
     .string()
-    .min(1, { message: 'Please enter your email' })
-    .email({ message: 'Please provide a valid email' })
+    .min(1, { message: 'please enter your email' })
+    .email({ message: 'please provide a valid email' })
     .trim(),
-  subject: z.string().min(1, { message: 'Please enter a subject' }).trim(),
-  message: z.string().min(1, { message: 'Please enter a message' }).trim(),
+  subject: z.string().min(1, { message: 'please enter a subject' }).trim(),
+  message: z.string().min(1, { message: 'please enter a message' }).trim(),
+  _gotcha: z
+    .string()
+    .max(0, { message: 'gotcha! why are you trying to fill this field?' })
+    .optional(),
 })
 
 export type ContactValues = z.infer<typeof contactSchema>

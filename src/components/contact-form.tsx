@@ -26,6 +26,16 @@ export const ContactForm = () => {
 
   return (
     <form ref={formRef} action={formAction} className="flex flex-col space-y-4">
+      {errors?._gotcha?.length ? (
+        <div
+          role="alert"
+          className="flex-1 border border-flamingo p-2 text-sm text-flamingo"
+          aria-live="polite"
+        >
+          <p>{errors._gotcha[0]}</p>
+        </div>
+      ) : null}
+
       <fieldset className="grid border-l-2 border-surface0 pl-4">
         <div className="flex w-full items-baseline justify-between leading-8">
           <legend id="email-field">E-mail</legend>
@@ -108,6 +118,7 @@ export const ContactForm = () => {
           }
         />
       </fieldset>
+      <input type="hidden" name="_gotcha" />
 
       <SubmitButton />
     </form>
