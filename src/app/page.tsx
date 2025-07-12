@@ -12,7 +12,7 @@ const Home = () => {
         </h1>
 
         <p className="text-text">
-          {currentAge} y/o Front-End Engineer @ Atomos
+          {currentAge} y/o Front-End Engineer @ Brandx
         </p>
       </div>
 
@@ -23,7 +23,7 @@ const Home = () => {
         # Hello, there! I&apos;m Esaú [ee-saw]. I currently live in Brazil and
         I&apos;ve been learning more about web development since 2020 and my
         passion relies on building what people want. Besides that, I&apos;m a
-        freshman studying Software Engineering.
+        sophomore studying Software Engineering.
       </pre>
 
       <pre
