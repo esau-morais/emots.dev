@@ -22,6 +22,11 @@ const nextConfig = {
         destination: 'https://links.emots.dev',
         permanent: true,
       },
+      {
+        source: "/meet",
+        destination: "https://cal.com/emorais/appointment",
+        permanent: true,
+      },
     ]
   },
 }
