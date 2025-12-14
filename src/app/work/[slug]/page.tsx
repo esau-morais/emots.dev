@@ -54,7 +54,7 @@ const SingleWorkPage = async (props: Params) => {
 						<h2 className="mb-2 mt-8 text-xl font-bold">{children}</h2>
 					),
 					blockquote: ({ children }) => (
-						<blockquote className="my-4 border-l-4 border-rosewater bg-base p-4 font-medium italic leading-relaxed text-white">
+						<blockquote className="my-4 border-l-4 border-ctp-rosewater bg-base p-4 font-medium italic leading-relaxed text-white">
 							{children}
 						</blockquote>
 					),

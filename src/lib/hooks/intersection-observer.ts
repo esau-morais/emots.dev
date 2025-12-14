@@ -1,5 +1,5 @@
 import type { RefObject } from "react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Args extends IntersectionObserverInit {
 	freezeOnceVisible?: boolean;
@@ -18,13 +18,12 @@ export const useIntersectionObserver = (
 
 	const frozen = entry?.isIntersecting && freezeOnceVisible;
 
-	const updateEntry = useCallback(
-		([entry]: IntersectionObserverEntry[]): void => {
-			setEntry(entry);
-		},
-		[],
-	);
+	const updateEntry = ([entry]: IntersectionObserverEntry[]): void => {
+		setEntry(entry);
+	};
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies(elementRef?.current): ref is mutable and non-reactive
+	// biome-ignore lint/correctness/useExhaustiveDependencies(updateEntry): leave to compiler
 	useEffect(() => {
 		const node = elementRef?.current; // DOM Ref
 		const hasIOSupport = !!window.IntersectionObserver;
@@ -37,7 +36,7 @@ export const useIntersectionObserver = (
 		observer.observe(node);
 
 		return () => observer.disconnect();
-	}, [threshold, root, rootMargin, frozen, elementRef.current, updateEntry]);
+	}, [threshold, root, rootMargin, frozen]);
 
 	return entry;
 };

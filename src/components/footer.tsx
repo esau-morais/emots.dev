@@ -4,7 +4,7 @@ const FOOTER_ITEMS = [
 		label: "in",
 	},
 	{
-		path: "https://x.com/_3morais",
+		path: "https://x.com/mor3is_",
 		label: "𝕏",
 	},
 ] as const;

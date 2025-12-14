@@ -6,7 +6,7 @@ const Home = () => {
 	return (
 		<div className="mx-auto max-w-3xl [counter-reset:about]">
 			<div className="mb-6 pl-4 text-center text-ctp-overlay0 md:text-left">
-				<h1 className="text-xl font-bold tracking-tighter text-rosewater">
+				<h1 className="text-xl font-bold tracking-tighter text-ctp-rosewater">
 					Esaú Morais
 				</h1>
 
