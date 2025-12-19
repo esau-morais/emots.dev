@@ -15,19 +15,19 @@ const Home = () => {
 				</p>
 			</div>
 
-			<pre className="whitespace-normal border-l-2 border-transparent p-4 text-ctp-overlay0 transition-colors before:pr-4 before:[content:counter(about)]! before:[counter-increment:about]! hover:bg-ctp-crust focus:border-ctp-rosewater focus:bg-ctp-crust focus:outline-none">
+			<p className="font-mono whitespace-normal border-l-2 border-transparent p-4 text-ctp-overlay0 transition-colors before:pr-4 before:[content:counter(about)]! before:[counter-increment:about]! hover:bg-ctp-crust focus:border-ctp-rosewater focus:bg-ctp-crust focus:outline-none">
 				# Hello, there! I&apos;m Esaú [ee-saw]. I currently live in Brazil and
 				I&apos;ve been learning more about web development since 2020 and my
 				passion relies on building what people want. Besides that, I&apos;m a
 				sophomore studying Software Engineering.
-			</pre>
+			</p>
 
-			<pre className="whitespace-normal border-l-2 border-transparent p-4 text-ctp-overlay0 transition-colors before:pr-4 before:[content:counter(about)]! before:[counter-increment:about]! hover:bg-ctp-crust focus:border-ctp-rosewater focus:bg-ctp-crust focus:outline-none">
+			<p className="font-mono whitespace-normal border-l-2 border-transparent p-4 text-ctp-overlay0 transition-colors before:pr-4 before:[content:counter(about)]! before:[counter-increment:about]! hover:bg-ctp-crust focus:border-ctp-rosewater focus:bg-ctp-crust focus:outline-none">
 				# Beyond this, I&apos;m a musician since I was young and enjoy my
 				free-time watching live streams/k-dramas, working out, and more
-			</pre>
+			</p>
 
-			<pre className="group w-full whitespace-normal border-l-2 border-transparent p-4 text-ctp-overlay0 transition-colors before:pr-4 before:[content:counter(about)]! before:[counter-increment:about]! focus-within:border-ctp-rosewater focus-within:bg-ctp-crust hover:bg-ctp-crust">
+			<p className="font-mono group w-full whitespace-normal border-l-2 border-transparent p-4 text-ctp-overlay0 transition-colors before:pr-4 before:[content:counter(about)]! before:[counter-increment:about]! focus-within:border-ctp-rosewater focus-within:bg-ctp-crust hover:bg-ctp-crust">
 				<span># Checkout my </span>
 				<Link
 					className="group inline-flex items-center space-x-0.5 underline underline-offset-2 outline-none focus-visible:ring-2 focus-visible:ring-ctp-rosewater focus-visible:ring-offset-2 focus-visible:ring-offset-ctp-base"
@@ -39,7 +39,7 @@ const Home = () => {
 						size={20}
 					/>
 				</Link>
-			</pre>
+			</p>
 		</div>
 	);
 };

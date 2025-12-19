@@ -8,7 +8,7 @@ const NotFound = () => {
 			<h1>Not Found</h1>
 			<Link
 				className={cn(
-					"relative overflow-hidden rounded-md  bg-rosewater/90 p-2 text-black backdrop-blur-md",
+					"relative overflow-hidden rounded-md  bg-ctp-rosewater/90 p-2 text-black backdrop-blur-md",
 					"transition-all duration-500 hover:scale-95 active:scale-100",
 				)}
 				href="/"

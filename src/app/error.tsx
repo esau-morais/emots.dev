@@ -18,7 +18,7 @@ const ErrorPage = ({ error }: { error: Error }) => {
 			<p>Something went wrong. If the error persists, contact me.</p>
 			<button
 				type="button"
-				className="relative overflow-hidden bg-rosewater p-2 text-black transition-all duration-500 hover:scale-95 active:scale-100"
+				className="relative overflow-hidden bg-ctp-rosewater p-2 text-black transition-all duration-500 hover:scale-95 active:scale-100"
 				onClick={handleCopy}
 			>
 				Copy E-mail address
