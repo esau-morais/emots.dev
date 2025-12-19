@@ -9,5 +9,10 @@ export const env = createEnv({
 		// captcha
 		SECRET_KEY: z.string(),
 	},
-	experimental__runtimeEnv: {},
+	client: {
+		NEXT_PUBLIC_CURRENT_COMPANY: z.string().min(1),
+	},
+	experimental__runtimeEnv: {
+		NEXT_PUBLIC_CURRENT_COMPANY: process.env.NEXT_PUBLIC_CURRENT_COMPANY,
+	},
 });

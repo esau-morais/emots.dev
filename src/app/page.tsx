@@ -1,6 +1,6 @@
 import { IconArrowUpRight } from "@tabler/icons-react";
 import Link from "next/link";
-import { currentAge } from "@/utils/date";
+import { currentAge, currentCompany } from "@/utils/date";
 
 const Home = () => {
 	return (
@@ -11,7 +11,7 @@ const Home = () => {
 				</h1>
 
 				<p className="text-text">
-					{currentAge} y/o Front-End Engineer @ Brandx
+					{currentAge} y/o Front-End Engineer @ {currentCompany}
 				</p>
 			</div>
 
@@ -19,7 +19,7 @@ const Home = () => {
 				# Hello, there! I&apos;m Esaú [ee-saw]. I currently live in Brazil and
 				I&apos;ve been learning more about web development since 2020 and my
 				passion relies on building what people want. Besides that, I&apos;m a
-				sophomore studying Software Engineering.
+				junior studying Software Engineering.
 			</p>
 
 			<p className="font-mono whitespace-normal border-l-2 border-transparent p-4 text-ctp-overlay0 transition-colors before:pr-4 before:[content:counter(about)]! before:[counter-increment:about]! hover:bg-ctp-crust focus:border-ctp-rosewater focus:bg-ctp-crust focus:outline-none">
