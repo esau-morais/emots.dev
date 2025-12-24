@@ -1,8 +1,12 @@
 import { IconArrowUpRight } from "@tabler/icons-react";
 import Link from "next/link";
+import { GitHubContributions } from "@/components/github-contributions";
+import { getGitHubContributions } from "@/lib/github-contributions";
 import { currentAge, currentCompany } from "@/utils/date";
 
-const Home = () => {
+const Home = async () => {
+	const contributions = await getGitHubContributions("esau-morais");
+
 	return (
 		<div className="mx-auto max-w-3xl [counter-reset:about]">
 			<div className="mb-6 pl-4 text-center text-ctp-overlay0 md:text-left">
@@ -40,6 +44,8 @@ const Home = () => {
 					/>
 				</Link>
 			</p>
+
+			<GitHubContributions data={contributions} />
 		</div>
 	);
 };
