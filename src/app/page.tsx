@@ -1,5 +1,6 @@
 import { IconArrowUpRight } from "@tabler/icons-react";
 import Link from "next/link";
+import { DecryptText } from "@/components/decrypt-text";
 import { GitHubContributions } from "@/components/github-contributions";
 import { getGitHubContributions } from "@/lib/github-contributions";
 import { currentAge, currentCompany } from "@/utils/date";
@@ -11,11 +12,34 @@ const Home = async () => {
 		<div className="mx-auto max-w-3xl [counter-reset:about]">
 			<div className="mb-6 pl-4 text-center text-ctp-overlay0 md:text-left">
 				<h1 className="text-xl font-bold tracking-tighter text-ctp-rosewater">
-					Esaú Morais
+					<DecryptText text="Esaú Morais" autoStart speed={40} />
 				</h1>
 
-				<p className="text-text">
-					{currentAge} y/o Front-End Engineer @ {currentCompany}
+				<p className="text-ctp-text">
+					{currentAge} y/o Front-End Engineer @{" "}
+					{currentCompany === "?" ? (
+						<a
+							className="group inline-block whitespace-nowrap"
+							href="https://emots.dev/meet"
+						>
+							<span className="group-hover:hidden">{currentCompany}</span>
+							<DecryptText
+								text="HIRE ME"
+								className="hidden cursor-pointer text-ctp-rosewater group-hover:inline"
+								autoStart={false}
+								triggerOnHover={true}
+								speed={25}
+							/>
+						</a>
+					) : (
+						<DecryptText
+							text={currentCompany}
+							className="inline-block cursor-pointer"
+							autoStart={false}
+							triggerOnHover={true}
+							speed={25}
+						/>
+					)}
 				</p>
 			</div>
 
