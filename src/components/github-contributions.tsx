@@ -20,7 +20,7 @@ export const GitHubContributions = ({ data }: GitHubContributionsProps) => {
 	}
 
 	return (
-		<ContributionGraph data={data} className="mt-8">
+		<ContributionGraph data={data} className="mx-auto mt-8">
 			<ContributionGraphCalendar>
 				{({ activity, dayIndex, weekIndex }) => (
 					<ContributionGraphBlock

@@ -242,7 +242,7 @@ export const ContributionGraphCalendar = ({
 	return (
 		<div
 			className={cn(
-				"scrollbar max-w-full overflow-y-hidden overflow-x-auto md:w-max md:max-w-none",
+				"self-center scrollbar max-w-full overflow-y-hidden overflow-x-auto lg:w-max lg:max-w-none",
 				className,
 			)}
 			{...props}
@@ -285,7 +285,7 @@ export const ContributionGraphFooter = ({
 }: HTMLAttributes<HTMLDivElement>) => (
 	<div
 		className={cn(
-			"flex flex-wrap gap-1 whitespace-nowrap sm:gap-x-4",
+			"px-4 flex flex-wrap gap-1 whitespace-nowrap sm:gap-x-4",
 			className,
 		)}
 		{...props}
