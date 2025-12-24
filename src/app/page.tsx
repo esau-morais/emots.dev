@@ -19,13 +19,19 @@ const Home = async () => {
 					{currentAge} y/o Front-End Engineer @{" "}
 					{currentCompany === "?" ? (
 						<a
-							className="group inline-block whitespace-nowrap"
+							className="group relative inline-block whitespace-nowrap"
 							href="https://emots.dev/meet"
+							aria-label="Hire me"
 						>
-							<span className="group-hover:hidden">{currentCompany}</span>
+							<span
+								className="transition-opacity duration-200 group-hover:opacity-0"
+								aria-hidden="true"
+							>
+								{currentCompany}
+							</span>
 							<DecryptText
 								text="HIRE ME"
-								className="hidden cursor-pointer text-ctp-rosewater group-hover:inline"
+								className="absolute left-0 top-0 hidden cursor-pointer text-ctp-rosewater opacity-0 transition-opacity duration-200 group-hover:inline group-hover:opacity-100"
 								autoStart={false}
 								triggerOnHover={true}
 								speed={25}
