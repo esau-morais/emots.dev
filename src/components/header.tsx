@@ -23,7 +23,7 @@ export const Header = () => {
 				{NAV_ITEMS.map((item) => (
 					<Link
 						key={item.label}
-						className="flex items-center border-ctp-surface0 px-4 text-text last:border-r! hover:bg-ctp-crust focus:bg-ctp-crust focus:outline-none data-[active=true]:bg-ctp-crust"
+						className="flex items-center border-ctp-surface0 px-4 text-ctp-text last:border-r! hover:bg-ctp-crust focus:bg-ctp-crust focus:outline-none data-[active=true]:bg-ctp-crust"
 						href={item.path}
 						data-active={path === item.path}
 					>

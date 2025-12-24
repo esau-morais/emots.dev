@@ -8,6 +8,8 @@ export const env = createEnv({
 		DATABASE_ID: z.string().regex(/^([0-9a-fA-F]{32})$/),
 		// captcha
 		SECRET_KEY: z.string(),
+		// github contribution api
+		GITHUB_TOKEN: z.string(),
 	},
 	client: {
 		NEXT_PUBLIC_CURRENT_COMPANY: z.string().min(1),
