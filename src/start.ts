@@ -41,10 +41,10 @@ const redirectsMiddleware = createMiddleware().server(
 const contentNegotiationMiddleware = createMiddleware().server(
 	async ({ request, next }) => {
 		const accept = request.headers.get("accept") || "";
-		const wantsMarkdown =
-			accept.includes("text/markdown") || accept.includes("text/plain");
+		const wantsHtml = accept.includes("text/html");
+		const wantsMarkdown = accept.includes("text/markdown");
 
-		if (!wantsMarkdown) {
+		if (!wantsMarkdown || wantsHtml) {
 			return next();
 		}
 
