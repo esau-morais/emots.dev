@@ -4,6 +4,7 @@ import mdx from "@mdx-js/rollup";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
@@ -32,6 +33,7 @@ export default defineConfig({
 			],
 		}),
 		tanstackStart({ srcDirectory: "src", router: { routesDirectory: "app" } }),
+		nitro({ preset: "vercel" }),
 		viteReact({ babel: { plugins: ["babel-plugin-react-compiler"] } }),
 	],
 });
