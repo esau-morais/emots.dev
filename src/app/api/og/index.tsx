@@ -1,21 +1,30 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { initWasm, Resvg } from "@resvg/resvg-wasm";
 import { createFileRoute } from "@tanstack/react-router";
-import { ImageResponse } from "@vercel/og";
+import satori from "satori";
 import { BASE_URL } from "@/utils/consts";
+
+let wasmInitialized = false;
 
 export const Route = createFileRoute("/api/og/")({
 	server: {
 		handlers: {
 			GET: async ({ request }) => {
 				const { searchParams } = new URL(request.url);
-				const workTitle = searchParams.get("title");
+				const workTitle = searchParams.get("title") || "emots.dev";
 
-				const fontData = await readFile(
-					join(process.cwd(), "public/JetBrainsMono-Regular.ttf"),
+				const fontResponse = await fetch(
+					`${BASE_URL}/JetBrainsMono-Regular.ttf`,
 				);
+				const fontData = await fontResponse.arrayBuffer();
 
-				return new ImageResponse(
+				if (!wasmInitialized) {
+					await initWasm(
+						fetch("https://unpkg.com/@resvg/resvg-wasm@2.6.2/index_bg.wasm"),
+					);
+					wasmInitialized = true;
+				}
+
+				const svg = await satori(
 					<div
 						style={{
 							height: "100%",
@@ -59,6 +68,19 @@ export const Route = createFileRoute("/api/og/")({
 						],
 					},
 				);
+
+				const resvg = new Resvg(svg, {
+					fitTo: { mode: "width", value: 1920 },
+				});
+				const pngData = resvg.render().asPng();
+				const pngBuffer = Buffer.from(pngData);
+
+				return new Response(pngBuffer, {
+					headers: {
+						"Content-Type": "image/png",
+						"Cache-Control": "public, max-age=31536000, immutable",
+					},
+				});
 			},
 		},
 	},
