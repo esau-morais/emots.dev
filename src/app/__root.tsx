@@ -100,7 +100,7 @@ function RootShell({ children }: { children: ReactNode }) {
 				{children}
 				<Analytics />
 				<ConsoleGreeting />
-				<TanStackDevtools />
+				{import.meta.env.DEV && <TanStackDevtools />}
 				<Scripts />
 			</body>
 		</html>
