@@ -56,7 +56,7 @@ export const Demo = ({
 			<div
 				data-narration-skip
 				className={cn(
-					"relative my-8 min-h-75 border border-gray-800 bg-gray-950",
+					"relative my-8 min-h-60 border border-gray-800 bg-gray-950 sm:min-h-75",
 					className,
 				)}
 			>
@@ -116,7 +116,7 @@ export const Demo = ({
 				</div>
 				<div
 					className={cn(
-						"relative flex min-h-70 items-center justify-center p-8",
+						"relative flex min-h-56 items-center justify-center p-4 sm:min-h-70 sm:p-8",
 						debugMode && "demo-debug-grid",
 					)}
 				>

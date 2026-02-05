@@ -21,6 +21,7 @@ export const LazyVideo = ({ src }: { src: string }) => {
 			autoPlay
 			loop
 			muted
+			playsInline
 		>
 			<track kind="captions" />
 		</video>

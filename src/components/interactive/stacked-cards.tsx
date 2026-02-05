@@ -66,7 +66,7 @@ export const StackedCards = () => {
 					id="stacked-cards-viewport"
 					ref={scrollRef}
 					onScroll={handleScroll}
-					className="relative h-64 w-64 overflow-y-auto border border-gray-800 bg-black"
+					className="relative h-48 w-48 overflow-y-auto border border-gray-800 bg-black sm:h-64 sm:w-64"
 					style={{
 						scrollbarWidth: "thin",
 						scrollbarColor: "#404040 #171717",

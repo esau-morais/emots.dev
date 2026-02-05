@@ -115,11 +115,17 @@ export function Video({ src, poster, alt }: VideoProps) {
 
 	const toggleFullscreen = useCallback(() => {
 		const container = containerRef.current;
-		if (!container) return;
+		const video = videoRef.current;
+		if (!container || !video) return;
+
 		if (document.fullscreenElement) {
 			document.exitFullscreen();
-		} else {
+		} else if (container.requestFullscreen) {
 			container.requestFullscreen();
+		} else if ("webkitEnterFullscreen" in video) {
+			(
+				video as HTMLVideoElement & { webkitEnterFullscreen: () => void }
+			).webkitEnterFullscreen();
 		}
 	}, []);
 
@@ -280,8 +286,8 @@ export function Video({ src, poster, alt }: VideoProps) {
 						/>
 					</div>
 
-					<div className="flex h-10 items-center justify-between px-3">
-						<div className="flex items-center gap-4">
+					<div className="flex h-9 items-center justify-between px-2 sm:h-10 sm:px-3">
+						<div className="flex items-center gap-2 sm:gap-4">
 							<button
 								type="button"
 								onClick={togglePlay}
@@ -314,7 +320,7 @@ export function Video({ src, poster, alt }: VideoProps) {
 									setVolume(Number(e.target.value));
 									if (isMuted) setIsMuted(false);
 								}}
-								className="h-1 w-16 cursor-pointer appearance-none bg-gray-800 accent-white focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white"
+								className="hidden h-1 w-16 cursor-pointer appearance-none bg-gray-800 accent-white focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 sm:block [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white"
 								aria-label="Volume"
 							/>
 
@@ -323,11 +329,11 @@ export function Video({ src, poster, alt }: VideoProps) {
 							</span>
 						</div>
 
-						<div className="flex items-center gap-4">
+						<div className="flex items-center gap-2 sm:gap-4">
 							<select
 								value={playbackRate}
 								onChange={(e) => setPlaybackRate(Number(e.target.value))}
-								className="w-10 appearance-none bg-transparent text-center text-sm text-gray-500 hover:text-white focus-visible:text-white focus:outline-none cursor-pointer"
+								className="hidden w-10 appearance-none bg-transparent text-center text-sm text-gray-500 hover:text-white focus-visible:text-white focus:outline-none cursor-pointer sm:block"
 								aria-label="Playback speed"
 							>
 								{PLAYBACK_RATES.map((rate) => (

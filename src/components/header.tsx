@@ -46,7 +46,7 @@ export const Header = () => {
 							linkRefs.current[i] = el;
 						}}
 						className={cn(
-							"relative z-10 flex items-center px-4 text-white focus-visible:outline-none",
+							"relative z-10 flex touch-manipulation items-center px-4 text-white focus-visible:outline-none",
 							i !== activeIndex &&
 								"hover:bg-gray-900/50 focus-visible:bg-gray-900/50",
 						)}

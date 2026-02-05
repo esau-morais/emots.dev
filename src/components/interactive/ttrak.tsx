@@ -75,7 +75,8 @@ const TABS: { key: TabFilter; label: string }[] = [
 	{ key: "done", label: "Done" },
 ];
 
-const DEFAULT_FOOTER =
+const DEFAULT_FOOTER_MOBILE = "j/k:nav space:toggle s:sync";
+const DEFAULT_FOOTER_DESKTOP =
 	"/:search  j/k:nav  space:status  s:sync  1-4:filter  q:quit";
 
 const cycleStatus = (status: TaskStatus): TaskStatus => {
@@ -247,8 +248,8 @@ export const Ttrak = () => {
 					</span>
 				</div>
 
-				<div className="flex items-center justify-between border-b border-gray-800 px-4 py-2">
-					<div className="flex gap-6">
+				<div className="flex items-center justify-between border-b border-gray-800 px-3 py-2 sm:px-4">
+					<div className="flex gap-3 sm:gap-6">
 						{TABS.map((tab) => {
 							const isActive = activeTab === tab.key;
 							return (
@@ -349,7 +350,10 @@ export const Ttrak = () => {
 							{footerMsg}
 						</motion.span>
 					) : (
-						<span>{DEFAULT_FOOTER}</span>
+						<>
+							<span className="sm:hidden">{DEFAULT_FOOTER_MOBILE}</span>
+							<span className="hidden sm:inline">{DEFAULT_FOOTER_DESKTOP}</span>
+						</>
 					)}
 				</div>
 			</div>

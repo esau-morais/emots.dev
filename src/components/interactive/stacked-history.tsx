@@ -65,7 +65,7 @@ export const StackedHistory = () => {
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					transition={{ duration: 0.2 }}
-					className="flex w-full items-center justify-center gap-16"
+					className="hidden w-full items-center justify-center gap-16 sm:flex"
 				>
 					<div
 						className="relative shrink-0"
@@ -162,7 +162,7 @@ export const StackedHistory = () => {
 											...springConfig,
 											delay: index * (slowMode ? 0.35 : 0.05),
 										}}
-										className="absolute w-64 border border-gray-800 bg-gray-950 px-6 py-4 text-left text-gray-400 transition-colors hover:border-gray-700 hover:text-white focus-visible:border-gray-700 focus-visible:text-white focus:outline-none"
+										className="absolute w-48 border border-gray-800 bg-gray-950 px-4 py-3 text-left text-gray-400 transition-colors hover:border-gray-700 hover:text-white focus-visible:border-gray-700 focus-visible:text-white focus:outline-none sm:w-64 sm:px-6 sm:py-4"
 										style={{
 											transformStyle: "preserve-3d",
 											zIndex: items.length - index,

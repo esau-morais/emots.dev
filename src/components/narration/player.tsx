@@ -141,14 +141,19 @@ export function NarrationPlayer() {
 		return () => cancelAnimationFrame(rafId);
 	}, [isPlaying, setCurrentTime]);
 
-	const skip = useCallback((seconds: number) => {
-		const audio = audioRef.current;
-		if (!audio) return;
-		audio.currentTime = Math.max(
-			0,
-			Math.min(audio.duration, audio.currentTime + seconds),
-		);
-	}, []);
+	const skip = useCallback(
+		(seconds: number) => {
+			const audio = audioRef.current;
+			if (!audio) return;
+			const newTime = Math.max(
+				0,
+				Math.min(audio.duration, audio.currentTime + seconds),
+			);
+			audio.currentTime = newTime;
+			setCurrentTime(newTime);
+		},
+		[setCurrentTime],
+	);
 
 	useEffect(() => {
 		if (!("mediaSession" in navigator) || !metadata) return;
@@ -292,6 +297,7 @@ export function NarrationPlayer() {
 					? "translate-y-0"
 					: "translate-y-full",
 			)}
+			style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
 		>
 			{/* biome-ignore lint/a11y/useMediaCaption: audio narration doesn't require captions */}
 			{audioUrl && <audio ref={audioRef} src={audioUrl} preload="auto" />}
@@ -322,8 +328,8 @@ export function NarrationPlayer() {
 				/>
 			</div>
 
-			<div className="flex h-14 items-center justify-between px-4">
-				<div className="flex items-center gap-4">
+			<div className="flex h-12 items-center justify-between px-3 sm:h-14 sm:px-4">
+				<div className="flex items-center gap-2 sm:gap-4">
 					<button
 						type="button"
 						onClick={() => skip(-15)}
@@ -391,7 +397,7 @@ export function NarrationPlayer() {
 					<span className="hidden sm:inline">follow along</span>
 				</button>
 
-				<div className="flex items-center gap-4">
+				<div className="flex items-center gap-2 sm:gap-4">
 					<button
 						type="button"
 						onClick={() => setMuted(!isMuted)}
@@ -415,14 +421,14 @@ export function NarrationPlayer() {
 							setVolume(Number(e.target.value));
 							if (isMuted) setMuted(false);
 						}}
-						className="h-1 w-16 cursor-pointer appearance-none bg-gray-800 accent-white focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white"
+						className="hidden h-1 w-16 cursor-pointer appearance-none bg-gray-800 accent-white focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 sm:block [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white"
 						aria-label="Volume"
 					/>
 
 					<select
 						value={playbackRate}
 						onChange={(e) => setPlaybackRate(Number(e.target.value))}
-						className="appearance-none bg-transparent text-sm text-gray-500 hover:text-white focus-visible:text-white focus:outline-none cursor-pointer"
+						className="hidden appearance-none bg-transparent text-sm text-gray-500 hover:text-white focus-visible:text-white focus:outline-none cursor-pointer sm:block"
 						aria-label="Playback speed"
 					>
 						{PLAYBACK_RATES.map((rate) => (

@@ -129,7 +129,7 @@ export const GlowingCards = () => {
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					transition={{ duration: 0.2 }}
-					className="flex w-full items-center justify-center"
+					className="hidden w-full items-center justify-center sm:flex"
 				>
 					<GlowingCardDebug />
 				</motion.div>

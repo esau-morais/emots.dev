@@ -242,14 +242,14 @@ export const Spectrogram = () => {
 
 	return (
 		<div className="relative w-full max-w-md">
-			<div className="border border-gray-800 bg-gray-950">
+			<div className="border border-gray-800 bg-gray-950 overflow-x-auto sm:overflow-visible">
 				{peakFrequency !== null && (
-					<div className="absolute right-3 top-3 bg-gray-950/80 px-2 py-1 font-mono text-xs tabular-nums text-gray-500 backdrop-blur-sm">
+					<div className="absolute right-3 top-3 z-10 bg-gray-950/80 px-2 py-1 font-mono text-xs tabular-nums text-gray-500 backdrop-blur-sm">
 						peak: {peakFrequency} Hz
 					</div>
 				)}
 
-				<div className="flex items-center justify-center">
+				<div className="flex min-w-[400px] items-center justify-center">
 					<canvas
 						ref={canvasRef}
 						width={CANVAS_WIDTH}
@@ -259,7 +259,7 @@ export const Spectrogram = () => {
 				</div>
 
 				<div
-					className="mx-auto flex justify-between py-1.5 font-mono text-[10px] text-gray-600"
+					className="mx-auto flex min-w-[400px] justify-between py-1.5 font-mono text-[10px] text-gray-600"
 					style={{ width: CANVAS_WIDTH }}
 				>
 					{FREQUENCY_LABELS.map((label) => (

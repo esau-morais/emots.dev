@@ -81,7 +81,7 @@ export function BlurImage({ src, alt }: { src: string; alt: string }) {
 								animate={{ backgroundColor: "rgba(0, 0, 0, 0.9)" }}
 								exit={{ backgroundColor: "rgba(0, 0, 0, 0)" }}
 								transition={TRANSITION}
-								className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center p-8"
+								className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center overscroll-contain p-4 sm:p-8"
 								onClick={close}
 								role="dialog"
 								aria-modal="true"

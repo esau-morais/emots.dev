@@ -13,7 +13,6 @@ import { Analytics } from "@vercel/analytics/react";
 import type { ReactNode } from "react";
 import { ConsoleGreeting } from "@/components/console-greeting";
 import { CrashReportButton } from "@/components/crash-report-button";
-import { CustomScrollbar } from "@/components/custom-scrollbar";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { NarrationProvider } from "@/components/narration";
@@ -96,11 +95,9 @@ function RootShell({ children }: { children: ReactNode }) {
 				className="relative min-h-dvh w-full overflow-x-hidden bg-black selection:bg-gray-800 selection:text-white text-white"
 				suppressHydrationWarning
 			>
-				<CustomScrollbar />
 				{children}
 				<Analytics />
 				<ConsoleGreeting />
-				{import.meta.env.DEV && <TanStackDevtools />}
 				<Scripts />
 			</body>
 		</html>
