@@ -136,7 +136,7 @@ export const mdxComponents: MDXComponents = {
 	strong: ({ children }) => (
 		<strong className="font-medium text-white">{children}</strong>
 	),
-	em: ({ children }) => <em className="italic text-gray-300">{children}</em>,
+	em: ({ children }) => <em className="italic text-gray-400">{children}</em>,
 	img: ({ src, alt }) => <BlurImage src={src ?? ""} alt={alt ?? ""} />,
 	Demo,
 	LinkEmbed,

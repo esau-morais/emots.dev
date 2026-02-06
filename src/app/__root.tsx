@@ -20,6 +20,8 @@ import { NotFoundPage } from "@/components/not-found";
 import { SoundProvider } from "@/components/sound-provider";
 import { SoundToggle } from "@/components/sound-toggle";
 import { GhostAnimationProvider } from "@/contexts/ghost-animation";
+import { MediaCoordinatorProvider } from "@/contexts/media-coordinator";
+import { ThemeProvider } from "@/contexts/theme";
 import { cn } from "@/utils/classNames";
 import { description, ogImage, title, url } from "@/utils/consts";
 import appCss from "./globals.css?url";
@@ -87,7 +89,11 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: ReactNode }) {
 	return (
-		<html lang="en" className="font-mono hide-scrollbar">
+		<html
+			lang="en"
+			className="font-mono hide-scrollbar"
+			suppressHydrationWarning
+		>
 			<head>
 				<HeadContent />
 			</head>
@@ -113,25 +119,29 @@ function RootComponent() {
 			>
 				Skip to content
 			</a>
-			<SoundProvider>
-				<GhostAnimationProvider>
-					<NarrationProvider>
-						<div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-4 md:px-8">
-							<Header />
-							<main
-								id="main-content"
-								className="my-20 min-h-[calc(100dvh-80px-160px)]"
-							>
-								<Outlet />
-							</main>
-						</div>
-						<Footer>
-							<span>emots.dev</span>
-							<SoundToggle />
-						</Footer>
-					</NarrationProvider>
-				</GhostAnimationProvider>
-			</SoundProvider>
+			<ThemeProvider>
+				<MediaCoordinatorProvider>
+					<SoundProvider>
+						<GhostAnimationProvider>
+							<NarrationProvider>
+								<div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-4 md:px-8">
+									<Header />
+									<main
+										id="main-content"
+										className="my-20 min-h-[calc(100dvh-80px-160px)]"
+									>
+										<Outlet />
+									</main>
+								</div>
+								<Footer>
+									<span>emots.dev</span>
+									<SoundToggle />
+								</Footer>
+							</NarrationProvider>
+						</GhostAnimationProvider>
+					</SoundProvider>
+				</MediaCoordinatorProvider>
+			</ThemeProvider>
 		</>
 	);
 }

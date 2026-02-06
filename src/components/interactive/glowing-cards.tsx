@@ -61,9 +61,9 @@ const GlowingCardDebug = () => {
 								borderStyle: layer.name === "content" ? "solid" : "dashed",
 								background:
 									layer.name === "::before"
-										? `radial-gradient(150px circle at ${mousePos.x - 60}px ${mousePos.y - 60}px, rgba(255,255,255,0.1), transparent 60%)`
+										? `radial-gradient(150px circle at ${mousePos.x - 60}px ${mousePos.y - 60}px, var(--highlight-medium), transparent 60%)`
 										: layer.name === "::after"
-											? `radial-gradient(120px circle at ${mousePos.x - 60}px ${mousePos.y - 60}px, rgba(255,255,255,0.3), transparent 60%)`
+											? `radial-gradient(120px circle at ${mousePos.x - 60}px ${mousePos.y - 60}px, var(--highlight-strong), transparent 60%)`
 											: "var(--color-gray-950)",
 							}}
 						>

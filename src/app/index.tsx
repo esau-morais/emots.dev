@@ -110,14 +110,14 @@ function Home() {
 						{SOCIAL_LINKS.map((link) => (
 							<li key={link.label}>
 								<a
-									className="group flex items-center gap-2.5 text-gray-500 focus:outline-none focus-visible:text-gray-300 transition-colors hover:text-white"
+									className="group flex items-center gap-2.5 text-gray-500 focus:outline-none focus-visible:text-gray-400 transition-colors hover:text-white"
 									href={link.href}
 									target="_blank"
 									rel="noopener noreferrer"
 								>
 									<link.Icon
 										size={16}
-										className="shrink-0 text-gray-600 group-focus-visible:text-gray-300 transition-colors group-hover:text-white"
+										className="shrink-0 text-gray-600 group-focus-visible:text-gray-400 transition-colors group-hover:text-white"
 									/>
 									{link.label}
 									<ArrowUpRightIcon
@@ -186,17 +186,32 @@ function Home() {
 										className="absolute inset-0 h-full w-full object-cover opacity-60 grayscale transition-[opacity,filter,transform] duration-300 ease-out group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105 group-focus-visible:opacity-100 group-focus-visible:grayscale-0 group-focus-visible:scale-105 motion-reduce:transition-none"
 									/>
 								)}
-								<div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/80 via-black/50 to-transparent p-4 pt-12">
+								<div
+									className="absolute inset-x-0 bottom-0 p-4 pt-12"
+									style={{
+										background:
+											"linear-gradient(to top, oklch(0% 0 0 / 0.8), oklch(0% 0 0 / 0.5) 50%, transparent)",
+									}}
+								>
 									<div className="flex items-end justify-between gap-2">
 										<div className="min-w-0">
-											<h3 className="font-medium text-white">{work.title}</h3>
-											<p className="mt-0.5 line-clamp-1 text-sm text-gray-400">
+											<h3
+												className="font-medium"
+												style={{ color: "oklch(0.9851 0 0)" }}
+											>
+												{work.title}
+											</h3>
+											<p
+												className="mt-0.5 line-clamp-1 text-sm"
+												style={{ color: "oklch(71.5% 0 0)" }}
+											>
 												{work.description}
 											</p>
 										</div>
 										<ArrowUpRightIcon
 											size={16}
-											className="shrink-0 text-gray-500 opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+											className="shrink-0 opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+											style={{ color: "oklch(62% 0 0)" }}
 											aria-hidden="true"
 										/>
 									</div>

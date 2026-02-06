@@ -236,7 +236,7 @@ export const Ttrak = () => {
 		<div className="w-full max-w-lg font-mono text-sm select-none">
 			<div className="border border-gray-800 bg-gray-950 overflow-hidden relative">
 				<div className="flex items-center justify-between border-b border-gray-800 px-4 py-2">
-					<span className="text-gray-300 font-medium">TTRAK</span>
+					<span className="text-gray-400 font-medium">TTRAK</span>
 					<span className="text-gray-500">
 						{filteredCount}/{totalCount} tasks
 					</span>
@@ -254,9 +254,7 @@ export const Ttrak = () => {
 							const isActive = activeTab === tab.key;
 							return (
 								<div key={tab.key} className="relative">
-									<span
-										className={isActive ? "text-gray-200" : "text-gray-600"}
-									>
+									<span className={isActive ? "text-white" : "text-gray-600"}>
 										{tab.label}
 									</span>
 									{isActive ? (
@@ -290,7 +288,7 @@ export const Ttrak = () => {
 								task.status === "done"
 									? "text-gray-400"
 									: task.status === "inProgress"
-										? "text-gray-300"
+										? "text-gray-400"
 										: "text-gray-600";
 
 							return (
@@ -311,7 +309,7 @@ export const Ttrak = () => {
 									<span
 										className={cn(
 											"flex-1 truncate",
-											isSelected && "text-gray-100",
+											isSelected && "text-white",
 										)}
 									>
 										{task.title}

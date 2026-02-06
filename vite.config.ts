@@ -29,7 +29,13 @@ export default defineConfig({
 			remarkPlugins: [remarkGfm, remarkFrontmatter, remarkMdxFrontmatter],
 			rehypePlugins: [
 				rehypeSlug,
-				[rehypePrettyCode, { theme: "vesper", keepBackground: false }],
+				[
+					rehypePrettyCode,
+					{
+						theme: { dark: "vesper", light: "github-light" },
+						keepBackground: false,
+					},
+				],
 			],
 		}),
 		tanstackStart({ srcDirectory: "src", router: { routesDirectory: "app" } }),

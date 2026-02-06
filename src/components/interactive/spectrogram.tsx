@@ -50,9 +50,9 @@ export const Spectrogram = () => {
 
 	const drawBars = useCallback(
 		(ctx: CanvasRenderingContext2D, peakBarIndex: number | null) => {
-			ctx.fillStyle = "rgb(9, 9, 11)";
-			ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+			ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
+			const isLight = document.documentElement.classList.contains("light");
 			const barWidth = CANVAS_WIDTH / BAR_COUNT - 1;
 			const bars = displayedBarsRef.current;
 
@@ -61,11 +61,13 @@ export const Spectrogram = () => {
 				const barHeight = (value / 255) * CANVAS_HEIGHT;
 
 				const isPeakBar = peakBarIndex !== null && i === peakBarIndex;
-				const intensity = Math.floor(40 + (value / 255) * 120);
 
 				if (isPeakBar) {
 					ctx.fillStyle = `rgb(${Math.floor(200 + (value / 255) * 55)}, ${Math.floor(120 + (value / 255) * 60)}, 50)`;
 				} else {
+					const intensity = isLight
+						? Math.floor(180 - (value / 255) * 140)
+						: Math.floor(40 + (value / 255) * 120);
 					ctx.fillStyle = `rgb(${intensity}, ${intensity}, ${intensity})`;
 				}
 
@@ -254,6 +256,7 @@ export const Spectrogram = () => {
 						ref={canvasRef}
 						width={CANVAS_WIDTH}
 						height={CANVAS_HEIGHT}
+						className="block"
 						aria-label={`Frequency spectrogram. Peak: ${peakFrequency ?? "none"} Hz`}
 					/>
 				</div>

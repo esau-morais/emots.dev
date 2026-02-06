@@ -8,7 +8,8 @@ import {
 	SpeakerLowIcon,
 	SpeakerSlashIcon,
 } from "@phosphor-icons/react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useMediaSource } from "@/contexts/media-coordinator";
 import { cn } from "@/utils/classNames";
 
 interface VideoProps {
@@ -30,6 +31,7 @@ export function Video({ src, poster, alt }: VideoProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const progressRef = useRef<HTMLDivElement>(null);
+	const instanceId = useId();
 
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [currentTime, setCurrentTime] = useState(0);
@@ -39,6 +41,11 @@ export function Video({ src, poster, alt }: VideoProps) {
 	const [volume, setVolume] = useState(1);
 	const [isMuted, setIsMuted] = useState(false);
 	const [playbackRate, setPlaybackRate] = useState(1);
+
+	const { requestPlay: requestMediaPlay } = useMediaSource(
+		`video-${instanceId}`,
+		useCallback(() => videoRef.current?.pause(), []),
+	);
 
 	useEffect(() => {
 		const video = videoRef.current;
@@ -107,11 +114,12 @@ export function Video({ src, poster, alt }: VideoProps) {
 		const video = videoRef.current;
 		if (!video) return;
 		if (video.paused) {
+			requestMediaPlay();
 			video.play().catch(() => setIsPlaying(false));
 		} else {
 			video.pause();
 		}
-	}, []);
+	}, [requestMediaPlay]);
 
 	const toggleFullscreen = useCallback(() => {
 		const container = containerRef.current;
@@ -225,7 +233,7 @@ export function Video({ src, poster, alt }: VideoProps) {
 		<figure className="my-6" data-narration-skip>
 			<section
 				ref={containerRef}
-				className="group relative border border-gray-800 bg-black aspect-video overflow-hidden focus:outline-none"
+				className="group relative border border-gray-800 bg-gray-950 aspect-video overflow-hidden focus:outline-none"
 				onKeyDown={handleKeyDown}
 				tabIndex={0}
 				aria-label={alt ?? "Video player"}
@@ -238,25 +246,25 @@ export function Video({ src, poster, alt }: VideoProps) {
 					preload="metadata"
 					playsInline
 					onClick={togglePlay}
-					className="absolute inset-0 size-full object-contain cursor-pointer"
+					className="object-cover absolute inset-0 size-full object-contain cursor-pointer"
 				/>
 
 				{showOverlay && (
 					<button
 						type="button"
 						onClick={togglePlay}
-						className="absolute inset-0 z-10 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+						className="absolute inset-0 z-10 flex items-center justify-center bg-gray-950/50 backdrop-blur-sm"
 						aria-label="Play video"
 					>
-						<span className="flex size-16 items-center justify-center bg-white/10 backdrop-blur-md transition-transform hover:scale-105 active:scale-95">
-							<PlayIcon size={32} weight="fill" className="text-white" />
+						<span className="flex size-16 items-center justify-center bg-white backdrop-blur-md transition-transform hover:scale-105 active:scale-95">
+							<PlayIcon size={32} weight="fill" className="text-black" />
 						</span>
 					</button>
 				)}
 
 				<div
 					className={cn(
-						"absolute inset-x-0 bottom-0 z-20 bg-black/95 backdrop-blur-sm transition-opacity",
+						"absolute inset-x-0 bottom-0 z-20 bg-gray-950/95 backdrop-blur-sm transition-opacity",
 						isPlaying && !showOverlay
 							? "opacity-0 group-hover:opacity-100 group-focus-within:opacity-100"
 							: "opacity-100",
@@ -340,7 +348,7 @@ export function Video({ src, poster, alt }: VideoProps) {
 									<option
 										key={rate}
 										value={rate}
-										className="bg-black text-white"
+										className="bg-gray-950 text-white"
 									>
 										{rate}x
 									</option>

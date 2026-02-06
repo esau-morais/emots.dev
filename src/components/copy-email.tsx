@@ -24,12 +24,12 @@ export const CopyEmail = ({ email }: CopyEmailProps) => {
 			onClick={copyEmail}
 			aria-label={`Copy email address ${email}`}
 			{...(!copied && { "data-sound": "click" })}
-			className="group flex items-center gap-2.5 focus:outline-none text-gray-500 focus-visible:text-gray-300 transition-transform duration-150 ease-out hover:text-white active:scale-[0.98]"
+			className="group flex items-center gap-2.5 focus:outline-none text-gray-500 focus-visible:text-gray-400 transition-transform duration-150 ease-out hover:text-white active:scale-[0.98]"
 		>
 			<span className="relative size-4 shrink-0" aria-hidden="true">
 				<CopyIcon
 					size={16}
-					className="absolute inset-0 text-gray-600 group-focus-visible:text-gray-300 transition-all duration-150 ease-out group-hover:text-white"
+					className="absolute inset-0 text-gray-600 group-focus-visible:text-gray-400 transition-all duration-150 ease-out group-hover:text-white"
 					style={{
 						opacity: copied ? 0 : 1,
 						transform: copied ? "scale(0.9)" : "scale(1)",

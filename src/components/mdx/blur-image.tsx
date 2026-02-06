@@ -41,7 +41,7 @@ export function BlurImage({ src, alt }: { src: string; alt: string }) {
 				data-narration-skip
 				className={cn(
 					"relative my-6 block cursor-zoom-in overflow-hidden border border-gray-800",
-					"focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]",
+					"focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950",
 					isOpen && "invisible",
 				)}
 				onClick={open}
@@ -77,9 +77,10 @@ export function BlurImage({ src, alt }: { src: string; alt: string }) {
 					<AnimatePresence onExitComplete={() => triggerRef.current?.focus()}>
 						{isOpen && (
 							<motion.div
-								initial={{ backgroundColor: "rgba(0, 0, 0, 0)" }}
-								animate={{ backgroundColor: "rgba(0, 0, 0, 0.9)" }}
-								exit={{ backgroundColor: "rgba(0, 0, 0, 0)" }}
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								style={{ backgroundColor: "var(--shadow-overlay)" }}
 								transition={TRANSITION}
 								className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center overscroll-contain p-4 sm:p-8"
 								onClick={close}

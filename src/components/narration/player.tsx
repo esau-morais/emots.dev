@@ -11,6 +11,7 @@ import {
 } from "@phosphor-icons/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useGhostAnimation } from "@/contexts/ghost-animation";
+import { useMediaSource } from "@/contexts/media-coordinator";
 import { cn } from "@/utils/classNames";
 
 function DiamondIcon({ filled }: { filled: boolean }) {
@@ -69,6 +70,10 @@ export function NarrationPlayer() {
 	} = useNarrationStore();
 	const [isBuffering, setIsBuffering] = useState(false);
 
+	const { requestPlay: requestMediaPlay } = useMediaSource("narration", () =>
+		setPlaying(false),
+	);
+
 	const { phase } = useGhostAnimation();
 	const isGhostAnimating = phase !== "idle";
 
@@ -122,11 +127,12 @@ export function NarrationPlayer() {
 		};
 
 		if (isPlaying) {
+			requestMediaPlay();
 			safePlay();
 		} else {
 			safePause();
 		}
-	}, [isPlaying, audioUrl, setPlaying]);
+	}, [isPlaying, audioUrl, setPlaying, requestMediaPlay]);
 
 	useEffect(() => {
 		const audio = audioRef.current;
@@ -292,7 +298,7 @@ export function NarrationPlayer() {
 	return (
 		<div
 			className={cn(
-				"fixed inset-x-0 bottom-0 z-50 border-t border-gray-800 bg-black/95 backdrop-blur-sm transition-transform duration-300 ease-out",
+				"fixed inset-x-0 bottom-0 z-50 border-t border-gray-800 bg-gray-950/95 backdrop-blur-sm transition-transform duration-300 ease-out",
 				isVisible && audioUrl && !isGhostAnimating
 					? "translate-y-0"
 					: "translate-y-full",
@@ -432,7 +438,7 @@ export function NarrationPlayer() {
 						aria-label="Playback speed"
 					>
 						{PLAYBACK_RATES.map((rate) => (
-							<option key={rate} value={rate} className="bg-black">
+							<option key={rate} value={rate} className="bg-gray-950">
 								{rate}x
 							</option>
 						))}

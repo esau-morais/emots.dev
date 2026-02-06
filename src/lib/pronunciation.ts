@@ -15,3 +15,9 @@ export function pronounceName(onStart?: () => void, onEnd?: () => void): void {
 	audio.onended = () => onEnd?.();
 	audio.play();
 }
+
+export function pausePronunciation(): void {
+	if (!audio) return;
+	audio.pause();
+	audio.currentTime = 0;
+}

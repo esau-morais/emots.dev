@@ -84,7 +84,7 @@ export function NarrationPlayButton({ slug }: PlayButtonProps) {
 			type="button"
 			onClick={handleClick}
 			disabled={isPending}
-			className="group flex items-center gap-2 text-sm text-gray-500 transition-all duration-150 ease-out hover:text-white focus:outline-none focus-visible:text-gray-300 active:scale-[0.98] disabled:opacity-50"
+			className="group flex items-center gap-2 text-sm text-gray-500 transition-all duration-150 ease-out hover:text-white focus:outline-none focus-visible:text-gray-400 active:scale-[0.98] disabled:opacity-50"
 		>
 			<span className="relative size-4 shrink-0">
 				{isPending ? (

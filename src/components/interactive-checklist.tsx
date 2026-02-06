@@ -88,7 +88,7 @@ export const InteractiveChecklist = ({ items, categories }: Props) => {
 						>
 							<button
 								onClick={() => toggleCategory(category)}
-								className="group mb-4 flex w-full items-center justify-between text-left transition-colors hover:text-white focus-visible:text-white focus:outline-none"
+								className="group mb-4 flex w-full items-center justify-between text-left transition-colors hover:text-white focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 focus-visible:ring-offset-4 focus-visible:ring-offset-black"
 								type="button"
 								aria-label={`Toggle all ${category} items`}
 							>
@@ -123,7 +123,7 @@ export const InteractiveChecklist = ({ items, categories }: Props) => {
 													checked={isChecked}
 													onChange={() => toggleItem(item.id)}
 													onMouseDown={(e) => e.preventDefault()}
-													className="mt-1 size-4 cursor-pointer appearance-none border border-gray-700 bg-black transition-all checked:border-white checked:bg-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+													className="mt-1 size-4 cursor-pointer appearance-none border border-gray-700 bg-black transition-all checked:border-white checked:bg-white focus:outline-none focus-visible:border-white focus-visible:ring-1 focus-visible:ring-white/50"
 													aria-label={item.label}
 												/>
 												<span

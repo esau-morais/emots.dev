@@ -71,7 +71,7 @@ export const TimelineEntry = ({
 							size={14}
 							aria-hidden="true"
 							className={cn(
-								"text-gray-500 transition-[color_200ms_ease-out,_rotate_200ms_ease-out] group-hover/entry:text-white group-hover/entry:transition-[color_0ms,_rotate_200ms_ease-out] group-focus-visible:text-gray-300",
+								"text-gray-500 transition-[color_200ms_ease-out,_rotate_200ms_ease-out] group-hover/entry:text-white group-hover/entry:transition-[color_0ms,_rotate_200ms_ease-out] group-focus-visible:text-gray-400",
 								isExpanded ? "rotate-90" : "rotate-0",
 							)}
 						/>
@@ -90,7 +90,10 @@ export const TimelineEntry = ({
 									? { duration: 0 }
 									: { duration: 0.25, ease: [0.4, 0, 0.2, 1] }
 							}
-							className="mt-2 overflow-hidden bg-[#0a0a0a]/95 backdrop-blur-sm shadow-xl shadow-black/20 ring-1 ring-white/5"
+							className="mt-2 overflow-hidden bg-gray-950/95 backdrop-blur-sm ring-1 ring-white/5"
+							style={{
+								boxShadow: `0 20px 25px -5px var(--shadow-elevation), 0 8px 10px -6px var(--shadow-elevation)`,
+							}}
 						>
 							<ul className="space-y-2 p-4 border-l border-dashed border-gray-800">
 								{experience.impacts.map((impact, i) => (

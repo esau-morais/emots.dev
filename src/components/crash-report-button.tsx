@@ -56,7 +56,7 @@ export function CrashReportButton({ errorMessage }: CrashReportButtonProps) {
 			className={cn(
 				"text-sm underline-offset-4 transition-colors focus:outline-none",
 				state === "idle" &&
-					"text-gray-500 hover:text-gray-300 hover:underline focus-visible:text-gray-300 focus-visible:underline",
+					"text-gray-500 hover:text-gray-400 hover:underline focus-visible:text-gray-400 focus-visible:underline",
 				state === "sending" && "text-gray-500 opacity-70",
 				state === "sent" && "text-green-400",
 				state === "error" &&

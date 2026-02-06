@@ -12,8 +12,9 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { useGhostAnimation } from "@/contexts/ghost-animation";
+import { useMediaSource } from "@/contexts/media-coordinator";
 import { useWindowResize } from "@/lib/hooks/window-resize";
-import { pronounceName } from "@/lib/pronunciation";
+import { pausePronunciation, pronounceName } from "@/lib/pronunciation";
 import { sounds } from "@/lib/sounds";
 import { cn } from "@/utils/classNames";
 
@@ -176,7 +177,7 @@ function AnimatedCatOverlay({
 			}}
 		>
 			<pre
-				className="font-mono leading-tight text-gray-300"
+				className="font-mono leading-tight text-gray-600"
 				style={{
 					fontSize: `${fontSize}px`,
 					lineHeight: 1.2,
@@ -209,6 +210,14 @@ export function GhostCat() {
 	const [mood, setMood] = useState<CatMood>("idle");
 	const [isSquishing, setIsSquishing] = useState(false);
 	const [isSpeaking, setIsSpeaking] = useState(false);
+
+	const { requestPlay: requestMediaPlay } = useMediaSource(
+		"pronunciation",
+		useCallback(() => {
+			pausePronunciation();
+			setIsSpeaking(false);
+		}, []),
+	);
 
 	const catRef = useRef<HTMLButtonElement>(null);
 	const initialPositionRef = useRef<InitialPosition | null>(null);
@@ -366,7 +375,7 @@ export function GhostCat() {
 					onMouseLeave={handleMouseLeave}
 					onKeyDown={handleKeyDown}
 					className={cn(
-						"relative cursor-pointer text-left font-mono text-sm leading-tight text-gray-500 transition-colors hover:text-gray-400 focus:outline-none focus-visible:text-gray-300",
+						"relative cursor-pointer text-left font-mono text-sm leading-tight text-gray-500 transition-colors hover:text-gray-400 focus:outline-none focus-visible:text-gray-400",
 					)}
 					style={{
 						visibility: isAnimating ? "hidden" : "visible",
@@ -408,14 +417,15 @@ export function GhostCat() {
 					hi, i&apos;m esaú [ee-saw]
 					<button
 						type="button"
-						onClick={() =>
+						onClick={() => {
+							requestMediaPlay();
 							pronounceName(
 								() => setIsSpeaking(true),
 								() => setIsSpeaking(false),
-							)
-						}
+							);
+						}}
 						className={cn(
-							"ml-1 cursor-pointer text-gray-600 transition-colors hover:text-gray-400 focus:outline-none focus-visible:text-gray-300",
+							"ml-1 cursor-pointer text-gray-600 transition-colors hover:text-gray-400 focus:outline-none focus-visible:text-gray-400",
 						)}
 						aria-label="Pronounce my name"
 					>

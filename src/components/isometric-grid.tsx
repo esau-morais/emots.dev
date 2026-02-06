@@ -26,15 +26,20 @@ const Tile = ({ children, className, href, isHome, onHover }: TileProps) => {
 	const tileInner = (
 		<div
 			className={cn(
-				"relative flex size-20 items-center justify-center bg-gray-950 transition-all duration-300 ease-out md:size-24",
-				"border border-gray-800 shadow-[-4px_4px_12px_rgba(0,0,0,0.4)]",
-				"group-hover:md:-translate-y-3 group-hover:shadow-[-15px_15px_30px_rgba(0,0,0,0.6)]",
-				"group-focus-visible:md:-translate-y-3 group-focus-visible:shadow-[-15px_15px_30px_rgba(0,0,0,0.6)]",
+				"tile-shadow relative flex size-20 items-center justify-center bg-gray-950 transition-all duration-300 ease-out md:size-24",
+				"border border-gray-800",
+				"group-hover:md:-translate-y-3",
+				"group-focus-visible:md:-translate-y-3",
 				className,
 			)}
 		>
 			{isHome && (
-				<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.12),transparent_70%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+				<div
+					className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+					style={{
+						background: `radial-gradient(circle at 50% 50%, var(--highlight-medium), transparent 70%)`,
+					}}
+				/>
 			)}
 			{children}
 		</div>
@@ -87,7 +92,7 @@ const GridExtensionLines = () => {
 					y1={y}
 					x2={0}
 					y2={y}
-					stroke="#555"
+					stroke="var(--color-gray-700)"
 					strokeDasharray="6,10"
 				/>
 				<line
@@ -95,7 +100,7 @@ const GridExtensionLines = () => {
 					y1={y}
 					x2={gridDim + EXTEND}
 					y2={y}
-					stroke="#555"
+					stroke="var(--color-gray-700)"
 					strokeDasharray="6,10"
 				/>
 			</g>
@@ -111,7 +116,7 @@ const GridExtensionLines = () => {
 					y1={-EXTEND}
 					x2={x}
 					y2={0}
-					stroke="#555"
+					stroke="var(--color-gray-700)"
 					strokeDasharray="6,10"
 				/>
 				<line
@@ -119,7 +124,7 @@ const GridExtensionLines = () => {
 					y1={gridDim}
 					x2={x}
 					y2={gridDim + EXTEND}
-					stroke="#555"
+					stroke="var(--color-gray-700)"
 					strokeDasharray="6,10"
 				/>
 			</g>
@@ -160,9 +165,9 @@ export const IsometricGrid = () => {
 				className="pointer-events-none absolute inset-0 z-10"
 				style={{
 					background: `
-						radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06) 0%, transparent 50%),
-						radial-gradient(2px 2px at 0 0, rgba(255,255,255,0.02) 1px, transparent 0)
-					`,
+					radial-gradient(circle at 50% 0%, var(--highlight-subtle) 0%, transparent 50%),
+					radial-gradient(2px 2px at 0 0, var(--highlight-subtle) 1px, transparent 0)
+				`,
 					backgroundSize: "100% 100%, 8px 8px",
 					maskImage: "linear-gradient(180deg, black 0%, transparent 60%)",
 					WebkitMaskImage: "linear-gradient(180deg, black 0%, transparent 60%)",
@@ -206,7 +211,7 @@ export const IsometricGrid = () => {
 							<div
 								className="relative col-span-3 row-span-2 border border-gray-800 bg-gray-950"
 								style={{
-									boxShadow: "-8px 8px 24px rgba(0,0,0,0.5)",
+									boxShadow: "-8px 8px 24px var(--shadow-elevation-hover)",
 								}}
 							>
 								<div

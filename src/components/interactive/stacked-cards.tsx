@@ -69,7 +69,7 @@ export const StackedCards = () => {
 					className="relative h-48 w-48 overflow-y-auto border border-gray-800 bg-black sm:h-64 sm:w-64"
 					style={{
 						scrollbarWidth: "thin",
-						scrollbarColor: "#404040 #171717",
+						scrollbarColor: "var(--color-gray-700) var(--color-gray-900)",
 					}}
 				>
 					<div className="relative" style={{ height: "540px", padding: "8px" }}>
