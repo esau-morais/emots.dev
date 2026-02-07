@@ -764,6 +764,13 @@ export const Route = createFileRoute("/api/bookmarks/submit")({
 
 					const metadata = await fetchUrlMetadata(normalizedUrl);
 					const normalizedSignature = normalizeSignature(payload.signature);
+					const drawSignatureForDiscord =
+						payload.signature?.type === "draw"
+							? {
+									type: "draw" as const,
+									paths: payload.signature.paths,
+								}
+							: null;
 
 					const tokenData = JSON.stringify({
 						url: normalizedUrl.toString(),
@@ -779,7 +786,9 @@ export const Route = createFileRoute("/api/bookmarks/submit")({
 					const approveUrl = `${BASE_URL}/api/bookmarks/approve?data=${encodedData}&sig=${signature}`;
 					const rejectUrl = `${BASE_URL}/api/bookmarks/reject?data=${encodedData}&sig=${signature}`;
 
-					const signaturePng = await buildSignaturePng(normalizedSignature);
+					const signaturePng = drawSignatureForDiscord
+						? await buildSignaturePng(drawSignatureForDiscord)
+						: null;
 					const signatureText = getSignatureLabel(normalizedSignature);
 
 					const discordPayload = {
@@ -810,12 +819,12 @@ export const Route = createFileRoute("/api/bookmarks/submit")({
 								...(signaturePng
 									? { image: { url: "attachment://signature.png" } }
 									: {}),
-								...(signaturePng
-									? { attachments: [{ id: 0, filename: "signature.png" }] }
-									: {}),
 								timestamp: new Date().toISOString(),
 							},
 						],
+						...(signaturePng
+							? { attachments: [{ id: 0, filename: "signature.png" }] }
+							: {}),
 					};
 
 					await sendToDiscord(
