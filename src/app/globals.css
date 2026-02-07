@@ -33,6 +33,10 @@ html {
 	--color-gray-400: oklch(71.5% 0 0);
 	--color-gray-200: oklch(92.2% 0 0);
 
+	--color-success-fg: oklch(87.8% 0.16 145);
+	--color-success-bg: oklch(24.1% 0.062 149);
+	--color-success-border: oklch(45.3% 0.11 148);
+
 	/*
 	 * Mixed-font vertical alignment (JetBrains Mono + Instrument Serif)
 	 * Values from @capsizecss/metrics:
@@ -53,6 +57,10 @@ html {
 	--highlight-subtle: oklch(100% 0 0 / 0.06);
 	--highlight-medium: oklch(100% 0 0 / 0.15);
 	--highlight-strong: oklch(100% 0 0 / 0.4);
+	--color-error-fg: oklch(63.7% 0.237 25.331);
+	--color-error-muted: oklch(88.5% 0.059 18.3);
+	--color-error-bg: oklch(20.4% 0.053 23);
+	--color-error-border: oklch(39.6% 0.133 25.7);
 }
 
 .light {
@@ -73,6 +81,13 @@ html {
 	--highlight-subtle: oklch(0% 0 0 / 0.04);
 	--highlight-medium: oklch(0% 0 0 / 0.08);
 	--highlight-strong: oklch(0% 0 0 / 0.15);
+	--color-error-fg: oklch(44.4% 0.161 26.9);
+	--color-error-muted: oklch(39.6% 0.133 25.7);
+	--color-error-bg: oklch(93.6% 0.031 17.7);
+	--color-error-border: oklch(80.8% 0.103 19.6);
+	--color-success-fg: oklch(38.2% 0.124 149);
+	--color-success-bg: oklch(93.8% 0.03 151);
+	--color-success-border: oklch(78.1% 0.085 149);
 }
 
 @keyframes ghostty-entry {
@@ -517,5 +532,39 @@ article li:has(> span > p[data-narration-status="spoken"])::before {
 	::view-transition-old(root),
 	::view-transition-new(root) {
 		animation: none !important;
+	}
+}
+
+/* disclosure (details/summary) */
+.disclosure {
+	interpolate-size: allow-keywords;
+}
+
+.disclosure summary {
+	list-style: none;
+}
+
+.disclosure summary::-webkit-details-marker {
+	display: none;
+}
+
+.disclosure::details-content {
+	height: 0;
+	opacity: 0;
+	overflow: hidden;
+	transition:
+		height 200ms ease-in-out,
+		opacity 200ms ease-in-out,
+		content-visibility 200ms allow-discrete;
+}
+
+.disclosure[open]::details-content {
+	height: auto;
+	opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.disclosure::details-content {
+		transition: none;
 	}
 }

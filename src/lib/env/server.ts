@@ -13,6 +13,9 @@ const schema = z.object({
 	R2_BUCKET_NAME: z.string().default("emots"),
 	R2_PUBLIC_URL: z.string().default(""),
 	DISCORD_ERROR_WEBHOOK_URL: z.url().optional(),
+	RAINDROP_ACCESS_TOKEN: z.string().min(1).optional(),
+	DISCORD_BOOKMARKS_WEBHOOK_URL: z.url().optional(),
+	BOOKMARKS_APPROVAL_SECRET: z.string().min(16).optional(),
 });
 
 export type ServerEnv = z.infer<typeof schema>;

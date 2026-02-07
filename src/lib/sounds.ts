@@ -200,7 +200,7 @@ export const sounds = {
 
 			// Harmonic pad: sustained E major chord (E3, G#3, B3) + ghostly Bb
 			const padNotes = [164.81, 207.65, 246.94, 116.54]; // E3, G#3, B3, Bb2
-			for (const [freq, i] of padNotes.entries()) {
+			for (const [i, freq] of padNotes.entries()) {
 				const osc = c.createOscillator();
 				osc.type = "sine";
 				osc.frequency.value = freq;
@@ -242,7 +242,7 @@ export const sounds = {
 			for (const { freq, time } of chimeNotes.values()) {
 				const start = t + time;
 
-				for (const [ratio, i] of bellPartials.entries()) {
+				for (const [i, ratio] of bellPartials.entries()) {
 					// Main partial
 					const osc = c.createOscillator();
 					osc.type = "sine";
@@ -271,6 +271,126 @@ export const sounds = {
 					osc2.stop(start + decay + 0.2);
 				}
 			}
+		} catch {}
+	},
+
+	holdTone: () => {
+		if (!isSoundEnabled()) return { stop: () => {} };
+		const c = getCtx();
+		if (!c) return { stop: () => {} };
+		try {
+			const t = c.currentTime;
+			const osc = c.createOscillator();
+			osc.type = "sawtooth";
+			osc.frequency.setValueAtTime(200, t);
+			osc.frequency.linearRampToValueAtTime(600, t + 1);
+
+			const lp = c.createBiquadFilter();
+			lp.type = "lowpass";
+			lp.frequency.setValueAtTime(400, t);
+			lp.frequency.linearRampToValueAtTime(1200, t + 1);
+			lp.Q.value = 1;
+
+			const gain = c.createGain();
+			gain.gain.setValueAtTime(0, t);
+			gain.gain.linearRampToValueAtTime(0.08, t + 0.05);
+
+			const master = c.createGain();
+			master.gain.value = MASTER_GAIN;
+
+			osc.connect(lp).connect(gain).connect(master).connect(c.destination);
+			osc.start(t);
+
+			return {
+				stop: () => {
+					try {
+						const now = c.currentTime;
+						gain.gain.cancelScheduledValues(now);
+						gain.gain.setValueAtTime(gain.gain.value, now);
+						gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+						osc.stop(now + 0.06);
+					} catch {}
+				},
+			};
+		} catch {
+			return { stop: () => {} };
+		}
+	},
+
+	submitDing: () => {
+		if (!isSoundEnabled()) return;
+		const c = getCtx();
+		if (!c) return;
+		try {
+			const t = c.currentTime;
+			const master = c.createGain();
+			master.gain.value = MASTER_GAIN;
+
+			const notes = [880, 1108.73];
+			for (const freq of notes) {
+				const osc = c.createOscillator();
+				osc.type = "sine";
+				osc.frequency.value = freq;
+
+				const gain = c.createGain();
+				gain.gain.setValueAtTime(0.2, t);
+				gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+
+				osc.connect(gain).connect(master).connect(c.destination);
+				osc.start(t);
+				osc.stop(t + 0.5);
+			}
+		} catch {}
+	},
+
+	submitBlocked: () => {
+		if (!isSoundEnabled()) return;
+		const c = getCtx();
+		if (!c) return;
+		try {
+			const t = c.currentTime;
+			const master = c.createGain();
+			master.gain.value = MASTER_GAIN;
+
+			const notes = [320, 260];
+			notes.forEach((freq, index) => {
+				const start = t + index * 0.07;
+				const osc = c.createOscillator();
+				osc.type = "triangle";
+				osc.frequency.setValueAtTime(freq, start);
+
+				const gain = c.createGain();
+				gain.gain.setValueAtTime(0.08, start);
+				gain.gain.exponentialRampToValueAtTime(0.001, start + 0.16);
+
+				osc.connect(gain).connect(master).connect(c.destination);
+				osc.start(start);
+				osc.stop(start + 0.18);
+			});
+		} catch {}
+	},
+
+	holdRelease: () => {
+		if (!isSoundEnabled()) return;
+		const c = getCtx();
+		if (!c) return;
+		try {
+			const t = c.currentTime;
+			const osc = c.createOscillator();
+			osc.type = "sine";
+			osc.frequency.setValueAtTime(400, t);
+			osc.frequency.exponentialRampToValueAtTime(200, t + 0.1);
+
+			const gain = c.createGain();
+			gain.gain.setValueAtTime(0.1, t);
+			gain.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+
+			const master = c.createGain();
+			master.gain.value = MASTER_GAIN;
+
+			osc.connect(gain).connect(master).connect(c.destination);
+			osc.start(t);
+			osc.stop(t + 0.15);
 		} catch {}
 	},
 

@@ -1,7 +1,12 @@
 "use client";
 
 import { Link, useLocation } from "@tanstack/react-router";
-import { type CSSProperties, useCallback, useRef } from "react";
+import {
+	type CSSProperties,
+	useCallback,
+	useLayoutEffect,
+	useRef,
+} from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useWindowResize } from "@/lib/hooks/window-resize";
 import { cn } from "@/utils/classNames";
@@ -11,6 +16,7 @@ const NAV_ITEMS = [
 	{ path: "/work", label: "work" },
 	{ path: "/blog", label: "blog" },
 	{ path: "/craft", label: "craft" },
+	{ path: "/bookmarks", label: "bookmarks" },
 ] as const;
 
 export const Header = () => {
@@ -22,16 +28,59 @@ export const Header = () => {
 		item.path === "/" ? pathname === "/" : pathname.startsWith(item.path),
 	);
 
-	const updatePill = useCallback(() => {
-		const nav = navRef.current;
-		const link = linkRefs.current[activeIndex];
-		if (!nav || !link) return;
+	const syncActiveNav = useCallback(
+		(behavior: ScrollBehavior = "instant") => {
+			const nav = navRef.current;
+			const link = linkRefs.current[activeIndex];
+			if (!nav) return;
 
-		nav.style.setProperty("--pill-left", `${link.offsetLeft}px`);
-		nav.style.setProperty("--pill-width", `${link.offsetWidth}px`);
-	}, [activeIndex]);
+			if (!link) {
+				nav.style.setProperty("--pill-left", "0px");
+				nav.style.setProperty("--pill-width", "0px");
+				return;
+			}
 
-	useWindowResize(updatePill);
+			nav.style.setProperty("--pill-left", `${link.offsetLeft}px`);
+			nav.style.setProperty("--pill-width", `${link.offsetWidth}px`);
+
+			if (nav.scrollWidth <= nav.clientWidth) return;
+			const edgePadding = 16;
+			const navLeft = nav.scrollLeft;
+			const navRight = navLeft + nav.clientWidth;
+			const linkLeft = link.offsetLeft;
+			const linkRight = linkLeft + link.offsetWidth;
+			const minVisibleLeft = navLeft + edgePadding;
+			const maxVisibleRight = navRight - edgePadding;
+
+			let targetLeft = navLeft;
+
+			if (linkLeft < minVisibleLeft) {
+				targetLeft = Math.max(0, linkLeft - edgePadding);
+			} else if (linkRight > maxVisibleRight) {
+				targetLeft = Math.min(
+					nav.scrollWidth - nav.clientWidth,
+					linkRight - nav.clientWidth + edgePadding,
+				);
+			} else {
+				return;
+			}
+
+			if (Math.abs(nav.scrollLeft - targetLeft) <= 1) return;
+
+			nav.scrollTo({ left: targetLeft, behavior });
+		},
+		[activeIndex],
+	);
+
+	useLayoutEffect(() => {
+		syncActiveNav("instant");
+	}, [syncActiveNav]);
+
+	useWindowResize(
+		useCallback(() => {
+			syncActiveNav("instant");
+		}, [syncActiveNav]),
+	);
 
 	return (
 		<header
@@ -61,7 +110,7 @@ export const Header = () => {
 					</Link>
 				))}
 				<span
-					className="pointer-events-none absolute inset-y-0 bg-gray-800 transition-all duration-300 ease-out"
+					className="pointer-events-none absolute inset-y-0 bg-gray-800 transition-[left,width] duration-300 ease-out motion-reduce:transition-none"
 					style={{ left: "var(--pill-left)", width: "var(--pill-width)" }}
 				/>
 			</nav>

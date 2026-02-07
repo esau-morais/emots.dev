@@ -17,7 +17,7 @@ interface ThemeContextValue {
 	theme: Theme;
 	preference: ThemePreference;
 	setPreference: (pref: ThemePreference) => void;
-	toggleTheme: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	toggleTheme: (event?: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const STORAGE_KEY = "emots@theme";
@@ -78,9 +78,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 	}, []);
 
 	const toggleTheme = useCallback(
-		(event: React.MouseEvent<HTMLButtonElement>) => {
+		(event?: React.MouseEvent<HTMLButtonElement>) => {
 			const next: Theme = theme === "dark" ? "light" : "dark";
-			const { clientX: x, clientY: y } = event;
+
+			const x = event?.clientX ?? window.innerWidth / 2;
+			const y = event?.clientY ?? window.innerHeight / 2;
 
 			const apply = () => setPreference(next);
 
@@ -103,6 +105,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 		},
 		[theme, setPreference],
 	);
+
+	useEffect(() => {
+		const handler = (e: KeyboardEvent) => {
+			if (e.ctrlKey && e.shiftKey && e.key === "L") {
+				e.preventDefault();
+				toggleTheme();
+			}
+		};
+		window.addEventListener("keydown", handler);
+		return () => window.removeEventListener("keydown", handler);
+	}, [toggleTheme]);
 
 	const value = useMemo(
 		() => ({ theme, preference, setPreference, toggleTheme }),

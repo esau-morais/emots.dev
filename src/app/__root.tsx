@@ -105,6 +105,7 @@ function RootShell({ children }: { children: ReactNode }) {
 				<Analytics />
 				<ConsoleGreeting />
 				<Scripts />
+				{import.meta.env.DEV && <TanStackDevtools />}
 			</body>
 		</html>
 	);
@@ -115,7 +116,7 @@ function RootComponent() {
 		<>
 			<a
 				href="#main-content"
-				className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:z-[100] focus-visible:bg-white focus-visible:px-4 focus-visible:py-2 focus-visible:text-black focus:outline-none"
+				className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:z-100 focus-visible:bg-white focus-visible:px-4 focus-visible:py-2 focus-visible:text-black focus:outline-none"
 			>
 				Skip to content
 			</a>
@@ -173,12 +174,15 @@ function ErrorPage({ error, reset }: { error: Error; reset: () => void }) {
 	return (
 		<div className="flex min-h-dvh flex-col items-center justify-center gap-8 px-4">
 			<h1 className="text-4xl md:text-5xl">
-				Something <span className="font-serif italic text-red-500">broke.</span>
+				Something{" "}
+				<span className="font-serif italic text-error-fg">broke.</span>
 			</h1>
 
-			<div className="w-full max-w-md border border-red-900/50 bg-red-950/20 p-4 font-mono text-xs">
-				<span className="text-red-400">[ERROR]</span>{" "}
-				<span className="text-red-300">{error.message || "Unknown error"}</span>
+			<div className="w-full max-w-md border border-error-border bg-error-bg p-4 font-mono text-xs">
+				<span className="text-error-fg">[ERROR]</span>{" "}
+				<span className="text-error-muted">
+					{error.message || "Unknown error"}
+				</span>
 			</div>
 
 			<div className="flex flex-col gap-3">
