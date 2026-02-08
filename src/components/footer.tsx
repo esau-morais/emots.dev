@@ -15,7 +15,7 @@ export function Footer({ children }: { children: ReactNode }) {
 				isAnimating ? "z-[10000]" : "z-40",
 			)}
 			style={{
-				height: "calc(2.5rem + env(safe-area-inset-bottom, 0px))",
+				minHeight: "calc(2.5rem + env(safe-area-inset-bottom, 0px))",
 				paddingBottom: "env(safe-area-inset-bottom, 0px)",
 				boxShadow: `0 -20px 30px -10px var(--shadow-overlay)`,
 			}}

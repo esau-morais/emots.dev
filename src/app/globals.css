@@ -535,6 +535,12 @@ article li:has(> span > p[data-narration-status="spoken"])::before {
 	}
 }
 
+@media (pointer: coarse) {
+	.signature-pad {
+		aspect-ratio: 10 / 5;
+	}
+}
+
 /* disclosure (details/summary) */
 .disclosure {
 	interpolate-size: allow-keywords;

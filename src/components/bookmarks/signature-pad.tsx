@@ -15,7 +15,7 @@ type Mode = "draw" | "text";
 
 const PAD_WIDTH = 400;
 const PAD_HEIGHT = 120;
-const SIGNATURE_MODE_STORAGE_KEY = "bookmark-signature-mode";
+const SIGNATURE_MODE_STORAGE_KEY = "emots@bookmark-signature-mode";
 
 function getDefaultMode(): Mode {
 	if (typeof window === "undefined") return "draw";
@@ -28,9 +28,9 @@ function getDefaultMode(): Mode {
 	const prefersReducedMotion = matchMedia(
 		"(prefers-reduced-motion: reduce)",
 	).matches;
-	const usesCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+	const hasAnyFinePointer = matchMedia("(any-pointer: fine)").matches;
 
-	return prefersReducedMotion || usesCoarsePointer ? "text" : "draw";
+	return prefersReducedMotion && !hasAnyFinePointer ? "text" : "draw";
 }
 
 function persistMode(next: Mode) {
@@ -152,12 +152,12 @@ export function SignaturePad({
 	return (
 		<div className="flex flex-col gap-2">
 			<span className="text-xs text-gray-500">sign it (optional)</span>
-			<div className="relative border border-gray-800 bg-gray-950">
+			<div className="relative border border-gray-800 bg-gray-950 select-none">
 				{mode === "draw" ? (
 					<svg
 						ref={canvasRef}
 						viewBox={`0 0 ${PAD_WIDTH} ${PAD_HEIGHT}`}
-						className="aspect-[10/3] w-full cursor-crosshair touch-none text-white"
+						className="signature-pad aspect-[10/3] w-full cursor-crosshair touch-none select-none text-white"
 						onPointerDown={handlePointerDown}
 						onPointerMove={handlePointerMove}
 						onPointerUp={handlePointerUp}
@@ -241,7 +241,7 @@ export function SignaturePad({
 						/>
 					</svg>
 				) : (
-					<div className="flex aspect-[10/3] items-center justify-center px-4">
+					<div className="signature-pad flex aspect-[10/3] items-center justify-center px-4">
 						<input
 							ref={textInputRef}
 							type="text"
