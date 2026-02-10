@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { useDemoContext } from "@/components/mdx/demo";
+import { useSlowMode } from "@/hooks/use-slow-mode";
 
 type HistoryItem = {
 	name: string;
@@ -18,16 +19,10 @@ const initialHistory: HistoryItem[] = [
 ];
 
 export const StackedHistory = () => {
-	const { slowMode, debugMode, restartKey } = useDemoContext();
+	const { debugMode, restartKey } = useDemoContext();
+	const { duration, springConfig, stagger } = useSlowMode();
 	const [isOpen, setIsOpen] = useState(debugMode);
 	const [items, setItems] = useState(initialHistory);
-
-	const duration = slowMode ? 1.2 : 0.2;
-	const springConfig = {
-		type: "spring" as const,
-		stiffness: slowMode ? 120 : 500,
-		damping: slowMode ? 12 : 20,
-	};
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: restartKey triggers reset
 	useEffect(() => {
@@ -160,7 +155,7 @@ export const StackedHistory = () => {
 										exit={{ opacity: 0, scale: 0.9, rotateX: 60 }}
 										transition={{
 											...springConfig,
-											delay: index * (slowMode ? 0.35 : 0.05),
+											delay: index * stagger,
 										}}
 										className="absolute w-48 border border-gray-800 bg-gray-950 px-4 py-3 text-left text-gray-400 transition-colors hover:border-gray-700 hover:text-white focus-visible:border-gray-700 focus-visible:text-white focus:outline-none sm:w-64 sm:px-6 sm:py-4"
 										style={{

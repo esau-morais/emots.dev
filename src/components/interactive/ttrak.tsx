@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useDemoContext } from "@/components/mdx/demo";
+import { useSlowMode } from "@/hooks/use-slow-mode";
 import { cn } from "@/utils/classNames";
 
 type TaskStatus = "todo" | "inProgress" | "done";
@@ -49,6 +50,8 @@ const INITIAL_TASKS: Task[] = [
 	},
 ];
 
+const TASK_COUNT = INITIAL_TASKS.length;
+
 const STATUS_ICON: Record<TaskStatus, string> = {
 	todo: "○",
 	inProgress: "◉",
@@ -79,6 +82,8 @@ const DEFAULT_FOOTER_MOBILE = "j/k:nav space:toggle s:sync";
 const DEFAULT_FOOTER_DESKTOP =
 	"/:search  j/k:nav  space:status  s:sync  1-4:filter  q:quit";
 
+const BASE_DELAY = 600;
+
 const cycleStatus = (status: TaskStatus): TaskStatus => {
 	const cycle: Record<TaskStatus, TaskStatus> = {
 		todo: "inProgress",
@@ -94,7 +99,8 @@ const filterTasks = (tasks: Task[], filter: TabFilter): Task[] => {
 };
 
 export const Ttrak = () => {
-	const { slowMode, restartKey } = useDemoContext();
+	const { restartKey } = useDemoContext();
+	const { scaleTime, duration, stagger, springConfig } = useSlowMode();
 	const [isVisible, setIsVisible] = useState(false);
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [activeTab, setActiveTab] = useState<TabFilter>("all");
@@ -103,18 +109,10 @@ export const Ttrak = () => {
 	const [isSyncing, setIsSyncing] = useState(false);
 	const [keystroke, setKeystroke] = useState<string | null>(null);
 
-	const delay = slowMode ? 2500 : 600;
-	const duration = slowMode ? 0.8 : 0.2;
-	const stagger = slowMode ? 0.3 : 0.08;
-	const springConfig = {
-		type: "spring" as const,
-		stiffness: slowMode ? 180 : 500,
-		damping: slowMode ? 16 : 35,
-	};
 	const cancelledRef = useRef(false);
+	const timeoutsRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
 
 	const filteredTasks = filterTasks(tasks, activeTab);
-	const totalCount = tasks.length;
 	const filteredCount = filteredTasks.length;
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: restartKey triggers reset
@@ -131,13 +129,15 @@ export const Ttrak = () => {
 	// biome-ignore lint/correctness/useExhaustiveDependencies: restartKey triggers animation restart
 	useEffect(() => {
 		cancelledRef.current = false;
+		const timeouts = timeoutsRef.current;
 
-		const wait = (ms: number) =>
+		const sleep = (baseMs: number) =>
 			new Promise<void>((resolve) => {
 				const id = setTimeout(() => {
+					timeouts.delete(id);
 					if (!cancelledRef.current) resolve();
-				}, ms);
-				return () => clearTimeout(id);
+				}, scaleTime(baseMs));
+				timeouts.add(id);
 			});
 
 		const pressKey = (key: string) => {
@@ -148,21 +148,21 @@ export const Ttrak = () => {
 		const sequence = async () => {
 			if (cancelledRef.current) return;
 
-			await wait(delay * 0.5);
+			await sleep(BASE_DELAY * 0.5);
 			if (cancelledRef.current) return;
 			setIsVisible(true);
 
-			await wait(delay);
+			await sleep(BASE_DELAY);
 			if (cancelledRef.current) return;
 			pressKey("j");
 			setSelectedIndex(1);
 
-			await wait(delay * 0.6);
+			await sleep(BASE_DELAY * 0.6);
 			if (cancelledRef.current) return;
 			pressKey("j");
 			setSelectedIndex(2);
 
-			await wait(delay * 0.8);
+			await sleep(BASE_DELAY * 0.8);
 			if (cancelledRef.current) return;
 			pressKey("space");
 			setTasks((prev) =>
@@ -171,66 +171,65 @@ export const Ttrak = () => {
 				),
 			);
 
-			await wait(delay);
+			await sleep(BASE_DELAY);
 			if (cancelledRef.current) return;
 			pressKey("2");
 			setActiveTab("todo");
 			setSelectedIndex(0);
 
-			await wait(delay * 0.8);
+			await sleep(BASE_DELAY * 0.8);
 			if (cancelledRef.current) return;
 			pressKey("3");
 			setActiveTab("inProgress");
 			setSelectedIndex(0);
 
-			await wait(delay * 0.8);
+			await sleep(BASE_DELAY * 0.8);
 			if (cancelledRef.current) return;
 			pressKey("4");
 			setActiveTab("done");
 			setSelectedIndex(0);
 
-			await wait(delay * 0.8);
+			await sleep(BASE_DELAY * 0.8);
 			if (cancelledRef.current) return;
 			pressKey("1");
 			setActiveTab("all");
 			setSelectedIndex(0);
 
-			await wait(delay);
+			await sleep(BASE_DELAY);
 			if (cancelledRef.current) return;
 			pressKey("s");
 			setIsSyncing(true);
 			setFooterMsg("syncing...");
 
-			await wait(delay * 1.5);
+			await sleep(BASE_DELAY * 1.5);
 			if (cancelledRef.current) return;
 			setIsSyncing(false);
-			setFooterMsg(`✓ synced ${totalCount} tasks`);
+			setFooterMsg(`✓ synced ${TASK_COUNT} tasks`);
 
-			await wait(delay * 1.5);
+			await sleep(BASE_DELAY * 1.5);
 			if (cancelledRef.current) return;
 			setFooterMsg(null);
 
-			await wait(delay * 2);
+			await sleep(BASE_DELAY * 2);
 			if (cancelledRef.current) return;
 
 			setIsVisible(false);
 			setSelectedIndex(0);
 			setActiveTab("all");
 			setTasks(INITIAL_TASKS);
+
+			await sleep(BASE_DELAY);
+			if (!cancelledRef.current) sequence();
 		};
 
 		sequence();
 
-		const totalDuration = delay * 15;
-		const interval = setInterval(() => {
-			if (!cancelledRef.current) sequence();
-		}, totalDuration);
-
 		return () => {
 			cancelledRef.current = true;
-			clearInterval(interval);
+			for (const id of timeouts) clearTimeout(id);
+			timeouts.clear();
 		};
-	}, [restartKey, delay, totalCount]);
+	}, [restartKey]);
 
 	return (
 		<div className="w-full max-w-lg font-mono text-sm select-none">
@@ -238,7 +237,7 @@ export const Ttrak = () => {
 				<div className="flex items-center justify-between border-b border-gray-800 px-4 py-2">
 					<span className="text-gray-400 font-medium">TTRAK</span>
 					<span className="text-gray-500">
-						{filteredCount}/{totalCount} tasks
+						{filteredCount}/{TASK_COUNT} tasks
 					</span>
 				</div>
 

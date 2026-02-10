@@ -8,7 +8,7 @@ import {
 	useRef,
 } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { useWindowResize } from "@/lib/hooks/window-resize";
+import { useWindowResize } from "@/hooks/use-window-resize";
 import { cn } from "@/utils/classNames";
 
 const NAV_ITEMS = [

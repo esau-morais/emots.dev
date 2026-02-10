@@ -4,7 +4,7 @@ import { queryOptions, useQuery } from "@tanstack/react-query";
 import { createServerFn } from "@tanstack/react-start";
 import { useRef } from "react";
 import { XIcon } from "@/components/icons";
-import { useIntersectionObserver } from "@/lib/hooks/intersection-observer";
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 
 type XPostProps = { url: string };
 

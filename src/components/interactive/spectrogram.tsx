@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDemoContext } from "@/components/mdx/demo";
+import { useSlowMode } from "@/hooks/use-slow-mode";
 import { cn } from "@/utils/classNames";
 
 type PlaybackStatus = "idle" | "playing" | "complete";
@@ -33,7 +34,8 @@ const lerp = (current: number, target: number, factor: number): number => {
 };
 
 export const Spectrogram = () => {
-	const { slowMode, debugMode, restartKey } = useDemoContext();
+	const { debugMode, restartKey } = useDemoContext();
+	const { slowMode, slowModeRef, getSpeed } = useSlowMode();
 
 	const [status, setStatus] = useState<PlaybackStatus>("idle");
 	const [peakFrequency, setPeakFrequency] = useState<number | null>(null);
@@ -86,6 +88,7 @@ export const Spectrogram = () => {
 		isPlayingRef.current = false;
 	}, []);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: slowModeRef is a stable ref read at call-time
 	const startVisualization = useCallback(() => {
 		const analyser = analyserRef.current;
 		const canvas = canvasRef.current;
@@ -97,7 +100,6 @@ export const Spectrogram = () => {
 
 		const dataArray = new Uint8Array(analyser.frequencyBinCount);
 		const sampleRate = audioCtx.sampleRate;
-		const lerpFactor = slowMode ? LERP_FACTOR_SLOW : LERP_FACTOR_NORMAL;
 		isPlayingRef.current = true;
 
 		const draw = () => {
@@ -129,7 +131,7 @@ export const Spectrogram = () => {
 				displayedBarsRef.current[i] = lerp(
 					displayedBarsRef.current[i],
 					targetBars[i],
-					lerpFactor,
+					slowModeRef.current ? LERP_FACTOR_SLOW : LERP_FACTOR_NORMAL,
 				);
 				if (displayedBarsRef.current[i] > peakBarValue) {
 					peakBarValue = displayedBarsRef.current[i];
@@ -152,8 +154,9 @@ export const Spectrogram = () => {
 		};
 
 		rafIdRef.current = requestAnimationFrame(draw);
-	}, [drawBars, slowMode]);
+	}, [drawBars]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: getSpeed and slowModeRef are stable refs read at call-time
 	const handlePlay = useCallback(() => {
 		if (status === "playing") return;
 
@@ -178,7 +181,7 @@ export const Spectrogram = () => {
 		const playTick = (startTime: number, freq: number, gain: number) => {
 			const noise = ctx.createBufferSource();
 			noise.buffer = createNoiseBuffer(ctx, 0.012);
-			noise.playbackRate.value = slowMode ? 0.25 : 1.0;
+			noise.playbackRate.value = getSpeed();
 
 			const bp = ctx.createBiquadFilter();
 			bp.type = "bandpass";
@@ -196,7 +199,8 @@ export const Spectrogram = () => {
 		};
 
 		const t = ctx.currentTime;
-		const upDelay = slowMode ? 0.6 : 0.08;
+		const isSlow = slowModeRef.current;
+		const upDelay = isSlow ? 0.6 : 0.08;
 
 		playTick(t, 4500, 0.35);
 		const secondTick = playTick(t + upDelay, 5500, 0.25);
@@ -210,7 +214,7 @@ export const Spectrogram = () => {
 			setStatus("complete");
 			stopVisualization();
 		};
-	}, [status, slowMode, startVisualization, stopVisualization]);
+	}, [status, startVisualization, stopVisualization]);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: restartKey triggers reset
 	useEffect(() => {
@@ -232,8 +236,6 @@ export const Spectrogram = () => {
 			}
 		}
 	}, [restartKey, stopVisualization, drawBars]);
-
-	// Note: slowMode changes require restart since we use real-time bandpass filters
 
 	useEffect(() => {
 		return () => {

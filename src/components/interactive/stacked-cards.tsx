@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useDemoContext } from "@/components/mdx/demo";
+import { useSlowMode } from "@/hooks/use-slow-mode";
 import { cn } from "@/utils/classNames";
 
 const cards = [
@@ -12,7 +13,8 @@ const cards = [
 ];
 
 export const StackedCards = () => {
-	const { slowMode, debugMode, autoScroll, restartKey } = useDemoContext();
+	const { debugMode, autoScroll, restartKey } = useDemoContext();
+	const { getSpeed } = useSlowMode();
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const autoRef = useRef<number | null>(null);
 	const [scrollProgress, setScrollProgress] = useState(0);
@@ -38,13 +40,13 @@ export const StackedCards = () => {
 		}
 
 		let direction = 1;
-		const speed = slowMode ? 0.25 : 3;
+		const BASE_SPEED = 3;
 
 		const animate = () => {
 			const el = scrollRef.current;
 			if (!el) return;
 			const maxScroll = el.scrollHeight - el.clientHeight;
-			el.scrollTop += speed * direction;
+			el.scrollTop += BASE_SPEED * getSpeed() * direction;
 			if (el.scrollTop >= maxScroll) direction = -1;
 			else if (el.scrollTop <= 0) direction = 1;
 			autoRef.current = requestAnimationFrame(animate);
@@ -54,7 +56,7 @@ export const StackedCards = () => {
 		return () => {
 			if (autoRef.current) cancelAnimationFrame(autoRef.current);
 		};
-	}, [autoScroll, slowMode]);
+	}, [autoScroll, getSpeed]);
 
 	const percent = Math.round(scrollProgress * 100);
 

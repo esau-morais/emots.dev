@@ -13,7 +13,7 @@ import {
 import { createPortal } from "react-dom";
 import { useGhostAnimation } from "@/contexts/ghost-animation";
 import { useMediaSource } from "@/contexts/media-coordinator";
-import { useWindowResize } from "@/lib/hooks/window-resize";
+import { useWindowResize } from "@/hooks/use-window-resize";
 import { pausePronunciation, pronounceName } from "@/lib/pronunciation";
 import { sounds } from "@/lib/sounds";
 import { cn } from "@/utils/classNames";
