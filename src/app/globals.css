@@ -13,29 +13,34 @@ html {
 	}
 }
 
-@theme {
-	--font-mono:
-		"JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco,
-		Consolas, "Liberation Mono", "Courier New", monospace;
-	--font-serif:
-		"Instrument Serif", ui-serif, Georgia, Cambria, "Times New Roman", Times,
-		serif;
+:root {
+	--black: oklch(0.1448 0 0);
+	--white: oklch(0.9851 0 0);
 
-	--color-black: oklch(0.1448 0 0);
-	--color-white: oklch(0.9851 0 0);
+	--gray-950: oklch(14.5% 0 0);
+	--gray-900: oklch(20.5% 0 0);
+	--gray-800: oklch(26.9% 0 0);
+	--gray-700: oklch(37.1% 0 0);
+	--gray-600: oklch(58% 0 0);
+	--gray-500: oklch(62% 0 0);
+	--gray-400: oklch(71.5% 0 0);
+	--gray-200: oklch(92.2% 0 0);
 
-	--color-gray-950: oklch(14.5% 0 0);
-	--color-gray-900: oklch(20.5% 0 0);
-	--color-gray-800: oklch(26.9% 0 0);
-	--color-gray-700: oklch(37.1% 0 0);
-	--color-gray-600: oklch(58% 0 0);
-	--color-gray-500: oklch(62% 0 0);
-	--color-gray-400: oklch(71.5% 0 0);
-	--color-gray-200: oklch(92.2% 0 0);
+	--success-fg: oklch(87.8% 0.16 145);
+	--success-bg: oklch(24.1% 0.062 149);
+	--success-border: oklch(45.3% 0.11 148);
 
-	--color-success-fg: oklch(87.8% 0.16 145);
-	--color-success-bg: oklch(24.1% 0.062 149);
-	--color-success-border: oklch(45.3% 0.11 148);
+	--error-fg: oklch(63.7% 0.237 25.331);
+	--error-muted: oklch(88.5% 0.059 18.3);
+	--error-bg: oklch(20.4% 0.053 23);
+	--error-border: oklch(39.6% 0.133 25.7);
+
+	--shadow-overlay: oklch(0% 0 0 / 0.9);
+	--shadow-elevation: oklch(0% 0 0 / 0.4);
+	--shadow-elevation-hover: oklch(0% 0 0 / 0.6);
+	--highlight-subtle: oklch(100% 0 0 / 0.06);
+	--highlight-medium: oklch(100% 0 0 / 0.15);
+	--highlight-strong: oklch(100% 0 0 / 0.4);
 
 	/*
 	 * Mixed-font vertical alignment (JetBrains Mono + Instrument Serif)
@@ -50,30 +55,26 @@ html {
 	--align-offset: 0.015em;
 }
 
-:root {
-	--shadow-overlay: oklch(0% 0 0 / 0.9);
-	--shadow-elevation: oklch(0% 0 0 / 0.4);
-	--shadow-elevation-hover: oklch(0% 0 0 / 0.6);
-	--highlight-subtle: oklch(100% 0 0 / 0.06);
-	--highlight-medium: oklch(100% 0 0 / 0.15);
-	--highlight-strong: oklch(100% 0 0 / 0.4);
-	--color-error-fg: oklch(63.7% 0.237 25.331);
-	--color-error-muted: oklch(88.5% 0.059 18.3);
-	--color-error-bg: oklch(20.4% 0.053 23);
-	--color-error-border: oklch(39.6% 0.133 25.7);
-}
-
 .light {
-	--color-black: oklch(97.6% 0.003 106.4);
-	--color-white: oklch(22.6% 0.004 106.7);
-	--color-gray-950: oklch(95.4% 0.004 106.5);
-	--color-gray-900: oklch(93% 0.005 106.5);
-	--color-gray-800: oklch(87.2% 0.007 106.5);
-	--color-gray-700: oklch(72.9% 0.011 106.7);
-	--color-gray-600: oklch(53.5% 0.012 106.8);
-	--color-gray-500: oklch(47.3% 0.011 106.8);
-	--color-gray-400: oklch(39.6% 0.011 106.9);
-	--color-gray-200: oklch(29.9% 0.011 107);
+	--black: oklch(97.6% 0.003 106.4);
+	--white: oklch(22.6% 0.004 106.7);
+	--gray-950: oklch(95.4% 0.004 106.5);
+	--gray-900: oklch(93% 0.005 106.5);
+	--gray-800: oklch(87.2% 0.007 106.5);
+	--gray-700: oklch(72.9% 0.011 106.7);
+	--gray-600: oklch(53.5% 0.012 106.8);
+	--gray-500: oklch(47.3% 0.011 106.8);
+	--gray-400: oklch(39.6% 0.011 106.9);
+	--gray-200: oklch(29.9% 0.011 107);
+
+	--success-fg: oklch(38.2% 0.124 149);
+	--success-bg: oklch(93.8% 0.03 151);
+	--success-border: oklch(78.1% 0.085 149);
+
+	--error-fg: oklch(44.4% 0.161 26.9);
+	--error-muted: oklch(39.6% 0.133 25.7);
+	--error-bg: oklch(93.6% 0.031 17.7);
+	--error-border: oklch(80.8% 0.103 19.6);
 
 	--shadow-overlay: oklch(0% 0 0 / 0.06);
 	--shadow-elevation: oklch(0% 0 0 / 0.05);
@@ -81,13 +82,35 @@ html {
 	--highlight-subtle: oklch(0% 0 0 / 0.04);
 	--highlight-medium: oklch(0% 0 0 / 0.08);
 	--highlight-strong: oklch(0% 0 0 / 0.15);
-	--color-error-fg: oklch(44.4% 0.161 26.9);
-	--color-error-muted: oklch(39.6% 0.133 25.7);
-	--color-error-bg: oklch(93.6% 0.031 17.7);
-	--color-error-border: oklch(80.8% 0.103 19.6);
-	--color-success-fg: oklch(38.2% 0.124 149);
-	--color-success-bg: oklch(93.8% 0.03 151);
-	--color-success-border: oklch(78.1% 0.085 149);
+}
+
+@theme {
+	--font-mono:
+		"JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco,
+		Consolas, "Liberation Mono", "Courier New", monospace;
+	--font-serif:
+		"Instrument Serif", ui-serif, Georgia, Cambria, "Times New Roman", Times,
+		serif;
+}
+
+@theme inline {
+	--color-black: var(--black);
+	--color-white: var(--white);
+	--color-gray-950: var(--gray-950);
+	--color-gray-900: var(--gray-900);
+	--color-gray-800: var(--gray-800);
+	--color-gray-700: var(--gray-700);
+	--color-gray-600: var(--gray-600);
+	--color-gray-500: var(--gray-500);
+	--color-gray-400: var(--gray-400);
+	--color-gray-200: var(--gray-200);
+	--color-success-fg: var(--success-fg);
+	--color-success-bg: var(--success-bg);
+	--color-success-border: var(--success-border);
+	--color-error-fg: var(--error-fg);
+	--color-error-muted: var(--error-muted);
+	--color-error-bg: var(--error-bg);
+	--color-error-border: var(--error-border);
 }
 
 @keyframes ghostty-entry {
