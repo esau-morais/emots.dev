@@ -104,6 +104,7 @@ export const Header = () => {
 								"hover:bg-gray-900/50 focus-visible:bg-gray-900/50",
 						)}
 						to={item.path}
+						preload="viewport"
 						aria-current={i === activeIndex ? "page" : undefined}
 					>
 						{item.label}

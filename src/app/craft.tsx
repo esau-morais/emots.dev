@@ -11,6 +11,7 @@ const getCraftPageData = createServerFn({ method: "GET" }).handler(() => {
 });
 
 export const Route = createFileRoute("/craft")({
+	staleTime: 1000 * 60 * 5,
 	loader: () => getCraftPageData(),
 	head: ({ loaderData }) => ({
 		meta: [

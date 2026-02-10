@@ -37,6 +37,7 @@ function getFeaturedWorks(limit = 3) {
 }
 
 export const Route = createFileRoute("/")({
+	staleTime: 1000 * 60 * 5,
 	loader: () => getFeaturedWorks(),
 	component: Home,
 });
