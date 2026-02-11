@@ -1,6 +1,7 @@
 import {
 	ArrowRightIcon,
 	ArrowUpRightIcon,
+	FileTextIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Image } from "@unpic/react";
@@ -135,6 +136,24 @@ function Home() {
 							</div>
 						</li>
 					</ul>
+
+					<a
+						href="/resume"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="group mt-10 flex items-center justify-center gap-2.5 border border-gray-800 bg-gray-900/60 px-4 py-2.5 text-sm text-gray-400 transition-all duration-200 ease-out hover:border-gray-700 hover:bg-gray-800/80 hover:text-white focus-visible:border-gray-700 focus-visible:bg-gray-800/80 focus-visible:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-600 active:scale-[0.98]"
+					>
+						<FileTextIcon
+							size={16}
+							className="shrink-0 text-gray-600 transition-colors duration-200 group-hover:text-white group-focus-visible:text-white"
+						/>
+						Resume
+						<ArrowUpRightIcon
+							size={14}
+							className="opacity-0 transition-opacity duration-200 group-hover:opacity-50 group-focus-visible:opacity-50"
+							aria-hidden="true"
+						/>
+					</a>
 				</div>
 			</section>
 
@@ -229,6 +248,34 @@ function Home() {
 					View all work
 					<ArrowRightIcon size={14} />
 				</Link>
+
+				<div className="mt-16 flex flex-col items-center gap-4">
+					<p className="font-serif italic text-gray-400 text-lg">
+						Want to know more about me? Let's chat.
+					</p>
+					<a
+						href="/meet"
+						className="group relative flex items-center gap-3 overflow-hidden border border-gray-800 bg-gray-900/60 px-5 py-2.5 transition-all duration-200 ease-out hover:border-gray-700 hover:bg-gray-800/80 focus-visible:border-gray-700 focus-visible:bg-gray-800/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-600 active:scale-[0.98]"
+					>
+						<img
+							src="https://unavatar.io/x/mor3is_"
+							alt=""
+							width={24}
+							height={24}
+							loading="lazy"
+							className="size-6 shrink-0 grayscale transition-all duration-200 group-hover:grayscale-0 group-focus-visible:grayscale-0"
+						/>
+						<span
+							className="max-w-0 overflow-hidden whitespace-nowrap text-sm text-gray-400 opacity-0 transition-all duration-200 ease-out group-hover:max-w-16 group-hover:opacity-100 group-focus-visible:max-w-16 group-focus-visible:opacity-100"
+							aria-hidden="true"
+						>
+							+ You
+						</span>
+						<span className="text-sm text-gray-400 transition-colors duration-200 group-hover:text-white group-focus-visible:text-white">
+							Book a Free Call
+						</span>
+					</a>
+				</div>
 			</section>
 		</div>
 	);

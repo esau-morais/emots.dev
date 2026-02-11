@@ -1,11 +1,13 @@
 import { createMiddleware, createStart } from "@tanstack/react-start";
 import { allPages, allPosts, allWorks } from "content-collections";
+import { client as env } from "@/lib/env";
 
 const PAGE_SLUGS = ["checklist", "craft"] as const;
 
 const REDIRECTS: Record<string, string> = {
 	"/links": "https://links.emots.dev",
 	"/meet": "https://cal.com/emorais/appointment",
+	"/resume": `${env.VITE_R2_URL}/Esau Morais.pdf`,
 };
 
 function getContentRaw(
