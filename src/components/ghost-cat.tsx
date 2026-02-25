@@ -6,7 +6,7 @@ import {
 	type MouseEvent,
 	useCallback,
 	useEffect,
-	useMemo,
+	useLayoutEffect,
 	useRef,
 	useState,
 } from "react";
@@ -45,7 +45,7 @@ const SpeakerHighPaths = {
 	wave1:
 		"m198,101.56a40,40,0,0,1,0,52.88a8,8,0,0,1-12-10.58a24,24,0,0,0,0-31.72a8,8,0,0,1,12-10.58Z",
 	wave2:
-		"M248,128a79.9,79.9,0,0,1-20.37,53.34a8,8,0,0,1-11.92-10.67a64,64,0,0,0,0-85.33a8,8,0,1,1,11.92-10.67A79.83,79.83,0,0,1,248,128Z",
+		"M248,128a79.9,79.9,0,0,1-20.37,53.34a8,8,0,0,1-11.92-10.67a64,64,0,0,0,0-85.33a8,8,1,1,1,11.92-10.67A79.83,79.83,0,0,1,248,128Z",
 } as const;
 
 interface InitialPosition {
@@ -66,7 +66,6 @@ function easeInCubic(t: number): number {
 interface AnimatedCatOverlayProps {
 	initialPosition: InitialPosition;
 	phase: "zoomIn" | "action" | "zoomOut";
-	progress: number;
 	rightEye: EyeState;
 	mood: CatMood;
 }
@@ -74,75 +73,86 @@ interface AnimatedCatOverlayProps {
 function AnimatedCatOverlay({
 	initialPosition,
 	phase,
-	progress,
 	rightEye,
 	mood,
 }: AnimatedCatOverlayProps) {
-	const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+	const overlayRef = useRef<HTMLDivElement>(null);
+	const preRef = useRef<HTMLPreElement>(null);
+	const { subscribeToFrame } = useGhostAnimation();
+
+	const layoutRef = useRef({
+		targetFontSize: 0,
+		vx: 0,
+		vy: 0,
+		ix: initialPosition.x + initialPosition.width / 2,
+		iy: initialPosition.y + initialPosition.height / 2,
+	});
+
+	useLayoutEffect(() => {
+		const w = window.innerWidth;
+		const h = window.innerHeight;
+		const lr = layoutRef.current;
+		lr.targetFontSize = Math.min(w * 0.08, 100);
+		lr.vx = w / 2;
+		lr.vy = h / 2;
+		lr.ix = initialPosition.x + initialPosition.width / 2;
+		lr.iy = initialPosition.y + initialPosition.height / 2;
+
+		if (overlayRef.current && preRef.current) {
+			overlayRef.current.style.transform = `translate(${lr.ix}px, ${lr.iy}px) translate(-50%, -50%)`;
+			preRef.current.style.fontSize = `${BASE_FONT_SIZE}px`;
+		}
+	}, [initialPosition]);
 
 	useWindowResize(
-		useCallback(
-			() =>
-				setWindowSize({ width: window.innerWidth, height: window.innerHeight }),
-			[],
-		),
+		useCallback(() => {
+			const w = window.innerWidth;
+			const h = window.innerHeight;
+			layoutRef.current.targetFontSize = Math.min(w * 0.08, 100);
+			layoutRef.current.vx = w / 2;
+			layoutRef.current.vy = h / 2;
+		}, []),
 	);
 
-	const targetFontSize = Math.min(windowSize.width * 0.08, 100);
-	const viewportCenter = useMemo(
-		() => ({ x: windowSize.width / 2, y: windowSize.height / 2 }),
-		[windowSize],
-	);
-	const initialCenter = useMemo(
-		() => ({
-			x: initialPosition.x + initialPosition.width / 2,
-			y: initialPosition.y + initialPosition.height / 2,
-		}),
-		[initialPosition],
-	);
+	useEffect(() => {
+		return subscribeToFrame((progress) => {
+			const el = overlayRef.current;
+			const pre = preRef.current;
+			if (!el || !pre) return;
 
-	const { currentX, currentY, fontSize, rotation, wiggle } = useMemo(() => {
-		if (phase === "zoomIn") {
-			const p = easeOutCubic(progress);
-			return {
-				currentX: initialCenter.x + (viewportCenter.x - initialCenter.x) * p,
-				currentY: initialCenter.y + (viewportCenter.y - initialCenter.y) * p,
-				fontSize: BASE_FONT_SIZE + (targetFontSize - BASE_FONT_SIZE) * p,
-				rotation: 360 * p,
-				wiggle: 0,
-			};
-		}
+			const { targetFontSize, vx, vy, ix, iy } = layoutRef.current;
+			let x: number;
+			let y: number;
+			let fs: number;
+			let rotation: number;
+			let wiggle: number;
 
-		if (phase === "action") {
-			const w = Math.sin(progress * Math.PI * 4) * 3;
-			return {
-				currentX: viewportCenter.x,
-				currentY: viewportCenter.y,
-				fontSize: targetFontSize,
-				rotation: 360,
-				wiggle: w,
-			};
-		}
+			if (phase === "zoomIn") {
+				const p = easeOutCubic(progress);
+				x = ix + (vx - ix) * p;
+				y = iy + (vy - iy) * p;
+				fs = BASE_FONT_SIZE + (targetFontSize - BASE_FONT_SIZE) * p;
+				rotation = 360 * p;
+				wiggle = 0;
+			} else if (phase === "action") {
+				x = vx;
+				y = vy;
+				fs = targetFontSize;
+				rotation = 360;
+				wiggle = Math.sin(progress * Math.PI * 4) * 3;
+			} else {
+				const p = easeInCubic(progress);
+				x = vx + (ix - vx) * p;
+				y = vy + (iy - vy) * p;
+				fs = targetFontSize - (targetFontSize - BASE_FONT_SIZE) * p;
+				rotation = 360;
+				wiggle = 0;
+			}
 
-		if (phase === "zoomOut") {
-			const p = easeInCubic(progress);
-			return {
-				currentX: viewportCenter.x + (initialCenter.x - viewportCenter.x) * p,
-				currentY: viewportCenter.y + (initialCenter.y - viewportCenter.y) * p,
-				fontSize: targetFontSize - (targetFontSize - BASE_FONT_SIZE) * p,
-				rotation: 360,
-				wiggle: 0,
-			};
-		}
-
-		return {
-			currentX: initialCenter.x,
-			currentY: initialCenter.y,
-			fontSize: BASE_FONT_SIZE,
-			rotation: 0,
-			wiggle: 0,
-		};
-	}, [phase, progress, initialCenter, viewportCenter, targetFontSize]);
+			el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) perspective(800px) rotateY(${rotation + wiggle}deg)`;
+			pre.style.fontSize = `${fs}px`;
+		});
+	}, [phase, subscribeToFrame]);
 
 	const getEyeChar = (eye: EyeState) => {
 		if (mood === "surprised") return eyeChars.wide;
@@ -166,20 +176,20 @@ function AnimatedCatOverlay({
 
 	return (
 		<div
+			ref={overlayRef}
 			style={{
 				position: "fixed",
-				left: currentX,
-				top: currentY,
-				transform: `translate(-50%, -50%) perspective(800px) rotateY(${rotation + wiggle}deg)`,
-				transformOrigin: "center center",
+				left: 0,
+				top: 0,
+				willChange: "transform",
 				zIndex: 9999,
 				pointerEvents: "none",
 			}}
 		>
 			<pre
+				ref={preRef}
 				className="font-mono leading-tight text-gray-600"
 				style={{
-					fontSize: `${fontSize}px`,
 					lineHeight: 1.2,
 					whiteSpace: "pre",
 				}}
@@ -205,7 +215,7 @@ function AnimatedCatOverlay({
 }
 
 export function GhostCat() {
-	const { phase, progress } = useGhostAnimation();
+	const { phase, subscribeToFrame } = useGhostAnimation();
 	const [rightEye, setRightEye] = useState<EyeState>("open");
 	const [mood, setMood] = useState<CatMood>("idle");
 	const [isSquishing, setIsSquishing] = useState(false);
@@ -221,6 +231,7 @@ export function GhostCat() {
 
 	const catRef = useRef<HTMLButtonElement>(null);
 	const initialPositionRef = useRef<InitialPosition | null>(null);
+	const backdropRef = useRef<HTMLDivElement>(null);
 
 	const moodTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 	const keyPressRef = useRef({
@@ -242,6 +253,19 @@ export function GhostCat() {
 	if (phase === "idle") {
 		initialPositionRef.current = null;
 	}
+
+	useEffect(() => {
+		if (phase === "idle") return;
+
+		return subscribeToFrame((progress) => {
+			if (!backdropRef.current) return;
+			let opacity: number;
+			if (phase === "zoomIn") opacity = progress;
+			else if (phase === "action") opacity = 1;
+			else opacity = 1 - progress;
+			backdropRef.current.style.opacity = String(opacity);
+		});
+	}, [phase, subscribeToFrame]);
 
 	const triggerSquish = useCallback(() => {
 		setIsSquishing(true);
@@ -325,13 +349,6 @@ export function GhostCat() {
 
 	const isAnimating = phase !== "idle";
 
-	const backdropOpacity = useMemo(() => {
-		if (phase === "zoomIn") return progress;
-		if (phase === "action") return 1;
-		if (phase === "zoomOut") return 1 - progress;
-		return 0;
-	}, [phase, progress]);
-
 	const getEyeChar = (eye: EyeState) => {
 		if (mood === "surprised") return eyeChars.wide;
 		if (mood === "happy") return eyeChars.squint;
@@ -353,8 +370,9 @@ export function GhostCat() {
 		<>
 			{isAnimating && (
 				<div
-					className="fixed inset-0 z-9998 bg-black/85 backdrop-blur-sm transition-opacity"
-					style={{ opacity: backdropOpacity }}
+					ref={backdropRef}
+					className="fixed inset-0 z-9998 bg-black/85"
+					style={{ opacity: 0 }}
 					aria-hidden="true"
 				/>
 			)}
@@ -466,7 +484,6 @@ export function GhostCat() {
 					<AnimatedCatOverlay
 						initialPosition={initialPositionRef.current}
 						phase={phase as "zoomIn" | "action" | "zoomOut"}
-						progress={progress}
 						rightEye={rightEye}
 						mood={mood}
 					/>,

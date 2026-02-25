@@ -7,6 +7,7 @@ import {
 	useCallback,
 	useContext,
 	useEffect,
+	useRef,
 	useState,
 } from "react";
 import { useKonami } from "@/hooks/use-konami";
@@ -15,9 +16,9 @@ type Phase = "idle" | "zoomIn" | "action" | "zoomOut";
 
 interface GhostAnimationContextValue {
 	phase: Phase;
-	progress: number;
 	skip: () => void;
 	trigger: () => void;
+	subscribeToFrame: (cb: (progress: number) => void) => () => void;
 }
 
 const GhostAnimationContext = createContext<GhostAnimationContextValue | null>(
@@ -32,12 +33,19 @@ const TIMING = {
 
 export function GhostAnimationProvider({ children }: { children: ReactNode }) {
 	const [phase, setPhase] = useState<Phase>("idle");
-	const [progress, setProgress] = useState(0);
 	const prefersReducedMotion = useReducedMotion();
+
+	const frameCallbacksRef = useRef<Set<(progress: number) => void>>(new Set());
+
+	const subscribeToFrame = useCallback((cb: (progress: number) => void) => {
+		frameCallbacksRef.current.add(cb);
+		return () => {
+			frameCallbacksRef.current.delete(cb);
+		};
+	}, []);
 
 	const skip = useCallback(() => {
 		setPhase("idle");
-		setProgress(0);
 	}, []);
 
 	const trigger = useCallback(() => {
@@ -52,7 +60,6 @@ export function GhostAnimationProvider({ children }: { children: ReactNode }) {
 		}
 
 		setPhase("zoomIn");
-		setProgress(0);
 	}, [phase, prefersReducedMotion]);
 
 	useKonami({ onActivate: trigger });
@@ -89,20 +96,19 @@ export function GhostAnimationProvider({ children }: { children: ReactNode }) {
 			const elapsed = timestamp - start;
 			const phaseProgress = Math.min(elapsed / phaseDuration, 1);
 
-			setProgress(phaseProgress);
+			for (const cb of frameCallbacksRef.current) {
+				cb(phaseProgress);
+			}
 
 			if (phaseProgress < 1) {
 				animationFrame = requestAnimationFrame(animate);
 			} else {
 				if (phase === "zoomIn") {
 					setPhase("action");
-					setProgress(0);
 				} else if (phase === "action") {
 					setPhase("zoomOut");
-					setProgress(0);
 				} else if (phase === "zoomOut") {
 					setPhase("idle");
-					setProgress(0);
 				}
 			}
 		};
@@ -115,7 +121,9 @@ export function GhostAnimationProvider({ children }: { children: ReactNode }) {
 	}, [phase]);
 
 	return (
-		<GhostAnimationContext.Provider value={{ phase, progress, skip, trigger }}>
+		<GhostAnimationContext.Provider
+			value={{ phase, skip, trigger, subscribeToFrame }}
+		>
 			{children}
 		</GhostAnimationContext.Provider>
 	);
@@ -126,9 +134,9 @@ export function useGhostAnimation(): GhostAnimationContextValue {
 	if (!context) {
 		return {
 			phase: "idle",
-			progress: 0,
 			skip: () => {},
 			trigger: () => {},
+			subscribeToFrame: () => () => {},
 		};
 	}
 	return context;
