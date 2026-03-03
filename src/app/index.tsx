@@ -43,6 +43,19 @@ export const Route = createFileRoute("/")({
 	component: Home,
 });
 
+function getAge() {
+	const birthDate = new Date("2005-03-03T00:00:00-03:00");
+	const now = new Date(
+		new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" }),
+	);
+	const age = now.getFullYear() - birthDate.getFullYear();
+	const hasBirthdayPassed =
+		now.getMonth() > birthDate.getMonth() ||
+		(now.getMonth() === birthDate.getMonth() &&
+			now.getDate() >= birthDate.getDate());
+	return hasBirthdayPassed ? age : age - 1;
+}
+
 function Home() {
 	const featuredWorks = Route.useLoaderData();
 
@@ -82,8 +95,8 @@ function Home() {
 							<span>delivering results people love using</span>.
 						</p>
 						<p>
-							20 y/o, based in <span className="text-white">brazil</span>.
-							currently{" "}
+							{getAge()} y/o, based in{" "}
+							<span className="text-white">brazil</span>. currently{" "}
 							<a
 								className="group inline-flex items-center gap-0.5 text-white underline decoration-gray-600 underline-offset-4 focus-visible:outline-none transition-colors hover:decoration-white focus-visible:decoration-white"
 								href="https://emots.dev/meet"
