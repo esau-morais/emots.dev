@@ -39,7 +39,7 @@ export default defineConfig({
 			],
 		}),
 		tanstackStart({ srcDirectory: "src", router: { routesDirectory: "app" } }),
-		nitro({ preset: "vercel" }),
+		nitro(),
 		viteReact({ babel: { plugins: ["babel-plugin-react-compiler"] } }),
 	],
 });

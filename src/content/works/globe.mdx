@@ -1,0 +1,24 @@
+---
+title: Globe
+description: Dot globe map that morphs between flat and sphere projections.
+date: 2026-03-11
+type: experiment
+stack:
+  - React
+  - Three.js
+  - GLSL
+  - Convex
+links:
+  live: https://globe.emots.dev
+  github: https://github.com/esau-morais/globe
+---
+
+import { XPost } from "@/components/mdx/x-post";
+
+Dot globe map with ~50k land-mass points rendered via custom GLSL point shaders. Morphs between a flat map and a sphere projection with lerp-based camera animation. Pulsing markers show real-time visitor locations tracked via Convex.
+
+<Video poster="https://cdn.emots.dev/works/globe/cover.png" src="https://cdn.emots.dev/works/globe/showcase.mp4" />
+
+Inspired by this post from [@steventey](https://x.com/steventey):
+
+<XPost url="https://x.com/steventey/status/2029725690116067630?s=20" />
