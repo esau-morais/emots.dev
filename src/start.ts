@@ -46,7 +46,7 @@ const contentNegotiationMiddleware = createMiddleware().server(
 		const wantsHtml = accept.includes("text/html");
 		const wantsMarkdown = accept.includes("text/markdown");
 
-		if (!wantsMarkdown || wantsHtml) {
+		if (wantsMarkdown && !wantsHtml) {
 			return next();
 		}
 
