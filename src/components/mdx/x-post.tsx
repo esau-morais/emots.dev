@@ -29,7 +29,10 @@ type MediaDetail = {
 	video_info?: { variants: MediaVariant[] };
 };
 
-type TweetData = OEmbedResponse & { media: MediaDetail[] };
+type TweetData = OEmbedResponse & {
+	media: MediaDetail[];
+	avatar_url: string | null;
+};
 
 function extractTweetId(url: string): string | null {
 	return url.match(/status\/(\d+)/)?.[1] ?? null;
@@ -62,14 +65,17 @@ const fetchTweetData = createServerFn({ method: "GET" })
 		const oembed = (await oembedRes.json()) as OEmbedResponse;
 
 		let media: MediaDetail[] = [];
+		let avatar_url: string | null = null;
 		if (syndicationRes?.ok) {
 			const syndication = (await syndicationRes.json()) as {
 				mediaDetails?: MediaDetail[];
+				user?: { profile_image_url_https?: string };
 			};
 			media = syndication.mediaDetails ?? [];
+			avatar_url = syndication.user?.profile_image_url_https ?? null;
 		}
 
-		return { ...oembed, media } as TweetData;
+		return { ...oembed, media, avatar_url } as TweetData;
 	});
 
 const tweetQueryOptions = (url: string, enabled: boolean) =>
@@ -102,8 +108,8 @@ function extractDate(html: string): string | null {
 	return last ? last[1].trim() : null;
 }
 
-function getAvatarUrl(handle: string): string {
-	return `https://unavatar.io/x/${handle}`;
+function getProxiedAvatarUrl(avatarUrl: string): string {
+	return `/api/media/tweet-avatar?url=${encodeURIComponent(avatarUrl)}`;
 }
 
 function TweetSkeleton() {
@@ -193,12 +199,18 @@ export function XPost({ url }: XPostProps) {
 			>
 				<div className="flex items-start justify-between">
 					<div className="flex items-center gap-3">
-						<img
-							src={getAvatarUrl(authorHandle)}
-							alt=""
-							className="size-10 bg-gray-800"
-							loading="lazy"
-						/>
+						{data.avatar_url ? (
+							<img
+								src={getProxiedAvatarUrl(data.avatar_url)}
+								alt=""
+								className="size-10 bg-gray-800"
+								loading="lazy"
+							/>
+						) : (
+							<div className="flex size-10 items-center justify-center bg-gray-800 text-sm font-medium text-gray-400">
+								{data.author_name.charAt(0).toUpperCase()}
+							</div>
+						)}
 						<div className="flex flex-col">
 							<span className="font-semibold leading-tight text-white">
 								{data.author_name}

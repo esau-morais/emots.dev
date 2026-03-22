@@ -37,9 +37,32 @@ function getFeaturedWorks(limit = 3) {
 		.map(({ Content: _, content: __, ...work }) => work);
 }
 
+const PINNED_TWEET_ID = "2006478725202981035";
+
+async function fetchAuthorAvatar(): Promise<string | null> {
+	try {
+		const res = await fetch(
+			`https://cdn.syndication.twimg.com/tweet-result?id=${PINNED_TWEET_ID}&lang=en&token=0`,
+		);
+		if (!res.ok) return null;
+		const data = (await res.json()) as {
+			user?: { profile_image_url_https?: string };
+		};
+		return data.user?.profile_image_url_https ?? null;
+	} catch {
+		return null;
+	}
+}
+
 export const Route = createFileRoute("/")({
 	staleTime: 1000 * 60 * 5,
-	loader: () => getFeaturedWorks(),
+	loader: async () => {
+		const [featuredWorks, avatarUrl] = await Promise.all([
+			getFeaturedWorks(),
+			fetchAuthorAvatar(),
+		]);
+		return { featuredWorks, avatarUrl };
+	},
 	component: Home,
 });
 
@@ -57,7 +80,7 @@ function getAge() {
 }
 
 function Home() {
-	const featuredWorks = Route.useLoaderData();
+	const { featuredWorks, avatarUrl } = Route.useLoaderData();
 
 	return (
 		<div className="relative mx-auto max-w-2xl px-6">
@@ -270,14 +293,16 @@ function Home() {
 						href="/meet"
 						className="group relative flex items-center gap-3 overflow-hidden border border-gray-800 bg-gray-900/60 px-5 py-2.5 transition-all duration-200 ease-out hover:border-gray-700 hover:bg-gray-800/80 focus-visible:border-gray-700 focus-visible:bg-gray-800/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-600 active:scale-[0.98]"
 					>
-						<img
-							src="https://unavatar.io/x/mor3is_"
-							alt=""
-							width={24}
-							height={24}
-							loading="lazy"
-							className="size-6 shrink-0 grayscale transition-all duration-200 group-hover:grayscale-0 group-focus-visible:grayscale-0"
-						/>
+						{avatarUrl && (
+							<img
+								src={`/api/media/tweet-avatar?url=${encodeURIComponent(avatarUrl)}`}
+								alt=""
+								width={24}
+								height={24}
+								loading="lazy"
+								className="size-6 shrink-0 grayscale transition-all duration-200 group-hover:grayscale-0 group-focus-visible:grayscale-0"
+							/>
+						)}
 						<span
 							className="max-w-0 overflow-hidden whitespace-nowrap text-sm text-gray-400 opacity-0 transition-all duration-200 ease-out group-hover:max-w-16 group-hover:opacity-100 group-focus-visible:max-w-16 group-focus-visible:opacity-100"
 							aria-hidden="true"
