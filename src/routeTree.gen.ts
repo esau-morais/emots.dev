@@ -24,6 +24,7 @@ import { Route as BlogSlugRouteImport } from './app/blog_.$slug'
 import { Route as ApiOgIndexRouteImport } from './app/api/og/index'
 import { Route as ApiErrorReportIndexRouteImport } from './app/api/error-report/index'
 import { Route as ApiNarrationSlugRouteImport } from './app/api/narration/$slug'
+import { Route as ApiMediaTweetVideoRouteImport } from './app/api/media/tweet-video'
 import { Route as ApiBookmarksSubmitRouteImport } from './app/api/bookmarks/submit'
 import { Route as ApiBookmarksRejectRouteImport } from './app/api/bookmarks/reject'
 import { Route as ApiBookmarksApproveRouteImport } from './app/api/bookmarks/approve'
@@ -103,6 +104,11 @@ const ApiNarrationSlugRoute = ApiNarrationSlugRouteImport.update({
   path: '/api/narration/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiMediaTweetVideoRoute = ApiMediaTweetVideoRouteImport.update({
+  id: '/api/media/tweet-video',
+  path: '/api/media/tweet-video',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiBookmarksSubmitRoute = ApiBookmarksSubmitRouteImport.update({
   id: '/api/bookmarks/submit',
   path: '/api/bookmarks/submit',
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/api/bookmarks/approve': typeof ApiBookmarksApproveRoute
   '/api/bookmarks/reject': typeof ApiBookmarksRejectRoute
   '/api/bookmarks/submit': typeof ApiBookmarksSubmitRoute
+  '/api/media/tweet-video': typeof ApiMediaTweetVideoRoute
   '/api/narration/$slug': typeof ApiNarrationSlugRoute
   '/api/error-report/': typeof ApiErrorReportIndexRoute
   '/api/og/': typeof ApiOgIndexRoute
@@ -154,6 +161,7 @@ export interface FileRoutesByTo {
   '/api/bookmarks/approve': typeof ApiBookmarksApproveRoute
   '/api/bookmarks/reject': typeof ApiBookmarksRejectRoute
   '/api/bookmarks/submit': typeof ApiBookmarksSubmitRoute
+  '/api/media/tweet-video': typeof ApiMediaTweetVideoRoute
   '/api/narration/$slug': typeof ApiNarrationSlugRoute
   '/api/error-report': typeof ApiErrorReportIndexRoute
   '/api/og': typeof ApiOgIndexRoute
@@ -175,6 +183,7 @@ export interface FileRoutesById {
   '/api/bookmarks/approve': typeof ApiBookmarksApproveRoute
   '/api/bookmarks/reject': typeof ApiBookmarksRejectRoute
   '/api/bookmarks/submit': typeof ApiBookmarksSubmitRoute
+  '/api/media/tweet-video': typeof ApiMediaTweetVideoRoute
   '/api/narration/$slug': typeof ApiNarrationSlugRoute
   '/api/error-report/': typeof ApiErrorReportIndexRoute
   '/api/og/': typeof ApiOgIndexRoute
@@ -197,6 +206,7 @@ export interface FileRouteTypes {
     | '/api/bookmarks/approve'
     | '/api/bookmarks/reject'
     | '/api/bookmarks/submit'
+    | '/api/media/tweet-video'
     | '/api/narration/$slug'
     | '/api/error-report/'
     | '/api/og/'
@@ -216,6 +226,7 @@ export interface FileRouteTypes {
     | '/api/bookmarks/approve'
     | '/api/bookmarks/reject'
     | '/api/bookmarks/submit'
+    | '/api/media/tweet-video'
     | '/api/narration/$slug'
     | '/api/error-report'
     | '/api/og'
@@ -236,6 +247,7 @@ export interface FileRouteTypes {
     | '/api/bookmarks/approve'
     | '/api/bookmarks/reject'
     | '/api/bookmarks/submit'
+    | '/api/media/tweet-video'
     | '/api/narration/$slug'
     | '/api/error-report/'
     | '/api/og/'
@@ -255,6 +267,7 @@ export interface RootRouteChildren {
   ApiBookmarksApproveRoute: typeof ApiBookmarksApproveRoute
   ApiBookmarksRejectRoute: typeof ApiBookmarksRejectRoute
   ApiBookmarksSubmitRoute: typeof ApiBookmarksSubmitRoute
+  ApiMediaTweetVideoRoute: typeof ApiMediaTweetVideoRoute
   ApiNarrationSlugRoute: typeof ApiNarrationSlugRoute
   ApiErrorReportIndexRoute: typeof ApiErrorReportIndexRoute
   ApiOgIndexRoute: typeof ApiOgIndexRoute
@@ -367,6 +380,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiNarrationSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/media/tweet-video': {
+      id: '/api/media/tweet-video'
+      path: '/api/media/tweet-video'
+      fullPath: '/api/media/tweet-video'
+      preLoaderRoute: typeof ApiMediaTweetVideoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/bookmarks/submit': {
       id: '/api/bookmarks/submit'
       path: '/api/bookmarks/submit'
@@ -419,6 +439,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiBookmarksApproveRoute: ApiBookmarksApproveRoute,
   ApiBookmarksRejectRoute: ApiBookmarksRejectRoute,
   ApiBookmarksSubmitRoute: ApiBookmarksSubmitRoute,
+  ApiMediaTweetVideoRoute: ApiMediaTweetVideoRoute,
   ApiNarrationSlugRoute: ApiNarrationSlugRoute,
   ApiErrorReportIndexRoute: ApiErrorReportIndexRoute,
   ApiOgIndexRoute: ApiOgIndexRoute,

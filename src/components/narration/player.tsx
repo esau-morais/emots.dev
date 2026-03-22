@@ -9,6 +9,7 @@ import {
 	SpeakerSlashIcon,
 	XIcon,
 } from "@phosphor-icons/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useGhostAnimation } from "@/contexts/ghost-animation";
 import { useMediaSource } from "@/contexts/media-coordinator";
@@ -295,165 +296,170 @@ export function NarrationPlayer() {
 		[skip, isPlaying, setPlaying],
 	);
 
+	const shouldShow = isVisible && !!audioUrl && !isGhostAnimating;
+
 	return (
-		<div
-			className={cn(
-				"fixed inset-x-0 bottom-0 z-50 border-t border-gray-800 bg-gray-950/95 backdrop-blur-sm transition-transform duration-300 ease-out",
-				isVisible && audioUrl && !isGhostAnimating
-					? "translate-y-0"
-					: "translate-y-full",
-			)}
-			style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
-		>
-			{/* biome-ignore lint/a11y/useMediaCaption: audio narration doesn't require captions */}
-			{audioUrl && <audio ref={audioRef} src={audioUrl} preload="auto" />}
-
-			<div
-				ref={progressRef}
-				className={cn(
-					"group relative h-1 bg-gray-800 touch-none select-none focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50",
-					isDragging ? "cursor-grabbing" : "cursor-grab",
-				)}
-				onPointerDown={handlePointerDown}
-				onPointerMove={handlePointerMove}
-				onPointerUp={handlePointerUp}
-				onPointerCancel={handlePointerUp}
-				onKeyDown={handleKeyDown}
-				role="slider"
-				aria-label="Seek"
-				aria-valuenow={currentTime}
-				aria-valuemin={0}
-				aria-valuemax={duration}
-				tabIndex={0}
-			>
-				<div
-					className="pointer-events-none absolute inset-y-0 left-0 bg-gray-400 transition-colors group-hover:bg-white"
-					style={{
-						width: `${duration && Number.isFinite(duration) ? (currentTime / duration) * 100 : 0}%`,
-					}}
-				/>
-			</div>
-
-			<div className="flex h-12 items-center justify-between px-3 sm:h-14 sm:px-4">
-				<div className="flex items-center gap-2 sm:gap-4">
-					<button
-						type="button"
-						onClick={() => skip(-15)}
-						className="flex size-8 items-center justify-center text-gray-500 transition-colors duration-150 hover:text-white focus-visible:text-white focus:outline-none"
-						aria-label="Rewind 15 seconds"
-					>
-						<RewindIcon size={16} />
-					</button>
-
-					<button
-						type="button"
-						onClick={() => setPlaying(!isPlaying)}
-						className="group relative flex size-8 items-center justify-center bg-white text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-						aria-label={isPlaying ? "Pause" : "Play"}
-					>
-						<span
-							className={cn(
-								"transition-transform duration-150 group-hover:scale-105 group-active:scale-95",
-								isBuffering && isPlaying && "opacity-0",
-							)}
-						>
-							{isPlaying ? (
-								<PauseIcon size={16} weight="fill" />
-							) : (
-								<PlayIcon size={16} weight="fill" />
-							)}
-						</span>
-						{isBuffering && isPlaying && (
-							<div className="absolute inset-0 flex items-center justify-center rounded-full">
-								<div className="size-4 animate-spin border-2 border-black/20 border-t-black" />
-							</div>
-						)}
-					</button>
-
-					<button
-						type="button"
-						onClick={() => skip(15)}
-						className="flex size-8 items-center justify-center text-gray-500 transition-colors duration-150 hover:text-white focus-visible:text-white focus:outline-none"
-						aria-label="Forward 15 seconds"
-					>
-						<FastForwardIcon size={16} />
-					</button>
-
-					<span className="tabular-nums text-sm text-gray-500">
-						{formatTime(currentTime)} /{" "}
-						{formatTime(duration || metadata?.duration || 0)}
-					</span>
-				</div>
-
-				<button
-					type="button"
-					onClick={() => setFollowAlong(!followAlong)}
-					className={cn(
-						"flex items-center gap-2 text-sm transition-colors duration-150 focus:outline-none",
-						followAlong
-							? "text-white"
-							: "text-gray-500 hover:text-white focus-visible:text-white",
-					)}
-					aria-label={
-						followAlong ? "Disable follow along" : "Enable follow along"
-					}
-					aria-pressed={followAlong}
+		<AnimatePresence>
+			{shouldShow && (
+				<motion.div
+					initial={{ y: "100%" }}
+					animate={{ y: 0 }}
+					exit={{ y: "100%" }}
+					transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+					className="fixed inset-x-0 bottom-0 z-50 border-t border-gray-800 bg-gray-950/95 backdrop-blur-sm"
+					style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
 				>
-					<DiamondIcon filled={followAlong} />
-					<span className="hidden sm:inline">follow along</span>
-				</button>
+					{/* biome-ignore lint/a11y/useMediaCaption: audio narration doesn't require captions */}
+					{audioUrl && <audio ref={audioRef} src={audioUrl} preload="auto" />}
 
-				<div className="flex items-center gap-2 sm:gap-4">
-					<button
-						type="button"
-						onClick={() => setMuted(!isMuted)}
-						className="flex size-8 items-center justify-center text-gray-500 transition-colors duration-150 hover:text-white focus-visible:text-white focus:outline-none"
-						aria-label={isMuted ? "Unmute" : "Mute"}
-					>
-						{isMuted ? (
-							<SpeakerSlashIcon size={16} />
-						) : (
-							<SpeakerHighIcon size={16} />
+					<div
+						ref={progressRef}
+						className={cn(
+							"group relative h-1 bg-gray-800 touch-none select-none focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50",
+							isDragging ? "cursor-grabbing" : "cursor-grab",
 						)}
-					</button>
-
-					<input
-						type="range"
-						min={0}
-						max={1}
-						step={0.01}
-						value={isMuted ? 0 : volume}
-						onChange={(e) => {
-							setVolume(Number(e.target.value));
-							if (isMuted) setMuted(false);
-						}}
-						className="hidden h-1 w-16 cursor-pointer appearance-none bg-gray-800 accent-white focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 sm:block [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white"
-						aria-label="Volume"
-					/>
-
-					<select
-						value={playbackRate}
-						onChange={(e) => setPlaybackRate(Number(e.target.value))}
-						className="hidden appearance-none bg-transparent text-sm text-gray-500 hover:text-white focus-visible:text-white focus:outline-none cursor-pointer sm:block"
-						aria-label="Playback speed"
+						onPointerDown={handlePointerDown}
+						onPointerMove={handlePointerMove}
+						onPointerUp={handlePointerUp}
+						onPointerCancel={handlePointerUp}
+						onKeyDown={handleKeyDown}
+						role="slider"
+						aria-label="Seek"
+						aria-valuenow={currentTime}
+						aria-valuemin={0}
+						aria-valuemax={duration}
+						tabIndex={0}
 					>
-						{PLAYBACK_RATES.map((rate) => (
-							<option key={rate} value={rate} className="bg-gray-950">
-								{rate}x
-							</option>
-						))}
-					</select>
+						<div
+							className="pointer-events-none absolute inset-y-0 left-0 bg-gray-400 transition-colors group-hover:bg-white"
+							style={{
+								width: `${duration && Number.isFinite(duration) ? (currentTime / duration) * 100 : 0}%`,
+							}}
+						/>
+					</div>
 
-					<button
-						type="button"
-						onClick={close}
-						className="flex size-8 items-center justify-center text-gray-500 transition-colors duration-150 hover:text-white focus-visible:text-white focus:outline-none"
-						aria-label="Close player"
-					>
-						<XIcon size={16} />
-					</button>
-				</div>
-			</div>
-		</div>
+					<div className="flex h-12 items-center justify-between px-3 sm:h-14 sm:px-4">
+						<div className="flex items-center gap-2 sm:gap-4">
+							<button
+								type="button"
+								onClick={() => skip(-15)}
+								className="flex size-8 items-center justify-center text-gray-500 transition-colors duration-150 hover:text-white focus-visible:text-white focus:outline-none"
+								aria-label="Rewind 15 seconds"
+							>
+								<RewindIcon size={16} />
+							</button>
+
+							<button
+								type="button"
+								onClick={() => setPlaying(!isPlaying)}
+								className="group relative flex size-8 items-center justify-center bg-white text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+								aria-label={isPlaying ? "Pause" : "Play"}
+							>
+								<span
+									className={cn(
+										"transition-transform duration-150 group-hover:scale-105 group-active:scale-95",
+										isBuffering && isPlaying && "opacity-0",
+									)}
+								>
+									{isPlaying ? (
+										<PauseIcon size={16} weight="fill" />
+									) : (
+										<PlayIcon size={16} weight="fill" />
+									)}
+								</span>
+								{isBuffering && isPlaying && (
+									<div className="absolute inset-0 flex items-center justify-center rounded-full">
+										<div className="size-4 animate-spin border-2 border-black/20 border-t-black" />
+									</div>
+								)}
+							</button>
+
+							<button
+								type="button"
+								onClick={() => skip(15)}
+								className="flex size-8 items-center justify-center text-gray-500 transition-colors duration-150 hover:text-white focus-visible:text-white focus:outline-none"
+								aria-label="Forward 15 seconds"
+							>
+								<FastForwardIcon size={16} />
+							</button>
+
+							<span className="tabular-nums text-sm text-gray-500">
+								{formatTime(currentTime)} /{" "}
+								{formatTime(duration || metadata?.duration || 0)}
+							</span>
+						</div>
+
+						<button
+							type="button"
+							onClick={() => setFollowAlong(!followAlong)}
+							className={cn(
+								"flex items-center gap-2 text-sm transition-colors duration-150 focus:outline-none",
+								followAlong
+									? "text-white"
+									: "text-gray-500 hover:text-white focus-visible:text-white",
+							)}
+							aria-label={
+								followAlong ? "Disable follow along" : "Enable follow along"
+							}
+							aria-pressed={followAlong}
+						>
+							<DiamondIcon filled={followAlong} />
+							<span className="hidden sm:inline">follow along</span>
+						</button>
+
+						<div className="flex items-center gap-2 sm:gap-4">
+							<button
+								type="button"
+								onClick={() => setMuted(!isMuted)}
+								className="flex size-8 items-center justify-center text-gray-500 transition-colors duration-150 hover:text-white focus-visible:text-white focus:outline-none"
+								aria-label={isMuted ? "Unmute" : "Mute"}
+							>
+								{isMuted ? (
+									<SpeakerSlashIcon size={16} />
+								) : (
+									<SpeakerHighIcon size={16} />
+								)}
+							</button>
+
+							<input
+								type="range"
+								min={0}
+								max={1}
+								step={0.01}
+								value={isMuted ? 0 : volume}
+								onChange={(e) => {
+									setVolume(Number(e.target.value));
+									if (isMuted) setMuted(false);
+								}}
+								className="hidden h-1 w-16 cursor-pointer appearance-none bg-gray-800 accent-white focus:outline-none focus-visible:ring-1 focus-visible:ring-white/50 sm:block [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white"
+								aria-label="Volume"
+							/>
+
+							<select
+								value={playbackRate}
+								onChange={(e) => setPlaybackRate(Number(e.target.value))}
+								className="hidden appearance-none bg-transparent text-sm text-gray-500 hover:text-white focus-visible:text-white focus:outline-none cursor-pointer sm:block"
+								aria-label="Playback speed"
+							>
+								{PLAYBACK_RATES.map((rate) => (
+									<option key={rate} value={rate} className="bg-gray-950">
+										{rate}x
+									</option>
+								))}
+							</select>
+
+							<button
+								type="button"
+								onClick={close}
+								className="flex size-8 items-center justify-center text-gray-500 transition-colors duration-150 hover:text-white focus-visible:text-white focus:outline-none"
+								aria-label="Close player"
+							>
+								<XIcon size={16} />
+							</button>
+						</div>
+					</div>
+				</motion.div>
+			)}
+		</AnimatePresence>
 	);
 }
