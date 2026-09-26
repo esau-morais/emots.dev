@@ -253,7 +253,7 @@ export function Video({ src, poster, alt }: VideoProps) {
 					<button
 						type="button"
 						onClick={togglePlay}
-						className="absolute inset-0 z-10 flex items-center justify-center bg-gray-950/50 backdrop-blur-sm"
+						className="absolute inset-x-0 top-0 bottom-10 sm:bottom-11 z-10 flex items-center justify-center bg-gray-950/50 backdrop-blur-sm"
 						aria-label="Play video"
 					>
 						<span className="flex size-16 items-center justify-center bg-white backdrop-blur-md transition-transform hover:scale-105 active:scale-95">
