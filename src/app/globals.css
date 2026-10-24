@@ -274,14 +274,15 @@ html {
 			"calt" 1;
 	}
 
+	/* tracking shrinks as size grows: ~0.06em at 12px, 0.04em at 20px, 0.027em at 36px, 0.022em at 48px */
 	.font-serif {
-		letter-spacing: 0.05em;
+		letter-spacing: calc(0.01em + 0.6px);
 		vertical-align: var(--align-offset);
 		line-height: inherit;
 	}
 
-	/* tighten mono when adjacent to serif for optical balance */
-	.mixed-type > :not(.font-serif) {
+	/* tighten mono when adjacent to serif for optical balance; set on the container so em resolves at heading size */
+	.mixed-type {
 		letter-spacing: -0.07em;
 	}
 
