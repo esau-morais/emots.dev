@@ -1,0 +1,103 @@
+{
+ "viewport": {
+  "w": 851,
+  "h": 730,
+  "dpr": 2.4375,
+  "vv": {
+   "w": 851.6923217773438,
+   "h": 730.6666870117188
+  }
+ },
+ "mq": {
+  "h2": true,
+  "v2": false,
+  "h1": false
+ },
+ "posture": "continuous",
+ "segments": [
+  {
+   "x": 0,
+   "y": 0,
+   "w": 426,
+   "h": 731
+  },
+  {
+   "x": 426,
+   "y": 0,
+   "w": 426,
+   "h": 731
+  }
+ ],
+ "foldStart": 426,
+ "foldEnd": 426,
+ "foldMid": 426,
+ "env": {
+  "viewport-segment-right 0 0": "426px",
+  "viewport-segment-left 1 0": "426px",
+  "safeArea": {
+   "t": "0px",
+   "r": "0px",
+   "b": "32px",
+   "l": "0px"
+  }
+ },
+ "vars": {
+  "--fold-x": "426px",
+  "--fold-w": "calc(426px - 426px)",
+  "--gutter": "2rem",
+  "--gutter-left": "max(2rem, 0px)",
+  "--gutter-right": "max(2rem, 0px)",
+  "--safe-left": "0px",
+  "--safe-right": "0px"
+ },
+ "resolved": {
+  "foldX": "426px",
+  "foldW": "0px",
+  "gutterLeft": "32px",
+  "gutterRight": "32px"
+ },
+ "section": {
+  "className": "mb-12 grid gap-12 @xl:grid-cols-[1.2fr_1px_1fr] @xl:fold-x:grid-fold",
+  "width": 624,
+  "left": 113.84615325927734,
+  "gridTemplateColumns": "263.654px 1px 263.346px",
+  "columnGap": "48px"
+ },
+ "containerWidth": 672,
+ "hr": {
+  "left": 425.5,
+  "width": 1,
+  "centre": 426,
+  "display": "block"
+ },
+ "hairlineMinusFoldMid": 0,
+ "cols": [
+  {
+   "tag": "DIV",
+   "left": 113.84615325927734,
+   "right": 377.49999237060547,
+   "width": 263.6538391113281
+  },
+  {
+   "tag": "HR",
+   "left": 425.5,
+   "right": 426.5,
+   "width": 1
+  },
+  {
+   "tag": "DIV",
+   "left": 474.5,
+   "right": 737.8461608886719,
+   "width": 263.3461608886719
+  }
+ ],
+ "colClearance": {
+  "leftColToFold": 48.50000762939453,
+  "rightColFromFold": 48.5
+ },
+ "featured": {
+  "gridTemplateColumns": "197.333px 197.333px 197.333px",
+  "n": 3
+ },
+ "docScrollWidth": 851
+}

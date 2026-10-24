@@ -1,0 +1,33 @@
+{
+ "viewport": {
+  "w": 851,
+  "h": 730
+ },
+ "mq_h2": false,
+ "segments": [
+  {
+   "x": 0,
+   "w": 852
+  }
+ ],
+ "dialog": {
+  "paddingLeft": "32px",
+  "paddingRight": "32px",
+  "gutter": "2rem",
+  "className": "@container-size fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center overscroll-contain p-safe [--gutter:1rem] sm:[--gutter:2rem] fold-x:pr-[calc(100%-var(--fold-x)+var(--gutter))] fold-y:pb-[calc(env(viewport-segment-bottom_0_1,100vh)-var(--fold-y)+var(--gutter))]"
+ },
+ "imageBox": {
+  "left": 32,
+  "right": 819.6923217773438,
+  "top": 143.4038543701172,
+  "bottom": 587.2628326416016,
+  "width": 787.6923217773438
+ },
+ "imgComplete": true,
+ "imgNatural": [
+  1438,
+  809
+ ],
+ "imageRightVsFold": null,
+ "onFirstSegment": null
+}
