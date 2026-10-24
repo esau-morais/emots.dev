@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PR #5 on iPhone Duo</title>
+<link rel="stylesheet" href="ref-style.css" />
+<style>
+  .foldline-y { position: absolute; left: 0; width: 669px; height: 2px; margin-top: -1px;
+    background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 18px); }
+  .foldtag-y { position: absolute; right: 10px; font: 600 13px/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase;
+    color: #1a1204; background: var(--accent); padding: 5px 7px; border-radius: 4px; }
+  .caption { bottom: auto; top: 96px; }
+  .caption .l { font-size: 40px; max-width: 760px; }
+  .caption .m { display: block; margin-top: 14px; font: 400 20px/1.35 var(--font-mono); color: var(--dim); max-width: 760px; }
+  #note { position: absolute; left: 130px; bottom: 46px; font: 400 17px/1.4 var(--font-mono); color: #6e7075; max-width: 1660px; }
+</style>
+</head>
+<body>
+<div id="root">
+  <div id="ground"></div>
+  <div id="cam">
+    <div id="floor"></div>
+    <div id="stage"><div id="lift"><div class="anchor"><div id="device"></div></div></div></div>
+  </div>
+  <div id="media"><div id="web-portrait"></div><div id="web-landscape"></div><div id="web-inner"></div></div>
+  <div class="caption" id="cap"><span class="k" id="k"></span><span class="l" id="l"></span><span class="m" id="m"></span></div>
+  <div id="note">Page rendered by Chrome 145 on an Android 37 emulator at the iPhone Duo's inner viewport (669×902 CSS px, Safari 27.1 sizes from WebKit) with a real horizontal fold from the Viewport Segments API at y = 426. Safari's toolbar and the device are drawn. Safari itself is untested.</div>
+</div>
+<script>
+  const q = new URLSearchParams(location.search);
+  const V = q.get('v') || 'main';
+  const CAP = `cap/laptop-${V}-vp.png`, FOLD_Y = 426;
+  const TEXT = {
+    main: ['before · main', 'The zoomed image sits across the fold', 'laptop posture, vertical-viewport-segments: 2. image y 281 to 621, fold at 426'],
+    branch: ['after · fold-y', 'It stays on the top panel', 'fold-y ends the dialog at the top segment. image y 43 to 383, fold at 426'],
+  }[V];
+  document.getElementById('k').textContent = TEXT[0];
+  document.getElementById('l').textContent = TEXT[1];
+  document.getElementById('m').textContent = TEXT[2];
+</script>
+<script src="model.js"></script>
+<script>
+  build();
+  for (const k of ['theta','rx','ry','orient','lift','dx','fit']) if (q.has(k)) S[k] = +q.get(k);
+  place();
+  if (q.has('cx')) { const c = document.getElementById('cam'); c.style.transform = `translate(${q.get('cx')}px, ${q.get('cy') || 0}px) scale(${q.get('cz') || 1})`; }
+  document.body.dataset.ready = '1';
+</script>
+</body>
+</html>
