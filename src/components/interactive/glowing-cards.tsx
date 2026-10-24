@@ -141,7 +141,7 @@ export const GlowingCards = () => {
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					transition={{ duration: 0.2 }}
-					className="glowing-cards-container grid w-full max-w-2xl grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3"
+					className="glowing-cards-container grid w-full max-w-2xl grid-cols-1 gap-2 @md:grid-cols-2 @lg:grid-cols-3"
 				>
 					{[1, 2, 3, 4, 5, 6].map((i) => (
 						<GlowingCard key={`card-${i}`} label={`Card ${i}`} />

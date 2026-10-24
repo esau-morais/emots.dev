@@ -83,10 +83,10 @@ function Home() {
 	const { featuredWorks, avatarUrl } = Route.useLoaderData();
 
 	return (
-		<div className="relative mx-auto max-w-2xl px-6">
+		<div className="@container relative mx-auto max-w-2xl px-6">
 			<section className="mb-12">
 				<GhostCat />
-				<h1 className="mb-6 text-5xl font-bold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
+				<h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-white min-[22rem]:text-5xl md:text-6xl lg:text-7xl">
 					<span className="block">front-end</span>
 					<span className="text-gray-400">engineer</span>
 				</h1>
@@ -106,7 +106,7 @@ function Home() {
 				<div className="hidden sm:block size-1 shrink-0 bg-gray-700" />
 			</div>
 
-			<section className="mb-12 grid gap-12 md:grid-cols-[1.2fr_1px_1fr]">
+			<section className="mb-12 grid gap-12 @xl:grid-cols-[1.2fr_1px_1fr]">
 				<div>
 					<h2 className="mb-6 text-xs font-medium uppercase tracking-[0.2em] text-gray-600">
 						the work
@@ -138,7 +138,7 @@ function Home() {
 					</div>
 				</div>
 
-				<hr className="hidden h-auto w-px self-stretch border-0 bg-gray-800/40 md:block" />
+				<hr className="hidden h-auto w-px self-stretch border-0 bg-gray-800/40 @xl:block" />
 
 				<div>
 					<h2 className="mb-6 text-xs font-medium uppercase tracking-[0.2em] text-gray-600">
@@ -226,7 +226,7 @@ function Home() {
 					</h2>
 				</header>
 
-				<ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+				<ul className="grid gap-4 @sm:grid-cols-2 @xl:grid-cols-3">
 					{featuredWorks.map((work) => (
 						<li key={work.slug}>
 							<Link
