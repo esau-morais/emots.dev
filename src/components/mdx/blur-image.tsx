@@ -82,7 +82,8 @@ export function BlurImage({ src, alt }: { src: string; alt: string }) {
 								exit={{ opacity: 0 }}
 								style={{ backgroundColor: "var(--shadow-overlay)" }}
 								transition={TRANSITION}
-								className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center overscroll-contain p-safe [--gutter:1rem] sm:[--gutter:2rem]"
+								// fold-x: on an unfolded foldable, keep the zoomed image on the first panel, off the crease
+								className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center overscroll-contain p-safe [--gutter:1rem] sm:[--gutter:2rem] fold-x:pr-[calc(100%-var(--fold-x)+var(--gutter))]"
 								onClick={close}
 								role="dialog"
 								aria-modal="true"

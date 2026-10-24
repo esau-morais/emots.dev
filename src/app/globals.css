@@ -70,6 +70,12 @@ html {
 	--gutter-right: max(var(--gutter), var(--safe-right));
 	--header-h: calc(2.5rem + var(--safe-top));
 	--footer-h: calc(2.5rem + var(--safe-bottom));
+	/* fold geometry, only meaningful under the fold-x variant below */
+	--fold-x: env(viewport-segment-right 0 0, 50vw);
+	--fold-w: calc(
+		env(viewport-segment-left 1 0, 0px) -
+		env(viewport-segment-right 0 0, 0px)
+	);
 
 	@variant md {
 		--gutter: 2rem;
@@ -103,6 +109,39 @@ html {
 	--highlight-subtle: oklch(0% 0 0 / 0.04);
 	--highlight-medium: oklch(0% 0 0 / 0.08);
 	--highlight-strong: oklch(0% 0 0 / 0.15);
+}
+
+/*
+ * Foldables: Viewport Segments API. Safari 27.1 has it behind a feature flag
+ * and Chrome ships it on Android foldables; the query matches nowhere else, so
+ * everything under fold-x is additive. fold-x = unfolded with the fold running
+ * top to bottom (book / open wide).
+ */
+@custom-variant fold-x (@media (horizontal-viewport-segments: 2));
+
+/*
+ * Home "work / connect" grid under fold-x: sizes the first column so the 1px
+ * hairline lands on the middle of the fold, wherever asymmetric safe-area
+ * insets shift the centered column, and keeps both columns 3rem clear of it.
+ * 50vw + (gutter-left - gutter-right) / 2 is where the column's centre sits.
+ */
+@utility grid-fold {
+	--fold-gap: calc(var(--fold-w) / 2 + 3rem);
+	column-gap: var(--fold-gap);
+	grid-template-columns:
+		max(
+			8rem,
+			calc(
+				50% +
+				var(--fold-x) -
+				50vw -
+				(var(--gutter-left) - var(--gutter-right)) /
+				2 -
+				3rem -
+				0.5px
+			)
+		)
+		1px 1fr;
 }
 
 /* reads --gutter directly so a local [--gutter:*] override still applies */
