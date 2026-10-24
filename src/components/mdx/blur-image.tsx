@@ -83,7 +83,7 @@ export function BlurImage({ src, alt }: { src: string; alt: string }) {
 								style={{ backgroundColor: "var(--shadow-overlay)" }}
 								transition={TRANSITION}
 								// fold-x: on an unfolded foldable, keep the zoomed image on the first panel, off the crease
-								className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center overscroll-contain p-safe [--gutter:1rem] sm:[--gutter:2rem] fold-x:pr-[calc(100%-var(--fold-x)+var(--gutter))]"
+								className="@container-size fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center overscroll-contain p-safe [--gutter:1rem] sm:[--gutter:2rem] fold-x:pr-[calc(100%-var(--fold-x)+var(--gutter))]"
 								onClick={close}
 								role="dialog"
 								aria-modal="true"
@@ -99,7 +99,8 @@ export function BlurImage({ src, alt }: { src: string; alt: string }) {
 										alt={alt}
 										width={1200}
 										height={630}
-										className="max-h-[90vh] w-auto object-contain"
+										// 100cqh = the dialog's content box, so short landscape screens shrink the image instead of cropping it (-2px for the border)
+										className="max-h-[min(90vh,calc(100cqh-2px))] w-auto object-contain"
 									/>
 								</motion.span>
 							</motion.div>
