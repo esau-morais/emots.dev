@@ -1,0 +1,207 @@
+{
+  "home__outer-portrait": [],
+  "work__outer-portrait": [],
+  "work-edite__outer-portrait": [],
+  "work-glowing-cards__outer-portrait": [],
+  "work-stacked-history__outer-portrait": [],
+  "blog__outer-portrait": [],
+  "blog-post__outer-portrait": [],
+  "craft__outer-portrait": [],
+  "checklist__outer-portrait": [],
+  "bookmarks__outer-portrait": [],
+  "bookmarks-category__outer-portrait": [],
+  "not-found__outer-portrait": [],
+  "lightbox__outer-portrait": [],
+  "home__outer-landscape": [
+    "nav under left inset (16 < 47)",
+    "theme toggle under right inset (578 > 532)",
+    "footer text under left inset (16)",
+    "footer text under right inset (578)",
+    "content under left inset (16)",
+    "content under right inset (578)"
+  ],
+  "work__outer-landscape": [
+    "nav under left inset (16 < 47)",
+    "theme toggle under right inset (578 > 532)",
+    "footer text under left inset (16)",
+    "footer text under right inset (578)",
+    "content under left inset (16)",
+    "content under right inset (578)"
+  ],
+  "work-edite__outer-landscape": [
+    "nav under left inset (16 < 47)",
+    "theme toggle under right inset (578 > 532)",
+    "footer text under left inset (16)",
+    "footer text under right inset (578)",
+    "content under left inset (16)",
+    "content under right inset (578)"
+  ],
+  "work-glowing-cards__outer-landscape": [
+    "nav under left inset (16 < 47)",
+    "theme toggle under right inset (578 > 532)",
+    "footer text under left inset (16)",
+    "footer text under right inset (578)",
+    "content under left inset (16)",
+    "content under right inset (578)"
+  ],
+  "work-stacked-history__outer-landscape": [
+    "nav under left inset (16 < 47)",
+    "theme toggle under right inset (578 > 532)",
+    "footer text under left inset (16)",
+    "footer text under right inset (578)",
+    "content under left inset (16)",
+    "content under right inset (578)"
+  ],
+  "blog__outer-landscape": [
+    "nav under left inset (16 < 47)",
+    "theme toggle under right inset (578 > 532)",
+    "footer text under left inset (16)",
+    "footer text under right inset (578)",
+    "content under left inset (16)",
+    "content under right inset (578)"
+  ],
+  "blog-post__outer-landscape": [
+    "nav under left inset (16 < 47)",
+    "theme toggle under right inset (578 > 532)",
+    "footer text under left inset (16)",
+    "footer text under right inset (578)",
+    "content under left inset (16)",
+    "content under right inset (578)"
+  ],
+  "craft__outer-landscape": [
+    "nav under left inset (16 < 47)",
+    "theme toggle under right inset (578 > 532)",
+    "footer text under left inset (16)",
+    "footer text under right inset (578)",
+    "content under left inset (16)",
+    "content under right inset (578)"
+  ],
+  "checklist__outer-landscape": [
+    "nav under left inset (16 < 47)",
+    "theme toggle under right inset (578 > 532)",
+    "footer text under left inset (16)",
+    "footer text under right inset (578)",
+    "content under left inset (16)",
+    "content under right inset (578)"
+  ],
+  "bookmarks__outer-landscape": [
+    "nav under left inset (16 < 47)",
+    "theme toggle under right inset (578 > 532)",
+    "footer text under left inset (16)",
+    "footer text under right inset (578)",
+    "content under left inset (16)",
+    "content under right inset (578)"
+  ],
+  "bookmarks-category__outer-landscape": [
+    "nav under left inset (16 < 47)",
+    "theme toggle under right inset (578 > 532)",
+    "footer text under left inset (16)",
+    "footer text under right inset (578)",
+    "content under left inset (16)",
+    "content under right inset (578)"
+  ],
+  "not-found__outer-landscape": [
+    "nav under left inset (16 < 47)",
+    "theme toggle under right inset (578 > 532)",
+    "footer text under left inset (16)",
+    "footer text under right inset (578)",
+    "content under left inset (16)",
+    "content under right inset (578)"
+  ],
+  "lightbox__outer-landscape": [
+    "image under left inset (16)",
+    "image under right inset (578)"
+  ],
+  "home__inner-portrait": [
+    "nav under top inset (0 < 24)"
+  ],
+  "work__inner-portrait": [
+    "nav under top inset (0 < 24)"
+  ],
+  "work-edite__inner-portrait": [
+    "nav under top inset (0 < 24)"
+  ],
+  "work-glowing-cards__inner-portrait": [
+    "nav under top inset (0 < 24)"
+  ],
+  "work-stacked-history__inner-portrait": [
+    "nav under top inset (0 < 24)"
+  ],
+  "blog__inner-portrait": [
+    "nav under top inset (0 < 24)"
+  ],
+  "blog-post__inner-portrait": [
+    "nav under top inset (0 < 24)"
+  ],
+  "craft__inner-portrait": [
+    "nav under top inset (0 < 24)"
+  ],
+  "checklist__inner-portrait": [
+    "nav under top inset (0 < 24)"
+  ],
+  "bookmarks__inner-portrait": [
+    "nav under top inset (0 < 24)"
+  ],
+  "bookmarks-category__inner-portrait": [
+    "nav under top inset (0 < 24)"
+  ],
+  "not-found__inner-portrait": [
+    "nav under top inset (0 < 24)"
+  ],
+  "lightbox__inner-portrait": [],
+  "home__inner-landscape": [],
+  "work__inner-landscape": [],
+  "work-edite__inner-landscape": [],
+  "work-glowing-cards__inner-landscape": [],
+  "work-stacked-history__inner-landscape": [],
+  "blog__inner-landscape": [],
+  "blog-post__inner-landscape": [],
+  "craft__inner-landscape": [],
+  "checklist__inner-landscape": [],
+  "bookmarks__inner-landscape": [],
+  "bookmarks-category__inner-landscape": [],
+  "not-found__inner-landscape": [],
+  "lightbox__inner-landscape": [],
+  "home__split-window": [],
+  "work__split-window": [],
+  "work-edite__split-window": [],
+  "work-glowing-cards__split-window": [],
+  "work-stacked-history__split-window": [],
+  "blog__split-window": [],
+  "blog-post__split-window": [],
+  "craft__split-window": [],
+  "checklist__split-window": [],
+  "bookmarks__split-window": [],
+  "bookmarks-category__split-window": [],
+  "not-found__split-window": [],
+  "lightbox__split-window": [],
+  "home__edge-zoomed-320": [],
+  "work__edge-zoomed-320": [],
+  "work-edite__edge-zoomed-320": [],
+  "work-glowing-cards__edge-zoomed-320": [],
+  "work-stacked-history__edge-zoomed-320": [],
+  "blog__edge-zoomed-320": [],
+  "blog-post__edge-zoomed-320": [],
+  "craft__edge-zoomed-320": [],
+  "checklist__edge-zoomed-320": [],
+  "bookmarks__edge-zoomed-320": [],
+  "bookmarks-category__edge-zoomed-320": [],
+  "not-found__edge-zoomed-320": [],
+  "lightbox__edge-zoomed-320": [],
+  "unfold": [
+    {
+      "step": "inner-landscape",
+      "issues": []
+    },
+    {
+      "step": "inner-portrait",
+      "issues": [
+        "nav under top inset (0 < 24)"
+      ]
+    },
+    {
+      "step": "outer-portrait",
+      "issues": []
+    }
+  ]
+}
