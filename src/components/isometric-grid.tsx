@@ -159,7 +159,7 @@ export const IsometricGrid = () => {
 	}, []);
 
 	return (
-		<div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden">
+		<div className="relative flex h-full w-full flex-col items-center justify-center-safe overflow-hidden max-md:overflow-y-auto">
 			{/* Halftone gradient overlay */}
 			<div
 				className="pointer-events-none absolute inset-0 z-10"
@@ -262,7 +262,7 @@ export const IsometricGrid = () => {
 			</div>
 
 			{/* Mobile: Simplified 2D layout */}
-			<div className="flex flex-col items-center gap-8 md:hidden">
+			<div className="flex flex-col items-center gap-8 py-8 md:hidden">
 				<h1 className="font-mono text-6xl font-black tracking-tighter text-gray-500">
 					404
 				</h1>
