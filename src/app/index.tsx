@@ -86,7 +86,7 @@ function Home() {
 		<div className="@container relative mx-auto max-w-2xl px-6">
 			<section className="mb-12">
 				<GhostCat />
-				<h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-white min-[22rem]:text-5xl md:text-6xl lg:text-7xl">
+				<h1 className="mb-6 text-5xl font-bold leading-tight tracking-tight text-white @max-3xs:text-4xl md:text-6xl lg:text-7xl">
 					<span className="block">front-end</span>
 					<span className="text-gray-400">engineer</span>
 				</h1>

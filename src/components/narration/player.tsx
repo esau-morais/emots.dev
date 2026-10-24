@@ -307,8 +307,7 @@ export function NarrationPlayer() {
 					exit={{ y: "100%" }}
 					transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
 					data-narration-player
-					className="fixed inset-x-0 bottom-0 z-50 border-t border-gray-800 bg-gray-950/95 backdrop-blur-sm"
-					style={{ paddingBottom: "var(--safe-bottom)" }}
+					className="fixed inset-x-0 bottom-0 z-50 border-t border-gray-800 bg-gray-950/95 pb-(--safe-bottom) backdrop-blur-sm"
 				>
 					{/* biome-ignore lint/a11y/useMediaCaption: audio narration doesn't require captions */}
 					{audioUrl && <audio ref={audioRef} src={audioUrl} preload="auto" />}
