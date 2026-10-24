@@ -4,6 +4,7 @@ import jetbrainsMonoWoff2 from "@fontsource-variable/jetbrains-mono/files/jetbra
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import {
 	createRootRoute,
+	type ErrorComponentProps,
 	HeadContent,
 	Link,
 	Outlet,
@@ -126,11 +127,11 @@ function RootComponent() {
 					<SoundProvider>
 						<GhostAnimationProvider>
 							<NarrationProvider>
-								<div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-4 md:px-8">
+								<div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-safe">
 									<Header />
 									<main
 										id="main-content"
-										className="my-20 min-h-[calc(100dvh-80px-160px)]"
+										className="mt-[calc(var(--header-h)+2.5rem)] mb-[calc(var(--footer-h)+2.5rem)] flex-1"
 									>
 										<Outlet />
 									</main>
@@ -171,7 +172,9 @@ const getLevelColor = (level: string) => {
 	}
 };
 
-function ErrorPage({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorPage({ error, reset }: ErrorComponentProps) {
+	const message = error instanceof Error ? error.message : String(error ?? "");
+
 	return (
 		<div className="flex min-h-dvh flex-col items-center justify-center gap-8 px-4">
 			<h1 className="text-4xl md:text-5xl">
@@ -181,9 +184,7 @@ function ErrorPage({ error, reset }: { error: Error; reset: () => void }) {
 
 			<div className="w-full max-w-md border border-error-border bg-error-bg p-4 font-mono text-xs">
 				<span className="text-error-fg">[ERROR]</span>{" "}
-				<span className="text-error-muted">
-					{error.message || "Unknown error"}
-				</span>
+				<span className="text-error-muted">{message || "Unknown error"}</span>
 			</div>
 
 			<div className="flex flex-col gap-3">
@@ -203,7 +204,7 @@ function ErrorPage({ error, reset }: { error: Error; reset: () => void }) {
 						home
 					</Link>
 				</div>
-				<CrashReportButton errorMessage={error.message || "Unknown error"} />
+				<CrashReportButton errorMessage={message || "Unknown error"} />
 			</div>
 
 			<div className="w-full max-w-md mask-[linear-gradient(to_bottom,black_80%,transparent)]">

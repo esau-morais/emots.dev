@@ -46,7 +46,7 @@ function bestMp4(variants: MediaVariant[]): string | null {
 }
 
 const fetchTweetData = createServerFn({ method: "GET" })
-	.inputValidator((d: string) => d)
+	.validator((d: string) => d)
 	.handler(async ({ data: url }: { data: string }) => {
 		const id = extractTweetId(url);
 

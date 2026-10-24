@@ -13,7 +13,7 @@ export type TweetResult = {
 };
 
 export const fetchTweet = createServerFn({ method: "GET" })
-	.inputValidator((url: string) => url)
+	.validator((url: string) => url)
 	.handler(async ({ data: url }: { data: string }) => {
 		const endpoint = `https://publish.x.com/oembed?url=${encodeURIComponent(url)}&omit_script=1&dnt=1`;
 		const res = await fetch(endpoint);

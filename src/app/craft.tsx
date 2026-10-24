@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { allPages } from "content-collections";
-import { parseKeyValueSections } from "@/lib/pages.server";
+import { parseKeyValueSections } from "@/lib/pages";
 
 const getCraftPageData = createServerFn({ method: "GET" }).handler(() => {
 	const page = allPages.find((p) => p.slug === "craft");

@@ -46,9 +46,17 @@ function isInsideSkippedComponent(node: Node): boolean {
 
 function isElementInViewport(el: Element): boolean {
 	const rect = el.getBoundingClientRect();
+	// measure the real chrome: header and player grow with safe-area insets
+	const headerHeight =
+		document.querySelector("header")?.getBoundingClientRect().height ??
+		HEADER_HEIGHT;
+	const playerHeight =
+		document.querySelector("[data-narration-player]")?.getBoundingClientRect()
+			.height ?? PLAYER_HEIGHT;
+	const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
 	return (
-		rect.top >= HEADER_HEIGHT + 32 &&
-		rect.bottom <= window.innerHeight - PLAYER_HEIGHT - 32
+		rect.top >= headerHeight + 32 &&
+		rect.bottom <= viewportHeight - playerHeight - 32
 	);
 }
 

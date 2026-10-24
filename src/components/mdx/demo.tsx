@@ -116,7 +116,7 @@ export const Demo = ({
 				</div>
 				<div
 					className={cn(
-						"relative flex min-h-56 items-center justify-center p-4 sm:min-h-70 sm:p-8",
+						"@container relative flex min-h-56 items-center justify-center p-4 sm:min-h-70 sm:p-8",
 						debugMode && "demo-debug-grid",
 					)}
 				>
