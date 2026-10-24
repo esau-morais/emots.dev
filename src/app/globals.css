@@ -70,12 +70,13 @@ html {
 	--gutter-right: max(var(--gutter), var(--safe-right));
 	--header-h: calc(2.5rem + var(--safe-top));
 	--footer-h: calc(2.5rem + var(--safe-bottom));
-	/* fold geometry, only meaningful under the fold-x variant below */
+	/* fold geometry, only meaningful under the fold-x / fold-y variants below */
 	--fold-x: env(viewport-segment-right 0 0, 50vw);
 	--fold-w: calc(
 		env(viewport-segment-left 1 0, 0px) -
 		env(viewport-segment-right 0 0, 0px)
 	);
+	--fold-y: env(viewport-segment-bottom 0 0, 50vh);
 
 	@variant md {
 		--gutter: 2rem;
@@ -114,10 +115,12 @@ html {
 /*
  * Foldables: Viewport Segments API. Safari 27.1 has it behind a feature flag
  * and Chrome ships it on Android foldables; the query matches nowhere else, so
- * everything under fold-x is additive. fold-x = unfolded with the fold running
- * top to bottom (book / open wide).
+ * everything under fold-x / fold-y is additive. Both only match while the
+ * device is partially folded. fold-x = fold running top to bottom (book),
+ * fold-y = fold running side to side (laptop / tabletop).
  */
 @custom-variant fold-x (@media (horizontal-viewport-segments: 2));
+@custom-variant fold-y (@media (vertical-viewport-segments: 2));
 
 /*
  * Home "work / connect" grid under fold-x: sizes the first column so the 1px
