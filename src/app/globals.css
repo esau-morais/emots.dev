@@ -70,6 +70,12 @@ html {
 	--gutter-right: max(var(--gutter), var(--safe-right));
 	--header-h: calc(2.5rem + var(--safe-top));
 	--footer-h: calc(2.5rem + var(--safe-bottom));
+	/* fold geometry, only meaningful under the fold-x variant below */
+	--fold-x: env(viewport-segment-right 0 0, 50%);
+	--fold-w: calc(
+		env(viewport-segment-left 1 0, 0px) -
+		env(viewport-segment-right 0 0, 0px)
+	);
 
 	@variant md {
 		--gutter: 2rem;
@@ -104,6 +110,14 @@ html {
 	--highlight-medium: oklch(0% 0 0 / 0.08);
 	--highlight-strong: oklch(0% 0 0 / 0.15);
 }
+
+/*
+ * Foldables: Viewport Segments API. Safari 27.1 has it behind a feature flag
+ * and Chrome ships it on Android foldables; the query matches nowhere else, so
+ * everything under fold-x is additive. fold-x = unfolded with the fold running
+ * top to bottom (book / open wide).
+ */
+@custom-variant fold-x (@media (horizontal-viewport-segments: 2));
 
 /* reads --gutter directly so a local [--gutter:*] override still applies */
 @utility px-safe {
