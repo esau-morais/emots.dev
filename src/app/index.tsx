@@ -222,7 +222,7 @@ function Home() {
 					<p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-gray-600">
 						Work
 					</p>
-					<h2 className="text-3xl md:text-4xl text-balance">
+					<h2 className="mixed-type text-3xl md:text-4xl text-balance">
 						<span className="font-serif italic text-white">Featured</span>{" "}
 						<span className="text-gray-400">Projects</span>
 					</h2>

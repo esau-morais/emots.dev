@@ -177,7 +177,7 @@ function ErrorPage({ error, reset }: ErrorComponentProps) {
 
 	return (
 		<div className="flex min-h-dvh flex-col items-center justify-center gap-8 px-4">
-			<h1 className="text-4xl md:text-5xl">
+			<h1 className="mixed-type text-4xl md:text-5xl">
 				Something{" "}
 				<span className="font-serif italic text-error-fg">broke.</span>
 			</h1>
