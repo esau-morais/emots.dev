@@ -4,11 +4,11 @@ import { Link, useLocation } from "@tanstack/react-router";
 import {
 	type CSSProperties,
 	useCallback,
+	useEffect,
 	useLayoutEffect,
 	useRef,
 } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { useWindowResize } from "@/hooks/use-window-resize";
 import { cn } from "@/utils/classNames";
 
 const NAV_ITEMS = [
@@ -76,15 +76,20 @@ export const Header = () => {
 		syncActiveNav("instant");
 	}, [syncActiveNav]);
 
-	useWindowResize(
-		useCallback(() => {
-			syncActiveNav("instant");
-		}, [syncActiveNav]),
-	);
+	// ResizeObserver rather than window resize: also catches link widths
+	// shifting after the font swap and split-view drags on foldables
+	useEffect(() => {
+		const nav = navRef.current;
+		if (!nav) return;
+		const observer = new ResizeObserver(() => syncActiveNav("instant"));
+		observer.observe(nav);
+		for (const link of linkRefs.current) if (link) observer.observe(link);
+		return () => observer.disconnect();
+	}, [syncActiveNav]);
 
 	return (
 		<header
-			className="fixed top-0 left-0 right-0 z-50 mx-auto flex h-10 max-w-3xl items-center border-b border-gray-800 bg-black/80 px-4 backdrop-blur-sm before:absolute before:left-4 before:-bottom-6 before:hidden before:h-6 before:w-px before:bg-gray-800 after:absolute after:right-4 after:-bottom-6 after:hidden after:h-6 after:w-px after:bg-gray-800 md:px-8 md:before:left-8 md:before:-bottom-8 md:before:block md:before:h-8 md:after:right-8 md:after:-bottom-8 md:after:block md:after:h-8"
+			className="fixed top-0 left-0 right-0 z-50 mx-auto flex h-(--header-h) max-w-3xl items-center border-b border-gray-800 bg-black/80 pt-(--safe-top) px-safe backdrop-blur-sm before:absolute before:left-4 before:-bottom-6 before:hidden before:h-6 before:w-px before:bg-gray-800 after:absolute after:right-4 after:-bottom-6 after:hidden after:h-6 after:w-px after:bg-gray-800 md:before:left-8 md:before:-bottom-8 md:before:block md:before:h-8 md:after:right-8 md:after:-bottom-8 md:after:block md:after:h-8"
 			style={{ boxShadow: `0 20px 30px -10px var(--shadow-overlay)` }}
 		>
 			<nav

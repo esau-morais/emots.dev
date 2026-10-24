@@ -54,6 +54,25 @@ html {
 	 */
 	--content-ratio: 1.32;
 	--align-offset: 0.015em;
+
+	/*
+	 * Safe areas (viewport-fit=cover): notches, landscape side insets and the
+	 * side-docked Safari controls on foldables like the iPhone Duo outer display.
+	 * --gutter is the minimum side padding; insets win when they are larger.
+	 */
+	--safe-top: env(safe-area-inset-top, 0px);
+	--safe-right: env(safe-area-inset-right, 0px);
+	--safe-bottom: env(safe-area-inset-bottom, 0px);
+	--safe-left: env(safe-area-inset-left, 0px);
+	--gutter: 1rem;
+	--header-h: calc(2.5rem + var(--safe-top));
+	--footer-h: calc(2.5rem + var(--safe-bottom));
+}
+
+@media (width >= 48rem) {
+	:root {
+		--gutter: 2rem;
+	}
 }
 
 .light {
@@ -83,6 +102,17 @@ html {
 	--highlight-subtle: oklch(0% 0 0 / 0.04);
 	--highlight-medium: oklch(0% 0 0 / 0.08);
 	--highlight-strong: oklch(0% 0 0 / 0.15);
+}
+
+@utility px-safe {
+	padding-left: max(var(--gutter), var(--safe-left));
+	padding-right: max(var(--gutter), var(--safe-right));
+}
+
+@utility p-safe {
+	padding: max(var(--gutter), var(--safe-top))
+		max(var(--gutter), var(--safe-right)) max(var(--gutter), var(--safe-bottom))
+		max(var(--gutter), var(--safe-left));
 }
 
 @theme {

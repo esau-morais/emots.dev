@@ -82,7 +82,7 @@ export function BlurImage({ src, alt }: { src: string; alt: string }) {
 								exit={{ opacity: 0 }}
 								style={{ backgroundColor: "var(--shadow-overlay)" }}
 								transition={TRANSITION}
-								className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center overscroll-contain p-4 sm:p-8"
+								className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center overscroll-contain p-safe [--gutter:1rem] sm:[--gutter:2rem]"
 								onClick={close}
 								role="dialog"
 								aria-modal="true"

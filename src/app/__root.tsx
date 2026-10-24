@@ -126,11 +126,11 @@ function RootComponent() {
 					<SoundProvider>
 						<GhostAnimationProvider>
 							<NarrationProvider>
-								<div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-4 md:px-8">
+								<div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-safe">
 									<Header />
 									<main
 										id="main-content"
-										className="my-20 min-h-[calc(100dvh-80px-160px)]"
+										className="mt-[calc(var(--header-h)+2.5rem)] mb-[calc(var(--footer-h)+2.5rem)] flex-1"
 									>
 										<Outlet />
 									</main>
