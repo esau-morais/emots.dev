@@ -106,9 +106,9 @@ function Home() {
 				<div className="hidden sm:block size-1 shrink-0 bg-gray-700" />
 			</div>
 
-			{/* on an unfolded foldable the centered column straddles the fold: even out the
-			    columns so the hairline lands on it, and keep both sides clear of the crease */}
-			<section className="mb-12 grid gap-12 @xl:grid-cols-[1.2fr_1px_1fr] @xl:fold-x:grid-cols-[1fr_1px_1fr] @xl:fold-x:gap-x-[calc(var(--fold-w)/2+3rem)]">
+			{/* on an unfolded foldable the centered column straddles the fold: the fold grid utility puts
+			    the hairline on it and keeps both sides clear of the crease */}
+			<section className="mb-12 grid gap-12 @xl:grid-cols-[1.2fr_1px_1fr] @xl:fold-x:grid-fold">
 				<div>
 					<h2 className="mb-6 text-xs font-medium uppercase tracking-[0.2em] text-gray-600">
 						the work
