@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { allPages } from "content-collections";
 import { InteractiveChecklist } from "@/components/interactive-checklist";
-import { parseChecklistFromMdx } from "@/lib/pages.server";
+import { parseChecklistFromMdx } from "@/lib/pages";
 
 const getChecklistPageData = createServerFn({ method: "GET" }).handler(() => {
 	const page = allPages.find((p) => p.slug === "checklist");

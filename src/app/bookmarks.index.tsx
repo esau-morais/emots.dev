@@ -9,7 +9,7 @@ import { useCallback, useMemo } from "react";
 import { BookmarkGrid } from "@/components/bookmarks/bookmark-grid";
 import { BookmarksToolbar } from "@/components/bookmarks/bookmarks-toolbar";
 import type { RaindropCollection, RaindropItem } from "@/lib/raindrop";
-import { fetchRaindrops } from "@/lib/raindrop.server";
+import { fetchRaindrops } from "@/lib/raindrop.functions";
 
 const bookmarksRoute = getRouteApi("/bookmarks");
 const PREVIEW_LIMIT = 8;

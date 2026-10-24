@@ -1,9 +1,10 @@
 import path from "node:path";
 import contentCollections from "@content-collections/vite";
 import mdx from "@mdx-js/rollup";
+import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import viteReact from "@vitejs/plugin-react";
+import viteReact, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
@@ -40,6 +41,7 @@ export default defineConfig({
 		}),
 		tanstackStart({ srcDirectory: "src", router: { routesDirectory: "app" } }),
 		nitro(),
-		viteReact({ babel: { plugins: ["babel-plugin-react-compiler"] } }),
+		viteReact(),
+		babel({ presets: [reactCompilerPreset()] }),
 	],
 });

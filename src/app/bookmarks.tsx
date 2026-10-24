@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { SubmitForm } from "@/components/bookmarks/submit-form";
-import { fetchCollections } from "@/lib/raindrop.server";
+import { fetchCollections } from "@/lib/raindrop.functions";
 
 type BookmarksSearch = {
 	view?: "grid" | "list";

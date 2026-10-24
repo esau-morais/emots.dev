@@ -8,7 +8,7 @@ import { useCallback, useState } from "react";
 import { BookmarkGrid } from "@/components/bookmarks/bookmark-grid";
 import { BookmarksToolbar } from "@/components/bookmarks/bookmarks-toolbar";
 import type { RaindropCollection, RaindropItem } from "@/lib/raindrop";
-import { fetchRaindrops } from "@/lib/raindrop.server";
+import { fetchRaindrops } from "@/lib/raindrop.functions";
 import { BASE_URL } from "@/utils/consts";
 
 const bookmarksRoute = getRouteApi("/bookmarks");

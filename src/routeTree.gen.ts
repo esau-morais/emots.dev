@@ -9,54 +9,30 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './app/__root'
-import { Route as WorkRouteImport } from './app/work'
-import { Route as SitemapDotxmlRouteImport } from './app/sitemap[.]xml'
-import { Route as CraftRouteImport } from './app/craft'
-import { Route as ChecklistRouteImport } from './app/checklist'
-import { Route as BookmarksDotxmlRouteImport } from './app/bookmarks[.]xml'
-import { Route as BookmarksRouteImport } from './app/bookmarks'
-import { Route as BlogRouteImport } from './app/blog'
 import { Route as IndexRouteImport } from './app/index'
-import { Route as BookmarksIndexRouteImport } from './app/bookmarks.index'
-import { Route as WorkSlugRouteImport } from './app/work_.$slug'
-import { Route as BookmarksSlugRouteImport } from './app/bookmarks.$slug'
+import { Route as BlogRouteImport } from './app/blog'
+import { Route as BookmarksRouteImport } from './app/bookmarks'
+import { Route as BookmarksDotxmlRouteImport } from './app/bookmarks[.]xml'
+import { Route as ChecklistRouteImport } from './app/checklist'
+import { Route as CraftRouteImport } from './app/craft'
+import { Route as SitemapDotxmlRouteImport } from './app/sitemap[.]xml'
+import { Route as WorkRouteImport } from './app/work'
 import { Route as BlogSlugRouteImport } from './app/blog_.$slug'
-import { Route as ApiOgIndexRouteImport } from './app/api/og/index'
-import { Route as ApiErrorReportIndexRouteImport } from './app/api/error-report/index'
-import { Route as ApiNarrationSlugRouteImport } from './app/api/narration/$slug'
-import { Route as ApiMediaTweetVideoRouteImport } from './app/api/media/tweet-video'
-import { Route as ApiBookmarksSubmitRouteImport } from './app/api/bookmarks/submit'
-import { Route as ApiBookmarksRejectRouteImport } from './app/api/bookmarks/reject'
+import { Route as BookmarksIndexRouteImport } from './app/bookmarks.index'
+import { Route as BookmarksSlugRouteImport } from './app/bookmarks.$slug'
+import { Route as WorkSlugRouteImport } from './app/work_.$slug'
 import { Route as ApiBookmarksApproveRouteImport } from './app/api/bookmarks/approve'
+import { Route as ApiBookmarksRejectRouteImport } from './app/api/bookmarks/reject'
+import { Route as ApiBookmarksSubmitRouteImport } from './app/api/bookmarks/submit'
+import { Route as ApiErrorReportIndexRouteImport } from './app/api/error-report/index'
+import { Route as ApiMediaTweetAvatarRouteImport } from './app/api/media/tweet-avatar'
+import { Route as ApiMediaTweetVideoRouteImport } from './app/api/media/tweet-video'
+import { Route as ApiNarrationSlugRouteImport } from './app/api/narration/$slug'
+import { Route as ApiOgIndexRouteImport } from './app/api/og/index'
 
-const WorkRoute = WorkRouteImport.update({
-  id: '/work',
-  path: '/work',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CraftRoute = CraftRouteImport.update({
-  id: '/craft',
-  path: '/craft',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChecklistRoute = ChecklistRouteImport.update({
-  id: '/checklist',
-  path: '/checklist',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BookmarksDotxmlRoute = BookmarksDotxmlRouteImport.update({
-  id: '/bookmarks.xml',
-  path: '/bookmarks.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BookmarksRoute = BookmarksRouteImport.update({
-  id: '/bookmarks',
-  path: '/bookmarks',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -64,9 +40,39 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const BookmarksRoute = BookmarksRouteImport.update({
+  id: '/bookmarks',
+  path: '/bookmarks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookmarksDotxmlRoute = BookmarksDotxmlRouteImport.update({
+  id: '/bookmarks.xml',
+  path: '/bookmarks.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChecklistRoute = ChecklistRouteImport.update({
+  id: '/checklist',
+  path: '/checklist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CraftRoute = CraftRouteImport.update({
+  id: '/craft',
+  path: '/craft',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkRoute = WorkRouteImport.update({
+  id: '/work',
+  path: '/work',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog_/$slug',
+  path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookmarksIndexRoute = BookmarksIndexRouteImport.update({
@@ -74,44 +80,19 @@ const BookmarksIndexRoute = BookmarksIndexRouteImport.update({
   path: '/',
   getParentRoute: () => BookmarksRoute,
 } as any)
-const WorkSlugRoute = WorkSlugRouteImport.update({
-  id: '/work_/$slug',
-  path: '/work/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BookmarksSlugRoute = BookmarksSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => BookmarksRoute,
 } as any)
-const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/blog_/$slug',
-  path: '/blog/$slug',
+const WorkSlugRoute = WorkSlugRouteImport.update({
+  id: '/work_/$slug',
+  path: '/work/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiOgIndexRoute = ApiOgIndexRouteImport.update({
-  id: '/api/og/',
-  path: '/api/og/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiErrorReportIndexRoute = ApiErrorReportIndexRouteImport.update({
-  id: '/api/error-report/',
-  path: '/api/error-report/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiNarrationSlugRoute = ApiNarrationSlugRouteImport.update({
-  id: '/api/narration/$slug',
-  path: '/api/narration/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiMediaTweetVideoRoute = ApiMediaTweetVideoRouteImport.update({
-  id: '/api/media/tweet-video',
-  path: '/api/media/tweet-video',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiBookmarksSubmitRoute = ApiBookmarksSubmitRouteImport.update({
-  id: '/api/bookmarks/submit',
-  path: '/api/bookmarks/submit',
+const ApiBookmarksApproveRoute = ApiBookmarksApproveRouteImport.update({
+  id: '/api/bookmarks/approve',
+  path: '/api/bookmarks/approve',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiBookmarksRejectRoute = ApiBookmarksRejectRouteImport.update({
@@ -119,9 +100,34 @@ const ApiBookmarksRejectRoute = ApiBookmarksRejectRouteImport.update({
   path: '/api/bookmarks/reject',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiBookmarksApproveRoute = ApiBookmarksApproveRouteImport.update({
-  id: '/api/bookmarks/approve',
-  path: '/api/bookmarks/approve',
+const ApiBookmarksSubmitRoute = ApiBookmarksSubmitRouteImport.update({
+  id: '/api/bookmarks/submit',
+  path: '/api/bookmarks/submit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiErrorReportIndexRoute = ApiErrorReportIndexRouteImport.update({
+  id: '/api/error-report/',
+  path: '/api/error-report/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMediaTweetAvatarRoute = ApiMediaTweetAvatarRouteImport.update({
+  id: '/api/media/tweet-avatar',
+  path: '/api/media/tweet-avatar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMediaTweetVideoRoute = ApiMediaTweetVideoRouteImport.update({
+  id: '/api/media/tweet-video',
+  path: '/api/media/tweet-video',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiNarrationSlugRoute = ApiNarrationSlugRouteImport.update({
+  id: '/api/narration/$slug',
+  path: '/api/narration/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOgIndexRoute = ApiOgIndexRouteImport.update({
+  id: '/api/og/',
+  path: '/api/og/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -141,6 +147,7 @@ export interface FileRoutesByFullPath {
   '/api/bookmarks/approve': typeof ApiBookmarksApproveRoute
   '/api/bookmarks/reject': typeof ApiBookmarksRejectRoute
   '/api/bookmarks/submit': typeof ApiBookmarksSubmitRoute
+  '/api/media/tweet-avatar': typeof ApiMediaTweetAvatarRoute
   '/api/media/tweet-video': typeof ApiMediaTweetVideoRoute
   '/api/narration/$slug': typeof ApiNarrationSlugRoute
   '/api/error-report/': typeof ApiErrorReportIndexRoute
@@ -161,6 +168,7 @@ export interface FileRoutesByTo {
   '/api/bookmarks/approve': typeof ApiBookmarksApproveRoute
   '/api/bookmarks/reject': typeof ApiBookmarksRejectRoute
   '/api/bookmarks/submit': typeof ApiBookmarksSubmitRoute
+  '/api/media/tweet-avatar': typeof ApiMediaTweetAvatarRoute
   '/api/media/tweet-video': typeof ApiMediaTweetVideoRoute
   '/api/narration/$slug': typeof ApiNarrationSlugRoute
   '/api/error-report': typeof ApiErrorReportIndexRoute
@@ -183,6 +191,7 @@ export interface FileRoutesById {
   '/api/bookmarks/approve': typeof ApiBookmarksApproveRoute
   '/api/bookmarks/reject': typeof ApiBookmarksRejectRoute
   '/api/bookmarks/submit': typeof ApiBookmarksSubmitRoute
+  '/api/media/tweet-avatar': typeof ApiMediaTweetAvatarRoute
   '/api/media/tweet-video': typeof ApiMediaTweetVideoRoute
   '/api/narration/$slug': typeof ApiNarrationSlugRoute
   '/api/error-report/': typeof ApiErrorReportIndexRoute
@@ -206,6 +215,7 @@ export interface FileRouteTypes {
     | '/api/bookmarks/approve'
     | '/api/bookmarks/reject'
     | '/api/bookmarks/submit'
+    | '/api/media/tweet-avatar'
     | '/api/media/tweet-video'
     | '/api/narration/$slug'
     | '/api/error-report/'
@@ -226,6 +236,7 @@ export interface FileRouteTypes {
     | '/api/bookmarks/approve'
     | '/api/bookmarks/reject'
     | '/api/bookmarks/submit'
+    | '/api/media/tweet-avatar'
     | '/api/media/tweet-video'
     | '/api/narration/$slug'
     | '/api/error-report'
@@ -247,6 +258,7 @@ export interface FileRouteTypes {
     | '/api/bookmarks/approve'
     | '/api/bookmarks/reject'
     | '/api/bookmarks/submit'
+    | '/api/media/tweet-avatar'
     | '/api/media/tweet-video'
     | '/api/narration/$slug'
     | '/api/error-report/'
@@ -267,6 +279,7 @@ export interface RootRouteChildren {
   ApiBookmarksApproveRoute: typeof ApiBookmarksApproveRoute
   ApiBookmarksRejectRoute: typeof ApiBookmarksRejectRoute
   ApiBookmarksSubmitRoute: typeof ApiBookmarksSubmitRoute
+  ApiMediaTweetAvatarRoute: typeof ApiMediaTweetAvatarRoute
   ApiMediaTweetVideoRoute: typeof ApiMediaTweetVideoRoute
   ApiNarrationSlugRoute: typeof ApiNarrationSlugRoute
   ApiErrorReportIndexRoute: typeof ApiErrorReportIndexRoute
@@ -275,46 +288,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/work': {
-      id: '/work'
-      path: '/work'
-      fullPath: '/work'
-      preLoaderRoute: typeof WorkRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/craft': {
-      id: '/craft'
-      path: '/craft'
-      fullPath: '/craft'
-      preLoaderRoute: typeof CraftRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/checklist': {
-      id: '/checklist'
-      path: '/checklist'
-      fullPath: '/checklist'
-      preLoaderRoute: typeof ChecklistRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/bookmarks.xml': {
-      id: '/bookmarks.xml'
-      path: '/bookmarks.xml'
-      fullPath: '/bookmarks.xml'
-      preLoaderRoute: typeof BookmarksDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/bookmarks': {
-      id: '/bookmarks'
-      path: '/bookmarks'
-      fullPath: '/bookmarks'
-      preLoaderRoute: typeof BookmarksRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -324,11 +302,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/bookmarks': {
+      id: '/bookmarks'
+      path: '/bookmarks'
+      fullPath: '/bookmarks'
+      preLoaderRoute: typeof BookmarksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bookmarks.xml': {
+      id: '/bookmarks.xml'
+      path: '/bookmarks.xml'
+      fullPath: '/bookmarks.xml'
+      preLoaderRoute: typeof BookmarksDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checklist': {
+      id: '/checklist'
+      path: '/checklist'
+      fullPath: '/checklist'
+      preLoaderRoute: typeof ChecklistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/craft': {
+      id: '/craft'
+      path: '/craft'
+      fullPath: '/craft'
+      preLoaderRoute: typeof CraftRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/work': {
+      id: '/work'
+      path: '/work'
+      fullPath: '/work'
+      preLoaderRoute: typeof WorkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog_/$slug': {
+      id: '/blog_/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bookmarks/': {
@@ -338,13 +358,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookmarksIndexRouteImport
       parentRoute: typeof BookmarksRoute
     }
-    '/work_/$slug': {
-      id: '/work_/$slug'
-      path: '/work/$slug'
-      fullPath: '/work/$slug'
-      preLoaderRoute: typeof WorkSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/bookmarks/$slug': {
       id: '/bookmarks/$slug'
       path: '/$slug'
@@ -352,46 +365,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookmarksSlugRouteImport
       parentRoute: typeof BookmarksRoute
     }
-    '/blog_/$slug': {
-      id: '/blog_/$slug'
-      path: '/blog/$slug'
-      fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugRouteImport
+    '/work_/$slug': {
+      id: '/work_/$slug'
+      path: '/work/$slug'
+      fullPath: '/work/$slug'
+      preLoaderRoute: typeof WorkSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/og/': {
-      id: '/api/og/'
-      path: '/api/og'
-      fullPath: '/api/og/'
-      preLoaderRoute: typeof ApiOgIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/error-report/': {
-      id: '/api/error-report/'
-      path: '/api/error-report'
-      fullPath: '/api/error-report/'
-      preLoaderRoute: typeof ApiErrorReportIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/narration/$slug': {
-      id: '/api/narration/$slug'
-      path: '/api/narration/$slug'
-      fullPath: '/api/narration/$slug'
-      preLoaderRoute: typeof ApiNarrationSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/media/tweet-video': {
-      id: '/api/media/tweet-video'
-      path: '/api/media/tweet-video'
-      fullPath: '/api/media/tweet-video'
-      preLoaderRoute: typeof ApiMediaTweetVideoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/bookmarks/submit': {
-      id: '/api/bookmarks/submit'
-      path: '/api/bookmarks/submit'
-      fullPath: '/api/bookmarks/submit'
-      preLoaderRoute: typeof ApiBookmarksSubmitRouteImport
+    '/api/bookmarks/approve': {
+      id: '/api/bookmarks/approve'
+      path: '/api/bookmarks/approve'
+      fullPath: '/api/bookmarks/approve'
+      preLoaderRoute: typeof ApiBookmarksApproveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/bookmarks/reject': {
@@ -401,11 +386,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiBookmarksRejectRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/bookmarks/approve': {
-      id: '/api/bookmarks/approve'
-      path: '/api/bookmarks/approve'
-      fullPath: '/api/bookmarks/approve'
-      preLoaderRoute: typeof ApiBookmarksApproveRouteImport
+    '/api/bookmarks/submit': {
+      id: '/api/bookmarks/submit'
+      path: '/api/bookmarks/submit'
+      fullPath: '/api/bookmarks/submit'
+      preLoaderRoute: typeof ApiBookmarksSubmitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/error-report/': {
+      id: '/api/error-report/'
+      path: '/api/error-report'
+      fullPath: '/api/error-report/'
+      preLoaderRoute: typeof ApiErrorReportIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/media/tweet-avatar': {
+      id: '/api/media/tweet-avatar'
+      path: '/api/media/tweet-avatar'
+      fullPath: '/api/media/tweet-avatar'
+      preLoaderRoute: typeof ApiMediaTweetAvatarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/media/tweet-video': {
+      id: '/api/media/tweet-video'
+      path: '/api/media/tweet-video'
+      fullPath: '/api/media/tweet-video'
+      preLoaderRoute: typeof ApiMediaTweetVideoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/narration/$slug': {
+      id: '/api/narration/$slug'
+      path: '/api/narration/$slug'
+      fullPath: '/api/narration/$slug'
+      preLoaderRoute: typeof ApiNarrationSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/og/': {
+      id: '/api/og/'
+      path: '/api/og'
+      fullPath: '/api/og/'
+      preLoaderRoute: typeof ApiOgIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -439,6 +459,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiBookmarksApproveRoute: ApiBookmarksApproveRoute,
   ApiBookmarksRejectRoute: ApiBookmarksRejectRoute,
   ApiBookmarksSubmitRoute: ApiBookmarksSubmitRoute,
+  ApiMediaTweetAvatarRoute: ApiMediaTweetAvatarRoute,
   ApiMediaTweetVideoRoute: ApiMediaTweetVideoRoute,
   ApiNarrationSlugRoute: ApiNarrationSlugRoute,
   ApiErrorReportIndexRoute: ApiErrorReportIndexRoute,

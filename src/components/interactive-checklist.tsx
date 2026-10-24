@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import type { ChecklistItem } from "@/lib/pages.server";
+import type { ChecklistItem } from "@/lib/pages";
 import { cn } from "@/utils/classNames";
 
 type Props = {
